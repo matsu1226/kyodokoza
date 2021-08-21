@@ -44,7 +44,6 @@ jobs:
       - run:
           name: RSpec
           command: bundle exec rspec
-
   # deploy:
   #   docker:
   #     - image: circleci/ruby:2.7
