@@ -1,0 +1,80 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@1.1.2   # config.ymlのruby向け記法を導入
+  node: circleci/node@2
+  heroku: circleci/heroku@1.2.3
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.7-node  
+    working_directory: ~/repec-exercise-sho/src 
+    steps:
+      - checkout:
+          path: ~/repec-exercise-sho
+      - ruby/install-deps 
+
+  test: 
+    docker:
+      - image: circleci/ruby:2.7-node
+      - image: circleci/mysql:5.5
+        environment: 
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: app_test
+          MYSQL_USER: root
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      BUNDLE_PATH: vendor/bundle
+      APP_DATABASE_HOST: "127.0.0.1" 
+      RAILS_ENV: test
+    working_directory: ~/repec-exercise-sho/src
+    steps:
+      - checkout: 
+          path: ~/repec-exercise-sho
+      - ruby/install-deps 
+      - run:
+          name: Database setup
+          command: bundle exec rake db:create
+      - run:
+          name: Database migrate
+          command: bundle exec rake db:migrate RAILS_ENV=test
+      - run:
+          name: RSpec
+          command: bundle exec rspec
+
+  deploy:
+    docker:
+      - image: circleci/ruby:2.7
+    steps:
+      - checkout   
+      - setup_remote_docker:
+          version:  19.03.13
+      - heroku/install 
+      - run:
+          name: heroku login
+          command: heroku container:login
+      - run:
+          name: push docker image
+          command: heroku container:push web -a $HEROKU_APP_NAME  
+      - run:
+          name: release docker image
+          command: heroku container:release web -a $HEROKU_APP_NAME
+      - run:
+          name: database setup
+          command: heroku run bundle exec rake db:migrate RAILS_ENV=production -a $HEROKU_APP_NAME
+
+workflows:
+  version: 2
+  build_test_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test 
+          filters:
+            branches:
+              only: main
