@@ -1,28 +1,57 @@
-// @import "bootstrap-sprockets";
-// @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
 
-/* universal */
+// /* universal */
+$theme-color: #00b;
+$sub-theme-color: #00b;
 
-body {
-  padding-top: 60px;
-}
-
-section {
-  overflow: auto;
-}
-
-textarea {
-  resize: vertical;
-}
-
-.center {
+@mixin moderate {
+  font-size: 8px;
+  color: $sub-theme-color;
+  opacity: 0.5;
   text-align: center;
+  display: block;
 }
 
-.center h1 {
-  margin-bottom: 10px;
-  font-size: 70px;
+@mixin line-top($op1: 0.2, $op2: 0.3) {
+  border-top: 1px solid rgba(0, 0, 0, $op1);
+  box-shadow: (rgba(225, 225, 225, $op2)0 1px 0 inset) ;
 }
+
+@mixin line-bottom($op1: 0.2, $op2: 0.3) {
+  border-bottom: 1px solid rgba(0, 0, 0, $op1);
+  box-shadow: (rgba(225, 225, 225, $op2)0 1px 0) ;
+}
+
+.standerd-btn{
+  display: block;
+  margin: 0 auto;
+  background-color: $theme-color;
+  border: 0;
+}
+
+.blue-back{
+  background-color: rgba(0, 0, 255, 0.05);
+  border-radius: 5px;
+  padding: 10px;
+}
+// section {
+//   overflow: auto;
+// }
+
+// textarea {
+//   resize: vertical;
+// }
+
+// .center {
+//   text-align: center;
+// }
+
+// .center h1 {
+//   margin-bottom: 10px;
+//   font-size: 70px;
+// }
 
 
 /* typography */
@@ -31,23 +60,79 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
+
 h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
+  font-size: 1.4em;
+  letter-spacing: -1px;
   text-align: center;
+  margin: 5px 0;
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 1.1em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-align: center;
   font-weight: normal;
-  color: #777;
+  // color: #777;
 }
 
 p {
-  font-size: 1.1em;
+  font-size: 0.8em;
   line-height: 1.7em;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+// header
+
+header{
+  background-color: #fff;
+  width: 100%;
+  @include line-bottom;
+  
+  .header-nav {
+    justify-content: space-between;
+    margin: 3px 0;
+
+    .logo {
+      font-family: 'Otomanopee One', sans-serif;
+      letter-spacing: -1px;
+      line-height: 14px;
+      text-align: center;
+      color: $theme-color;
+    }
+
+    p{
+      margin: 0;
+    }
+  }
+}
+
+
+// main
+main {
+  margin: 70px 0 50px 0;
+}
+
+.example {
+  font-size: 0.8em;
+  color: #999
+}
+.moderate {
+  @include moderate;
+  margin-top: 10px;
+}
+
+
+// footer
+.footer-nav {
+  background-color: #fff;
+  width: 100%;
+  justify-content: space-around;
+  // border-top: 1px solid #eee;
+  @include line-top
 }
