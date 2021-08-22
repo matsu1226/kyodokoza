@@ -1,9 +1,12 @@
-<header class="position-fixed top-0">
+<header>
   <nav class="nav header-nav">
-    <a href="#" class="logo">キョウドウ<br>コウザ!!</a>
+    <%# <%= link_to "キョウドウコウザ!!", root_path, id: "logo", class: "logo" %> %>
+    <%= link_to root_path, id: "logo", class: "logo" do %>
+      キョウドウ<br>コウザ!!
+    <% end %>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <a href="#">設定</a>
+        <%= link_to "設定", "#" %>
       </li>
     </ul>
   </nav>
