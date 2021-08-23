@@ -6,7 +6,7 @@
 
       <%= f.label :name, "ニックネーム：", class: "form-label" %>
       <%= f.text_field :name%>
-      <p>10文字以内(家族内でどう呼び合ってる？)</p>
+      <p>10文字以内(家族内の呼び名)</p>
       <%# label for="user_name" %>
       <%# input id="user_name" name="user[name]" type="text" %>
       <%# name="user[name]" => Controllerにてparams[:user][:name]として取り出す %>
@@ -23,7 +23,7 @@
       <%= f.password_field :password_confirmation%>
       <p></p>
 
-      <%= f.submit "会員登録(メール認証)" ,class: "btn standerd-btn btn-primary" %>
+      <%= f.submit "仮登録(メール送信)" ,class: "btn standerd-btn btn-primary" %>
 
     <% end %>
     <%= link_to "登録済みの方はこちら", "#", class: "moderate" %>

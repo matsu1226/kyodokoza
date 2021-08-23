@@ -6,9 +6,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      #
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "仮登録メールを送信しました。メールを確認して登録を完了させてください。"
+      redirect_to root_url
     else
-      # flash[:error] = 
       render "new"
     end
   end

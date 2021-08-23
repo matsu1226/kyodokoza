@@ -190,6 +190,11 @@ header{
 
 
 // ===== main =====
+
+.alert {
+  margin: 10px 0 0 0;
+}
+
 main {
   margin: 50px 0 50px 0;
 
@@ -202,7 +207,7 @@ main {
   }
   
   div {
-    margin-top: 30px;
+    margin-bottom: 20px;
   }
 }
 
@@ -221,7 +226,6 @@ main {
 
 // ===== shared/error_messages ===== 
 #error_explanation {
-  margin-top: -20px;
 
   ul {
     list-style: none;

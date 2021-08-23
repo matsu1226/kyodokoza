@@ -13,6 +13,8 @@ RSpec.describe User, type: :model do
   it {should respond_to(:email)}
   it {should respond_to(:password)}
   it {should respond_to(:password_digest)}
+  it {should respond_to(:activation_token)}
+  it {should respond_to(:activation_digest)}
 
   describe "正しいuserを保存するテスト" do
     before { @user.save }
