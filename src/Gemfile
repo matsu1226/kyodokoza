@@ -33,7 +33,10 @@ gem 'bootstrap-sass'
 gem 'kaminari'
 # ダミーデータ(for "seed.rb")
 gem 'faker'
+# アイコン
 gem 'font-awesome-rails'
+# errors.full_messageの日本語化(https://qiita.com/Ushinji/items/242bfba84df7a5a67d5b)
+gem 'rails-i18n'
 
 
 group :development, :test do
