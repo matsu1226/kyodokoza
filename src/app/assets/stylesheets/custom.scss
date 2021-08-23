@@ -1,0 +1,219 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
+@import "font-awesome";
+
+
+// ===== universal ===== 
+$theme-color: #00b;
+$sub-theme-color: #00b;
+$header-height: 50px;
+
+@mixin moderate {
+  font-size: 0.8em;
+  color: $sub-theme-color;
+  opacity: 0.5;
+  text-align: center;
+  display: block;
+}
+
+@mixin line-top($op1: 0.2, $op2: 0.3) {
+  border-top: 1px solid rgba(0, 0, 0, $op1);
+  box-shadow: (rgba(225, 225, 225, $op2)0 1px 0 inset) ;
+}
+
+@mixin line-bottom($op1: 0.2, $op2: 0.3) {
+  border-bottom: 1px solid rgba(0, 0, 0, $op1);
+  box-shadow: (rgba(225, 225, 225, $op2)0 1px 0) ;
+}
+
+.standerd-btn{
+  display: flex;
+  margin: 0 auto;
+  width: 200px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  background-color: #00b;
+  opacity: 0.9;
+  border: 0;
+  border-radius: 30px;
+  box-shadow: (rgba(0, 0, 0, 0.3)0 0 3px );
+  &:hover{
+    opacity: 1;
+  }
+}
+
+.blue-back{
+  background-color: rgba(0, 0, 255, 0.05);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.nav:before, .nav:after {
+  display: none;
+}
+
+
+// ===== typography ===== 
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+  // font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", sans-serif;
+}
+
+
+h2 {
+  font-size: 1.2em;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: normal;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.7em;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+  padding: 0;
+}
+
+ul, li {
+  margin:  0;
+  padding: 0;
+}
+
+
+// ===== header ===== 
+
+header{
+  width: 100%;
+  @include line-bottom;
+  position: fixed;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
+
+  .page-title-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: $header-height;
+
+    h1{
+      line-height: $header-height;
+      text-align: center;
+      margin: 0;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+  }
+  
+  .header-nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    align-items: center;
+    height: $header-height;
+
+    .logo {
+      font-family: 'Otomanopee One', sans-serif;
+      height: 100%;
+      // line-height: 14px;
+      font-size: 1.2em;
+      text-align: center;
+      color: $theme-color;
+      z-index: 1;
+
+      &:hover{
+        text-decoration: none;
+      }
+
+    }
+    ul {
+      margin: 0;
+
+      a {
+        z-index: 1;
+      }
+    }
+  }
+}
+
+
+// ===== footer ===== 
+.footer-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  height: $header-height;
+  width: 100%;
+  background-color: #fff;
+  // border-top: 1px solid #eee;
+  @include line-top;
+
+  .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+
+    i{
+      align-items: center;
+      display: flex;
+      flex: 3;
+    }
+
+    p{
+      flex: 1;
+      font-size: 0.5em;
+      margin: 0 ;
+
+    }
+    
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+    }
+    
+  }
+}
+
+
+
+// ===== main =====
+main {
+  margin: 50px 0 50px 0;
+
+  
+  .row {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  div {
+    margin-top: 30px;
+  }
+}
+
+.example {
+  font-size: 0.8em;
+  color: #999;
+  margin: 30px 0;
+}
+
+.moderate {
+  @include moderate;
+  margin-top: 10px;
+}
