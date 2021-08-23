@@ -1,14 +1,14 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.2   # config.ymlのruby向け記法を導入
-  # node: circleci/node@2
+  node: circleci/node@2
   heroku: circleci/heroku@1.2.3
 
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7  
-      # - image: circleci/ruby:2.7-node  
+      # - image: circleci/ruby:2.7  
+      - image: circleci/ruby:2.7-node  
     working_directory: ~/kyodokoza/src 
     steps:
       - checkout:
@@ -17,8 +17,8 @@ jobs:
 
   test: 
     docker:
-      - image: circleci/ruby:2.7
-      # - image: circleci/ruby:2.7-node
+      # - image: circleci/ruby:2.7
+      - image: circleci/ruby:2.7-node
       - image: circleci/mysql:5.5
         environment: 
           MYSQL_ROOT_PASSWORD: password
