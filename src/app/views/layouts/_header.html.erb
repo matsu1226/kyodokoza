@@ -1,17 +1,17 @@
 <header>
   <nav class="nav header-nav">
-    <%# <%= link_to "キョウドウコウザ!!", root_path, id: "logo", class: "logo" %> %>
     <%= link_to root_path, id: "logo", class: "logo" do %>
-      キョウドウ<br>コウザ!!
+    キョウドウ<br>コウザ!!
     <% end %>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <%= link_to "設定", "#" %>
+        <%= link_to "#" do %>
+        <i class="fa fa-cog fa-lg config-icon" aria-hidden="true"></i>
+        <% end %>
       </li>
     </ul>
   </nav>
-
-  <div class="container">
-    <h1>"キョウドウコウザ!!"とは</h1>
+  <div class="page-title-container container">
+    <h1 class="page-title"><%= yield(:title) %></h1>
   </div>
 </header>

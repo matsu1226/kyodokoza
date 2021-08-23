@@ -1,13 +1,16 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
+@import "font-awesome";
 
-// /* universal */
+
+// ===== universal ===== 
 $theme-color: #00b;
 $sub-theme-color: #00b;
+$header-height: 50px;
 
 @mixin moderate {
-  font-size: 8px;
+  font-size: 0.8em;
   color: $sub-theme-color;
   opacity: 0.5;
   text-align: center;
@@ -25,9 +28,12 @@ $sub-theme-color: #00b;
 }
 
 .standerd-btn{
-  display: block;
+  display: flex;
   margin: 0 auto;
   width: 200px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
   background-color: #00b;
   opacity: 0.9;
   border: 0;
@@ -47,49 +53,26 @@ $sub-theme-color: #00b;
 .nav:before, .nav:after {
   display: none;
 }
-// section {
-//   overflow: auto;
-// }
-
-// textarea {
-//   resize: vertical;
-// }
-
-// .center {
-//   text-align: center;
-// }
-
-// .center h1 {
-//   margin-bottom: 10px;
-//   font-size: 70px;
-// }
 
 
-/* typography */
+// ===== typography ===== 
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
+  // font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", sans-serif;
 }
 
-
-h1 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  text-align: center;
-  margin: 5px 0;
-}
 
 h2 {
-  font-size: 1.1em;
-  letter-spacing: -1px;
-  margin-bottom: 10px;
+  font-size: 1.2em;
+  margin: 20px 0;
   text-align: center;
   font-weight: normal;
-  // color: #777;
 }
 
 p {
-  font-size: 0.8em;
+  font-size: 1em;
   line-height: 1.7em;
 }
 
@@ -99,7 +82,13 @@ a{
   padding: 0;
 }
 
-// header
+ul, li {
+  margin:  0;
+  padding: 0;
+}
+
+
+// ===== header ===== 
 
 header{
   width: 100%;
@@ -108,69 +97,122 @@ header{
   top: 0;
   background-color: #fff;
   z-index: 1;
+
+  .page-title-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: $header-height;
+
+    h1{
+      line-height: $header-height;
+      text-align: center;
+      margin: 0;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+  }
   
   .header-nav {
     display: flex;
     justify-content: space-between;
+    margin: 0;
     align-items: center;
-    margin: 3px 0;
-    @include line-bottom;
-
+    height: $header-height;
 
     .logo {
       font-family: 'Otomanopee One', sans-serif;
-      letter-spacing: -1px;
-      line-height: 14px;
+      height: 100%;
+      // line-height: 14px;
       font-size: 1.2em;
       text-align: center;
       color: $theme-color;
+      z-index: 1;
+
+      &:hover{
+        text-decoration: none;
+      }
+
     }
     ul {
       margin: 0;
-      
 
-      li a{
-        margin: 0;
-        padding: 0;
+      a {
+        z-index: 1;
       }
     }
   }
 }
 
-// footer
+
+// ===== footer ===== 
 .footer-nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
   position: fixed;
   bottom: 0;
-  height: 50px;
+  height: $header-height;
   width: 100%;
   background-color: #fff;
   // border-top: 1px solid #eee;
   @include line-top;
+
+  .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+
+    i{
+      align-items: center;
+      display: flex;
+      flex: 3;
+    }
+
+    p{
+      flex: 1;
+      font-size: 0.5em;
+      margin: 0 ;
+
+    }
+    
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+    }
+    
+  }
 }
 
 
 
-
-// main
+// ===== main =====
 main {
   margin: 50px 0 50px 0;
 
-  div {
-    margin-top: 20px;
-  }
-
-  div:last-of-type{
+  
+  .row {
+    margin-top: 10px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  div {
+    margin-top: 30px;
   }
 }
 
 .example {
   font-size: 0.8em;
-  color: #999
+  color: #999;
+  margin: 30px 0;
 }
+
 .moderate {
   @include moderate;
   margin-top: 10px;
