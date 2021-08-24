@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: ニックネーム
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
+
+# https://qiita.com/satreu16/items/a072a4be415f30087ed7

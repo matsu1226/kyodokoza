@@ -1,0 +1,21 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+@import "custom.scss";
+
+form {
+  p {
+    @include moderate(gray);
+    font-size: 0.8em;
+    margin-bottom: 10px;
+  }
+
+  input {
+    width: 100%;
+  }
+  
+  .standerd-btn {
+    margin-top: 30px;
+  }
+}

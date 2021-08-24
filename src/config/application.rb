@@ -34,5 +34,11 @@ module App
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # errors.full_messageの日本語化
+    config.i18n.default_locale = :ja
+    # errors.full_message時に表示するカラム名を別表記に設定(src/config/locates/models/ja.yml)
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
+
   end
 end
