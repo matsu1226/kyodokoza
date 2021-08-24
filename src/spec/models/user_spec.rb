@@ -79,4 +79,14 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "メソッドのテスト" do
+    describe "send_activation_emailのテスト" do
+      before do
+        @user.save
+        @user.send_activation_email
+      end
+      it { expect(ActionMailer::Base.deliveries.count).to eq 1 }
+    end
+  end
+
 end
