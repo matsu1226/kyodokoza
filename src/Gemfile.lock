@@ -207,6 +207,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
+    ruby_http_client (3.5.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -218,6 +219,8 @@ GEM
       sprockets-rails
       tilt
     semantic_range (3.0.0)
+    sendgrid-ruby (6.5.0)
+      ruby_http_client (~> 3.4)
     spring (2.1.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -279,6 +282,7 @@ DEPENDENCIES
   rails-i18n
   rspec-rails
   sass-rails (>= 6)
+  sendgrid-ruby
   spring
   spring-commands-rspec
   turbolinks (~> 5)

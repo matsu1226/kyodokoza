@@ -25,7 +25,24 @@ class User < ApplicationRecord
     # A–Z、a–z、0–9、"-"、"_"（64種類）からなる長さ22のランダムな文字列を返す
     # https://docs.ruby-lang.org/ja/latest/method/SecureRandom/s/urlsafe_base64.html
   end
+
+  def authentibated?(attribute_name, token)
+    digest = send("#{attribute_name}_digest")    # acctivation_digest, 
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  def send_activation_email   # user#create
+    UserMailer.account_activation(@user).deliver_now
+  end
+
+  def activate  # account_activation#edit
+    update(:activated_at , Time.zone.now)
+    update(:activated    , true)
+  end
+
   
+
   private
     def create_activation_digest
       # self.activation_token = User.new_token
