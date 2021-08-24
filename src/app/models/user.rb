@@ -26,7 +26,7 @@ class User < ApplicationRecord
     # https://docs.ruby-lang.org/ja/latest/method/SecureRandom/s/urlsafe_base64.html
   end
 
-  def authentibated?(attribute_name, token)
+  def authenticated?(attribute_name, token)
     digest = send("#{attribute_name}_digest")    # acctivation_digest, 
     return false if digest.nil?
     BCrypt::Password.new(digest).is_password?(token)
