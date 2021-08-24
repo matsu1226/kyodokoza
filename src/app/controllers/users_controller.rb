@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       flash[:info] = "仮登録メールを送信しました。メールを確認して登録を完了させてください。"
       redirect_to root_url
     else
-      render "new"
+      render action: :new
     end
   end
 
