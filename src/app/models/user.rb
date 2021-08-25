@@ -7,8 +7,8 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i    
   # 【英数字, _, +, -, . を1文字以上】＠【英小文字, 数字, -, . を1文字以上】.【英小文字を1文字以上】
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
-  validates :password, presence: true, length: { minimum: 8, maximum: 20 }, allow_nil: true
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, length: { minimum: 8, maximum: 20 }, allow_nil: true, on: :create
+  validates :password_confirmation, presence: true, on: :create
   
   has_secure_password   
   # gem 'bcrypt' (password_digest属性/attr_accessor :password, :password_confirmation /authenticateメソッド)
@@ -37,8 +37,8 @@ class User < ApplicationRecord
   end
 
   def activate  # account_activation#edit
-    update(:activated_at , Time.zone.now)
-    update(:activated    , true)
+    update(activated_at: Time.zone.now)
+    update(activated: true)
   end
 
   

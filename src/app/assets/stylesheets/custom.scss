@@ -6,6 +6,7 @@
 
 // ===== universal ===== 
 $theme-color: #00b;
+$standard-gray: #ccc;
 // $sub-theme-color: #00b;
 $header-height: 50px;
 
@@ -25,19 +26,22 @@ $header-height: 50px;
   border-bottom: 1px solid rgba(0, 0, 0, $op1);
   box-shadow: (rgba(225, 225, 225, $op2)0 1px 0) ;
 }
-
-.standerd-btn{
-  display: flex;
-  margin: 0 auto;
+@mixin btn-shape ($color: $theme-color){
   width: 200px;
   height: 50px;
-  justify-content: center;
-  align-items: center;
-  background-color: #00b;
-  opacity: 0.9;
   border: 0;
   border-radius: 30px;
+  background-color: $color;
   box-shadow: (rgba(0, 0, 0, 0.3)0 0 3px );
+}
+
+.standerd-btn{
+  @include btn-shape;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.9;
   &:hover{
     opacity: 1;
   }
@@ -84,6 +88,10 @@ a{
 ul, li {
   margin:  0;
   padding: 0;
+}
+
+.form-label {
+  font-weight: normal;
 }
 
 
@@ -196,7 +204,8 @@ header{
 }
 
 main {
-  margin: 50px 0 50px 0;
+  margin: 50px auto 50px;
+  max-width: 576px;
 
   
   .row {

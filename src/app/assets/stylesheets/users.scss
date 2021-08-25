@@ -8,7 +8,7 @@
 
 
 form {
-  p {
+  .sub-info {
     @include moderate(gray);
     font-size: 0.8em;
     margin-bottom: 10px;
@@ -26,28 +26,58 @@ form {
 
 // show
 .setting-links {
-  margin: 40px 0 20px 0;
+  // margin: 40px auto 20px;
+  // max-width: 576px;
 
   a:hover, a:focus {
     text-decoration: none;
   }
 
   .setting-link-wrapper{
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $standard-gray;
     padding-bottom: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 10px;
 
 
     .setting-link {
       font-size: 1.2em;
-      position: relative;
       text-align: start;
+      margin: 5px;
     }
 
     .angle{
-      color: #ccc;
+      color: $standard-gray;
+      margin-right: 5px;
     }
+  }
+}
+
+
+// edit
+
+.section-wrapper {
+  margin: 10px auto ;
+  padding: 10px;
+  border-bottom: 1px solid $standard-gray;
+
+  h2 {
+    margin: 0 0 10px 0;
+    text-align: left;
+    font-weight: bold;
+  }
+}
+
+.danger-btn {
+  @include btn-shape(red);
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.9;
+  &:hover{
+    opacity: 1;
   }
 }

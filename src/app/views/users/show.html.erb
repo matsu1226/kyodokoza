@@ -1,21 +1,20 @@
 <%= provide(:title, "設定") %>
-
 <div class="setting-links">
-  <div class="setting-link-wrapper">
-    <%= link_to "アカウント情報の変更", "#", class: "setting-link"%>
-    <i class="fas fa-angle-right fa-lg angle"></i>
-  </div>
-  <div class="setting-link-wrapper">
-    <%= link_to "家族の一覧", "#", class: "setting-link"%>
-    <i class="fas fa-angle-right fa-lg angle"></i>
-  </div>
-  <div class="setting-link-wrapper">
-    <%= link_to "家族の登録", "#", class: "setting-link"%>
-    <i class="fas fa-angle-right fa-lg angle"></i>
-  </div>
-  <div class="setting-link-wrapper">
-    <%= link_to "エクセル出力", "#", class: "setting-link"%>
-    <i class="fas fa-angle-right fa-lg angle"></i>
-  </div>
 
+  <%= link_to edit_user_path(@user), class: "setting-link-wrapper" do%>
+    <p class="setting-link">アカウント情報の変更</p>
+    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% end %>
+  <%= link_to "#", class: "setting-link-wrapper" do%>
+    <p class="setting-link">家族の一覧</p>
+    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% end %>
+  <%= link_to "#", class: "setting-link-wrapper" do%>
+    <p class="setting-link">家族の登録</p>
+    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% end %>
+  <%= link_to "#", class: "setting-link-wrapper" do%>
+    <p class="setting-link">エクセル出力</p>
+    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% end %>
 </div>

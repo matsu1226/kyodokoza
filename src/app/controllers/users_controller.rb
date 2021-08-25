@@ -17,15 +17,27 @@ class UsersController < ApplicationController
 
   
   def show
+    @user = User.find_by(id: params[:id])
   end
 
   def edit
+    @user = User.find_by(id: params[:id])
   end
 
   def update
+    @user = User.find_by(id: params[:id])
+    if @user.update(user_params_name_only)
+      flash[:success] = "名前を変更しました！"
+      redirect_to edit_user_path(@user)
+    else
+      render "edit"
+    end
   end
 
   def destroy
+    @user=User.find_by(id: params[:id])
+    @user.destroy
+
   end
 
   def index
@@ -35,5 +47,9 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def user_params_name_only
+      params.require(:user).permit(:name)
     end
 end

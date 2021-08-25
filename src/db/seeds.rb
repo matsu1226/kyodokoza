@@ -8,15 +8,22 @@
 
 # メインのサンプルユーザーを1人作成する
 User.create!(name: "正太郎",
-            email: "example@kyodokoza.com",
+            email: "shotaro@kyodokoza.com",
             password:               "example01",
             password_confirmation:  "example01",
             activated: true,
             activated_at: Time.zone.now)
 
+User.create!(name: "綾美",
+              email: "ayami@kyodokoza.com",
+              password:               "example01",
+              password_confirmation:  "example01",
+              activated: true,
+              activated_at: Time.zone.now)
+
 
 # 追加のユーザーをまとめて生成する
-99.times do |n|
+8.times do |n|
   name = Faker::Name.name
   email = "example-#{n+1}@kyodokoza.com"
   password = "password"
