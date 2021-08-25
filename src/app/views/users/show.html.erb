@@ -1,7 +1,11 @@
 <%= provide(:title, "設定") %>
 <div class="setting-links">
 
-  <%= link_to edit_user_path(@user), class: "setting-link-wrapper" do%>
+  <%= link_to logout_path, method: :delete, class: "setting-link-wrapper" do%>
+    <p class="setting-link">ログアウト</p>
+    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% end %>
+  <%= link_to edit_user_path(current_user), class: "setting-link-wrapper" do%>
     <p class="setting-link">アカウント情報の変更</p>
     <i class="fas fa-angle-right fa-lg angle"></i>
   <% end %>

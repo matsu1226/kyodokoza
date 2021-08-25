@@ -5,8 +5,10 @@
     <% end %>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <%= link_to "#" do %>
-        <i class="fa fa-cog fa-lg config-icon" aria-hidden="true"></i>
+        <% if logged_in? %>
+          <%= link_to user_path(current_user) do %>
+            <i class="fa fa-cog fa-lg config-icon" aria-hidden="true"></i>
+          <% end %>
         <% end %>
       </li>
     </ul>
