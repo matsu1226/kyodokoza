@@ -26,11 +26,28 @@ form {
 
 // show
 .setting-links {
-  text-decoration: none;
+  margin: 40px 0 20px 0;
 
-  .gray-moderate {
-    @include moderate(gray);
-    font-size: 0.8em;
-    margin: 5px 0 30px 0;
+  a:hover, a:focus {
+    text-decoration: none;
+  }
+
+  .setting-link-wrapper{
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    .setting-link {
+      font-size: 1.2em;
+      position: relative;
+      text-align: start;
+    }
+
+    .angle{
+      color: #ccc;
+    }
   }
 }
