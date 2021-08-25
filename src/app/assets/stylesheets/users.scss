@@ -4,6 +4,9 @@
 
 @import "custom.scss";
 
+
+
+
 form {
   p {
     @include moderate(gray);
@@ -17,5 +20,17 @@ form {
   
   .standerd-btn {
     margin-top: 30px;
+  }
+}
+
+
+// show
+.setting-links {
+  text-decoration: none;
+
+  .gray-moderate {
+    @include moderate(gray);
+    font-size: 0.8em;
+    margin: 5px 0 30px 0;
   }
 }
