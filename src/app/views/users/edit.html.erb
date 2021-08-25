@@ -1,2 +1,39 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<%= provide(:title, "アカウント情報変更") %>
+<section class="name-change section-wrapper">
+  <h2>ニックネームの変更</h2>
+  <div class="container">
+    <%= form_with(model: @user,url: {controller: 'users', action: 'update' }, local: true) do |f| %>
+    <%= render 'shared/error_messages' %>
+
+    <%= f.label :name, "現在のニックネーム：", class: "form-label" %>
+    <p><%= @user.name %></p>
+    <%# 本当はcurrent_user.nameにしたい。。。 %>
+
+    <%= f.label :name, "新しいニックネーム：", class: "form-label" %>
+    <%= f.text_field :name%>
+    <p class="sub-info">10文字以内(家族内の呼び名)</p>
+    <%# label for="user_name" %>
+    <%# input id="user_name" name="user[name]" type="text" %>
+    <%# name="user[name]" => Controllerにてparams[:user][:name]として取り出す %>
+
+    <%= f.submit "変更する" ,class: "btn standerd-btn btn-primary" %>
+
+    <% end %>
+  </div>
+</section>
+
+<section class="password-reset section-wrapper">
+  <h2>パスワード変更</h2>
+  <div class="container">
+    <p>以下のボタンをクリックしてください</p>
+    <%= link_to "パスワード変更はこちら", "#", class: "btn standerd-btn btn-primary" %>
+  </div>
+</section>
+
+<section class="name-change section-wrapper">
+  <h2>アカウント削除</h2>
+  <div class="container">
+    <p>ユーザー情報を完全に削除します</p>
+    <%= link_to "アカウント削除", user_path(@user), method: :delete, class: "btn danger-btn btn-primary", data: { confirm: "本当によろしいですか？"} %>
+  </div>
+</section>

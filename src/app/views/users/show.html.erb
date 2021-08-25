@@ -1,22 +1,20 @@
 <%= provide(:title, "設定") %>
+<div class="setting-links">
 
-<div class="row">
-  <div class="setting-links">
-    <%= link_to "#", class: "setting-link" do%>
-    <h2>アカウント情報の変更</h2>
-    <p class="gray-moderate">ユーザ削除, ユーザ名変更, パスワード変更</p>
-    <% end %>
-    <%= link_to "#", class: "setting-link" do%>
-    <h2>家族の一覧</h2>
-    <p class="gray-moderate">夫婦で使ってこそのキョウドウコウザ！</p>
-    <% end %>
-    <%= link_to "#", class: "setting-link" do%>
-    <h2>家族の登録</h2>
-    <p class="gray-moderate">招待コード入力だけでかんたん登録</p>
-    <% end %>
-    <%= link_to "#", class: "setting-link" do%>
-    <h2>エクセル出力</h2>
-    <p class="gray-moderate">エクセルでまとめたい方はこちらへ</p>
-    <% end %>
-  </div>
+  <%= link_to edit_user_path(@user), class: "setting-link-wrapper" do%>
+    <p class="setting-link">アカウント情報の変更</p>
+    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% end %>
+  <%= link_to "#", class: "setting-link-wrapper" do%>
+    <p class="setting-link">家族の一覧</p>
+    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% end %>
+  <%= link_to "#", class: "setting-link-wrapper" do%>
+    <p class="setting-link">家族の登録</p>
+    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% end %>
+  <%= link_to "#", class: "setting-link-wrapper" do%>
+    <p class="setting-link">エクセル出力</p>
+    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% end %>
 </div>

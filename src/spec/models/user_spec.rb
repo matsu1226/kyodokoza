@@ -80,13 +80,40 @@ RSpec.describe User, type: :model do
   end
 
   describe "メソッドのテスト" do
+    before { @user.save }
+
     describe "send_activation_emailのテスト" do
       before do
-        @user.save
         @user.send_activation_email
       end
       it { expect(ActionMailer::Base.deliveries.count).to eq 1 }
     end
+
+    describe "authenticateのテスト" do
+      let(:found_user) { User.find_by(email: @user.email) }
+      
+      describe "正しいパスワード" do
+        it { should eq found_user.authenticate(@user.password) }
+      end
+
+      describe "間違ったパスワード" do
+        let(:user_with_invalid_password) { found_user.authenticate("invalid") }
+        it { should_not eq user_with_invalid_password }
+        it { expect(user_with_invalid_password).to be false }
+      end
+    end
+
+      
+    describe "authenticated?のテスト" do
+      let(:user_activation_token) { @user.activation_token }
+      it { expect(@user.authenticated?(:activation, user_activation_token)).to be_truthy }
+    end
+
+    describe "activateのテスト" do
+      before { @user.activate }
+      it { expect(@user.activated).to be_truthy }
+    end
+
   end
 
 end
