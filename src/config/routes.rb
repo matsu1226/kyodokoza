@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  root 'static_pages#introduction'
-  get '/introduction', to: 'static_pages#introduction'
-  get '/signup',    to: "users#new"  
+  root   'static_pages#introduction'
+  get    '/introduction', to: 'static_pages#introduction'
+  get    '/signup',    to: "users#new"  
+  get    '/login',     to: "sessions#new"
+  post   '/login',     to: "sessions#create"
+  delete '/logout',    to: "sessions#destroy"
   
   resources :users
   resources :account_activations, only: [:edit]

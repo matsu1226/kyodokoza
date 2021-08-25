@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# メインのサンプルユーザーを1人作成する
+# メインのサンプルユーザーを2人作成する
 User.create!(name: "正太郎",
             email: "shotaro@kyodokoza.com",
             password:               "example01",
@@ -34,3 +34,9 @@ User.create!(name: "綾美",
               activated: true,
               activated_at: Time.zone.now)
 end
+
+User.create!(name: "有効化 無太",
+            email: "nashita@kyodokoza.com",
+            password:               "example01",
+            password_confirmation:  "example01",
+            activated: false)

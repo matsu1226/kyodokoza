@@ -1,6 +1,5 @@
 <%= provide(:title, "ようこそ") %>
-<div class="row">
-  <section class="main-section col-xs-11">
+
     <div class="blue-back">
       <h2>「キョウドウコウザ!!」とは？</h2>
       <p>ありそうでない、<br>「共同口座専用の家計簿アプリ」です。</p>
@@ -28,8 +27,5 @@
     <div>
       <p class="text-center">さっそく、つかってみよう！</p>
       <%= link_to "会員登録へ", "/signup", class: "btn standerd-btn btn-primary" %>
-      <%= link_to "登録済みの方はこちら", "#", class: "moderate" %>
+      <%= link_to "登録済みの方はこちら", "/login", class: "moderate" %>
     </div>
-
-  </section>
-</div>

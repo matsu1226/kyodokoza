@@ -11,21 +11,24 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-  <title><%= yield(:title) %></title>
+  <title><%= full_title(yield(:title)) %></title>
 </head>
 
 
 <body>
   <%= render 'layouts/header' %>
-  <main class="container">
+  <main>
     <% flash.each do |key, value| %>
       <p class="alert alert-<%= key %>">
         <%= value %>
       </p>
     <% end %>
-    <%= yield %>
+    <div class="col-md-11">
+      <%= yield %>
+    </div>
   </main>
   <%= render 'layouts/footer' %>
+  <%= debug(params) if Rails.env.development? %>
 </body>
 
 </html>

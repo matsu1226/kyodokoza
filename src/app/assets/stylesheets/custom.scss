@@ -92,6 +92,7 @@ ul, li {
 
 .form-label {
   font-weight: normal;
+  margin-top: 5px;
 }
 
 
@@ -195,24 +196,27 @@ header{
   }
 }
 
+// debug情報(開発環境のみ)
+.debug_dump { 
+  margin: 0px 0 100px;
+}
+
 
 
 // ===== main =====
 
 .alert {
   margin: 10px 0 0 0;
+  border-radius: 0px;
 }
 
-main {
+main {  
   margin: 50px auto 50px;
-  max-width: 576px;
 
-  
-  .row {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
+  .col-md-11{
+    padding-top: 20px;
+    max-width: 576px;
+    margin: 0 auto;
   }
   
   div {

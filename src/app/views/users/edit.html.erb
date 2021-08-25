@@ -6,7 +6,7 @@
     <%= render 'shared/error_messages' %>
 
     <%= f.label :name, "現在のニックネーム：", class: "form-label" %>
-    <p><%= @user.name %></p>
+    <p><%= current_user.name %></p>
     <%# 本当はcurrent_user.nameにしたい。。。 %>
 
     <%= f.label :name, "新しいニックネーム：", class: "form-label" %>
