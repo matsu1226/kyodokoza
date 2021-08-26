@@ -14,48 +14,57 @@ RSpec.describe "Users", type: :system do
         # it { is_expected.not_to have_link nil, href: 記録へのリンク }   # 記録icon
         # it { is_expected.not_to have_link nil, href: 使い方へのリンク } # 使い方icon
       end
-
-      # describe "設定" do
-      #   before { visit user_path(user) }
-      #   it { is_expected.not_to have_selector 'a.setting-link-wrapper' }
-      # end
-
-      # describe "アカウント情報変更" do
-      #   before { visit edit_user_path(user) }
-      #   it { is_expected.not_to have_content 'ニックネームの変更' }
-      # end      
     end
 
     describe "新規登録" do
       before { visit signup_path }
 
-      it "メールアドレス空欄エラー" do
-        fill_in 'ニックネーム：', with: "テスト　太郎"
-        fill_in 'メールアドレス：', with: ""
-        fill_in 'パスワード：', with: "hogehogetest"
-        fill_in 'パスワード（確認）：', with: "hogehogetest"
-        click_button '仮登録（メール送信）'
-        expect(page).to have_content 'メールアドレスを入力してください'
-      end      
-      
-      it "メールアドレス重複エラー" do
-        fill_in 'ニックネーム：', with: "テスト　太郎"
-        fill_in 'メールアドレス：', with: user.email
-        fill_in 'パスワード：', with: "hogehogetest"
-        fill_in 'パスワード（確認）：', with: "hogehogetest"
-        click_button '仮登録（メール送信）'
-        expect(page).to have_content 'メールアドレスはすでに存在します'
+      describe "登録フォーム" do
+        it "メールアドレス空欄エラー" do
+          fill_in 'ニックネーム：', with: "テスト　太郎"
+          fill_in 'メールアドレス：', with: ""
+          fill_in 'パスワード：', with: "testtest"
+          fill_in 'パスワード（確認）：', with: "testtest"
+          click_button '仮登録（メール送信）'
+          expect(page).to have_content 'メールアドレスを入力してください'
+        end      
+        
+        it "メールアドレス重複エラー" do
+          fill_in 'ニックネーム：', with: "テスト　太郎"
+          fill_in 'メールアドレス：', with: user.email
+          fill_in 'パスワード：', with: "testtest"
+          fill_in 'パスワード（確認）：', with: "testtest"
+          click_button '仮登録（メール送信）'
+          expect(page).to have_content 'メールアドレスはすでに存在します'
+        end
+        
+        it "正常な新規登録" do
+          fill_user_info_and_click_button
+          expect(page).to have_content '仮登録メールを送信しました'
+        end
+        
       end
     
-      it "正常な新規登録" do
-        fill_in 'ニックネーム：', with: "テスト　太郎"
-        fill_in 'メールアドレス：', with: "tyamada@test.com"
-        fill_in 'パスワード：', with: "hogehogetest"
-        fill_in 'パスワード（確認）：', with: "hogehogetest"
-        click_button '仮登録（メール送信）'
-        expect(page).to have_content '仮登録メールを送信しました'
-      end
+      pending "アカウント有効化" do
+        before do
+          fill_user_info_and_click_button
+          activation_mail = ActionMailer::Base.deliveries.last   # 配信したメールのインスタンスを取得
+          mail_body = activation_mail.body.encoded   # 本文をエンコードして取得
+          activation_url = URI.extract(mail_body, ["account_activations"])[0]  # 文字列からURLの配列で取得
+          # http://localhost:3000/account_activations/6NrI6rdZcVgK4bzWBIchGQ/edit?email=shotaro%40kyodokoza.com
+          get activation_url
+        end
 
+        it "" do
+          visit login_path
+          fill_in 'メールアドレス：', with: "test@test.com"
+          fill_in 'パスワード：', with: "testtest"
+          click_button 'ログイン'
+          expect(page).to have_content 'ログインに成功しました'
+        end
+
+        # it { expect(page).to have_content('会員登録完了です！') }
+      end
     end
   end
 
