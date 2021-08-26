@@ -64,5 +64,5 @@ RSpec.configure do |config|
   
   # loginモジュールの読込み
   # https://breakthrough-tech.yuta-u.com/rspec/how-to-make-spec-support/
-  config.include LoginModule
+  config.include CustomModule
 end
