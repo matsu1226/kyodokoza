@@ -1,2 +1,19 @@
-<h1>PasswordResets#edit</h1>
-<p>Find me in app/views/password_resets/edit.html.erb</p>
+<%= provide(:title, "パスワード変更") %>
+  <div class="form">
+    <%= form_with(scope: :password_reset, url: password_resets_path, local: true) do |f| %>
+    <%= render 'shared/error_messages' %>
+
+    <%= hidden_field_tag :email, @user.email %>
+
+    <%= f.label :password, "パスワード：", class: "form-label" %>
+    <%= f.password_field :password%>
+    <p class="sub-info">8文字以上20文字以内</p>
+
+    <%= f.label :password_confirmation, "パスワード（確認）：", class: "form-label" %>
+    <%= f.password_field :password_confirmation%>
+    <p></p>
+
+    <%= f.submit "メール送信" ,class: "btn standerd-btn btn-primary" %>
+
+    <% end %>
+  </div>
