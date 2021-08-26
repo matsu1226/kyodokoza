@@ -45,7 +45,7 @@ RSpec.describe "Users", type: :system do
         
       end
     
-      describe "アカウント有効化" do
+      pending "アカウント有効化" do
         before do
           fill_user_info_and_click_button
           activation_mail = ActionMailer::Base.deliveries.last   # 配信したメールのインスタンスを取得
