@@ -24,8 +24,10 @@
       <p>決まった日時に、経過をLINE通知♪</p>
     </div>
 
+    <% unless logged_in? %>
     <div>
       <p class="text-center">さっそく、つかってみよう！</p>
       <%= link_to "会員登録へ", "/signup", class: "btn standerd-btn btn-primary" %>
       <%= link_to "登録済みの方はこちら", "/login", class: "moderate" %>
     </div>
+    <% end %>

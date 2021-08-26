@@ -35,6 +35,16 @@ module App
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    #rails g 時の自動生成ファイルの設定
+    config.generators do |g|
+      g.test_framework :rspec,
+                        view_specs: false,
+                        helper_specs: false,
+                        controller_specs: false,
+                        routing_specs: false,
+                        request_specs: false
+    end
+
     # errors.full_messageの日本語化
     config.i18n.default_locale = :ja
     # errors.full_message時に表示するカラム名を別表記に設定(src/config/locates/models/ja.yml)
