@@ -16,6 +16,10 @@ RSpec.describe User, type: :model do
   it {should respond_to(:activation_token)}
   it {should respond_to(:activation_digest)}
   it {should respond_to(:reset_digest)}
+  it {should respond_to(:active_relationships)}
+  it {should respond_to(:to_user)}
+  it {should respond_to(:passive_relationships)}
+  it {should respond_to(:from_user)}
 
   describe "正しいuserを保存するテスト" do
     before { @user.save }
