@@ -5,8 +5,6 @@
 @import "custom.scss";
 
 
-
-
 form {
   .sub-info {
     @include moderate(gray);
@@ -79,5 +77,18 @@ form {
   opacity: 0.9;
   &:hover{
     opacity: 1;
+  }
+}
+
+
+// sessions/new (login)
+
+.fill-password-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+
+  .moderate {
+    margin: 15px 0 5px 0;
   }
 }

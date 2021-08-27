@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :activation_token
+  attr_accessor :activation_token, :reset_token
 
   before_create :create_activation_digest
 
@@ -26,19 +26,29 @@ class User < ApplicationRecord
     # https://docs.ruby-lang.org/ja/latest/method/SecureRandom/s/urlsafe_base64.html
   end
 
-  def authenticated?(attribute_name, token)
+  def authenticated?(attribute_name, token)   ##
     digest = send("#{attribute_name}_digest")    # acctivation_digest, 
     return false if digest.nil?
     BCrypt::Password.new(digest).is_password?(token)
   end
 
-  def send_activation_email   # user#create
+  def send_activation_email   # user#create   ##
     UserMailer.account_activation(self).deliver_now
   end
 
-  def activate  # account_activation#edit
+  def activate  # account_activation#edit     ##
     update(activated_at: Time.zone.now)
     update(activated: true)
+  end
+
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update(reset_digest: User.digest(reset_token))
+    update(reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
   end
 
   

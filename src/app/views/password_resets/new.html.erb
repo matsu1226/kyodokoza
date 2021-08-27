@@ -1,2 +1,11 @@
-<h1>PasswordResets#new</h1>
-<p>Find me in app/views/password_resets/new.html.erb</p>
+<%= provide(:title, "パスワード変更") %>
+  <div class="form">
+    <%= form_with(url: password_resets_path, scope: :password_reset, local: true) do |f| %>
+      <%# <%= render 'shared/error_messages' %>
+      <%= f.label :email, "メールアドレス：", class: "form-label" %>
+      <%= f.email_field :email%>
+
+      <%= f.submit "メール送信" ,class: "btn standerd-btn btn-primary" %>
+
+    <% end %>
+  </div>
