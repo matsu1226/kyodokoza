@@ -42,7 +42,6 @@ RSpec.describe "Users", type: :system do
           fill_user_info_and_click_button
           expect(page).to have_content '仮登録メールを送信しました'
         end
-        
       end
     
       pending "アカウント有効化" do
@@ -55,7 +54,7 @@ RSpec.describe "Users", type: :system do
           get activation_url
         end
 
-        it "" do
+        it "アカウント有効化" do
           visit login_path
           fill_in 'メールアドレス：', with: "test@test.com"
           fill_in 'パスワード：', with: "testtest"
@@ -64,6 +63,40 @@ RSpec.describe "Users", type: :system do
         end
 
         # it { expect(page).to have_content('会員登録完了です！') }
+      end
+    end
+
+    describe "パスワード変更" do
+      let(:reset_token) { "ebetLd6XTqMYxCK5WU6R4A" }
+      let(:cost){ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost }
+      let(:new_reset_digest) { BCrypt::Password.create(reset_token, cost: cost) }
+
+      before do
+        user.update(reset_digest: new_reset_digest)
+        user.update(reset_sent_at: Time.zone.now)
+        # user.send_password_reset_email
+        visit edit_password_reset_path(reset_token, email: user.email)
+      end
+      
+      it "パスワードが空欄" do
+        fill_in 'パスワード：', with: ""
+        fill_in 'パスワード（確認）：', with: ""
+        click_button 'パスワード変更'
+        expect(page).to have_content 'パスワードを入力してください'
+      end
+
+      it "パスワードとパスワード（確認）が不一致" do
+        fill_in 'パスワード：', with: "hogehoge"
+        fill_in 'パスワード（確認）：', with: "testtest"
+        click_button 'パスワード変更'
+        expect(page).to have_content 'パスワード（確認）とパスワードの入力が一致しません'
+      end
+
+      it "パスワード変更に成功" do
+        fill_in 'パスワード：', with: "hogehoge"
+        fill_in 'パスワード（確認）：', with: "hogehoge"
+        click_button 'パスワード変更'
+        expect(page).to have_content 'パスワードが更新されました'
       end
     end
   end

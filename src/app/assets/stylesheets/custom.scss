@@ -92,7 +92,7 @@ ul, li {
 
 .form-label {
   font-weight: normal;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 
@@ -213,9 +213,10 @@ header{
 main {  
   margin: 50px auto 50px;
 
-  .col-md-11{
+  .main-wrapper{
     padding-top: 20px;
-    max-width: 576px;
+    max-width: 768px;
+    width: 80vw;
     margin: 0 auto;
   }
   
