@@ -20,9 +20,14 @@ RSpec.describe UserMailer, type: :mailer do
     end
   end
 
+
   describe "password_reset" do
     let(:mail) { UserMailer.password_reset(user) }
     let(:mail_body) { mail.body.encoded.split(/\r\n/).map{|i| Base64.decode64(i)}.join }
+
+    before do
+      user.reset_token = "ebetLd6XTqMYxCK5WU6R4A"
+    end
 
     it "renders the headers" do
       expect(mail.subject).to eq("パスワード変更（家計簿アプリ「キョウドウコウザ」）")

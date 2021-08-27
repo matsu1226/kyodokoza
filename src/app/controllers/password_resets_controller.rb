@@ -1,4 +1,7 @@
 class PasswordResetsController < ApplicationController
+
+  # require "pry"
+
   before_action :get_user,   only: [:edit, :update]
   before_action :valid_user, only: [:edit, :update]
   
@@ -10,6 +13,7 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email
+      # binding.pry
       flash[:info] = "パスワード変更メールを送信しました"
       redirect_to root_url
     else

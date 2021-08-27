@@ -15,6 +15,7 @@ RSpec.describe User, type: :model do
   it {should respond_to(:password_digest)}
   it {should respond_to(:activation_token)}
   it {should respond_to(:activation_digest)}
+  it {should respond_to(:reset_digest)}
 
   describe "正しいuserを保存するテスト" do
     before { @user.save }
@@ -83,9 +84,7 @@ RSpec.describe User, type: :model do
     before { @user.save }
 
     describe "send_activation_emailのテスト" do
-      before do
-        @user.send_activation_email
-      end
+      before { @user.send_activation_email }
       it { expect(ActionMailer::Base.deliveries.count).to eq 1 }
     end
 
@@ -112,6 +111,20 @@ RSpec.describe User, type: :model do
     describe "activateのテスト" do
       before { @user.activate }
       it { expect(@user.activated).to be_truthy }
+    end
+
+    describe "create_reset_digestのテスト" do
+      it { expect{ @user.create_reset_digest }.to change{ @user.reset_token }.from(nil).to(String) }
+      it { expect{ @user.create_reset_digest }.to change{ @user.reset_digest }.from(nil).to(String) }
+    end
+
+    describe "send_password_reset_emailのテスト" do
+      before do
+        @user.create_reset_digest
+        @user.send_password_reset_email 
+      end
+
+      it { expect(ActionMailer::Base.deliveries.count).to eq 1 }
     end
 
   end
