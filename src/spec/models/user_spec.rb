@@ -127,6 +127,24 @@ RSpec.describe User, type: :model do
       it { expect(ActionMailer::Base.deliveries.count).to eq 1 }
     end
 
+    describe "password_reset_expired? のテスト" do    
+      describe "2時間以内" do
+        before do
+          @user.create_reset_digest
+          @user.update(reset_sent_at: 1.hour.ago)
+        end
+        it { expect(@user.password_reset_expired?).to be_falsy }
+      end
+
+      describe "2時間以上" do
+        before do
+          @user.create_reset_digest
+          @user.update(reset_sent_at: 1.day.ago)
+        end
+        it { expect(@user.password_reset_expired?).to be_truthy }
+      end
+    end
+
   end
 
 end

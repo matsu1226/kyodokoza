@@ -1,6 +1,6 @@
 <%= provide(:title, "パスワード変更") %>
   <div class="form">
-    <%= form_with(scope: :password_reset, url: password_resets_path, local: true) do |f| %>
+    <%= form_with(model: @user, url: password_reset_path(params[:id]), local: true) do |f| %>
     <%= render 'shared/error_messages' %>
 
     <%= hidden_field_tag :email, @user.email %>
@@ -13,7 +13,7 @@
     <%= f.password_field :password_confirmation%>
     <p></p>
 
-    <%= f.submit "メール送信" ,class: "btn standerd-btn btn-primary" %>
+    <%= f.submit "パスワード変更" ,class: "btn standerd-btn btn-primary" %>
 
     <% end %>
   </div>
