@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'relationships/new'
+  get 'relationships/create'
   get 'password_resets/new'
   get 'password_resets/edit'
   root   'static_pages#introduction'
@@ -8,18 +10,18 @@ Rails.application.routes.draw do
   post   '/login',     to: "sessions#create"
   delete '/logout',    to: "sessions#destroy"
   
-  resources :users do
-    member do
-      get :following
-    end
-  end
+  resources :users 
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :relationships,       only: [:new, :create, :show] do
+    collection do     # idを含む=>member routing , idを含まない=>collection routing
+      get :invitation_code
+    end
+  end
 end
 
 # resources :users の内容
 # HTTPリクエスト	URL	アクション	名前付きルート	    用途
-# GET	    /users	      index	  users_path	          すべてのユーザーを一覧するページ
 # GET	    /users/1	    show	  user_path(user)	      特定のユーザーを表示するページ
 # GET	    /users/new	  new	    new_user_path	        ユーザーを新規作成するページ（ユーザー登録）
 # POST	  /users	      create	users_path	          ユーザーを作成するアクション(メール送信)
@@ -36,3 +38,8 @@ end
 # GET	  /password_resets/トークン/edit	edit	  edit_password_reset_url(token)  
 # PATCH	/password_resets/トークン	      update	password_reset_url(token)
 
+# resources :relationships の内容
+# GET	  /relationships/new	              new	              new_relationship_path             家族の登録ページ
+# GET	  /relationships/1	              show	              relationship_path(relationship)   家族の一覧ページ
+# POST	/relationships	                  create	          relationships_path                家族の登録アクション
+# POST	/relationships/invitation_code  invitation_code	  invitation_code_relationships_path    招待コード表示するページ 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_27_131806) do
+ActiveRecord::Schema.define(version: 2021_08_28_021959) do
 
   create_table "relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "from_user_id"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 2021_08_27_131806) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.string "invitation_digest"
+    t.datetime "invitation_made_at"
   end
 
 end

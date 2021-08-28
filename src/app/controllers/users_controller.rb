@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  before_action :logged_in_user, only: [:create, :show, :edit, :update, :destroy, :index]
+
   def new
     @user = User.new
   end
@@ -53,4 +56,5 @@ class UsersController < ApplicationController
     def user_params_name_only
       params.require(:user).permit(:name)
     end
+
 end

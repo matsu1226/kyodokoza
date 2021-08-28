@@ -5,10 +5,10 @@ class User < ApplicationRecord
   has_one :passive_relationships, class_name: "Relationship", foreign_key: "to_user_id", dependent: :destroy
   has_one :from_user, through: :passive_relationships
 
-  attr_accessor :activation_token, :reset_token
+  attr_accessor :activation_token, :reset_token, :invitation_token
 
   before_create :create_activation_digest
-
+  
   validates :name, presence: true, length: { maximum: 10 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i    
   # 【英数字, _, +, -, . を1文字以上】＠【英小文字, 数字, -, . を1文字以上】.【英小文字を1文字以上】
@@ -47,30 +47,36 @@ class User < ApplicationRecord
     update(activated: true)
   end
 
-  def create_reset_digest
+  def create_reset_digest                     ##
     self.reset_token = User.new_token
     update(reset_digest: User.digest(reset_token))
     update(reset_sent_at: Time.zone.now)
   end
 
-  def send_password_reset_email
+  def send_password_reset_email               ##
     UserMailer.password_reset(self).deliver_now
   end
 
-  def password_reset_expired?
+  def password_reset_expired?                 ##
     reset_sent_at < 2.hours.ago
   end
+
+  # def create_invitation_digest
+  #   self.invitation_token = User.new_token
+  #   self.invitation_digest = User.digest(invitation_token)
+  #   self.invitation_made_at = Time.zone.now
+  # end
   
-
+  
   private
-    def create_activation_digest
-      # self.activation_token = User.new_token
-      # # self.activation_digest = User.digest(activation_token)
-      # update(:activation_digest, User.digest(activation_token))
-      # update(:activated_at, Time.zone.now)
-      self.activation_token = User.new_token
-      self.activation_digest = User.digest(activation_token)
-    end
-
+  def create_activation_digest
+    # self.activation_token = User.new_token
+    # # self.activation_digest = User.digest(activation_token)
+    # update(:activation_digest, User.digest(activation_token))
+    # update(:activated_at, Time.zone.now)
+    self.activation_token = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
+  
 end
 

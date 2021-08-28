@@ -149,6 +149,11 @@ RSpec.describe User, type: :model do
       end
     end
 
+    describe "create_invitation_digest のテスト" do
+      it { expect{ @user.create_invitation_digest }.to change{ @user.invitation_token }.from(nil).to(String) }
+      it { expect{ @user.create_invitation_digest }.to change{ @user.invitation_digest }.from(nil).to(String) }
+    end
+
   end
 
 end

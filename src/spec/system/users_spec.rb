@@ -6,7 +6,7 @@ RSpec.describe "Users", type: :system do
 
   context "ログイン前" do
     describe "表示されないコンテンツの確認" do      
-      describe "header & footer" do
+      describe "header & footerのロゴ" do
         before { visit root_path }
         it { is_expected.not_to have_link nil, href: user_path(user) }   # 設定icon
         # it { is_expected.not_to have_link nil, href: 一覧へのリンク }   # 一覧icon

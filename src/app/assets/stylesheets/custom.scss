@@ -211,18 +211,23 @@ header{
 }
 
 main {  
-  margin: 50px auto 50px;
-
   .main-wrapper{
-    padding-top: 20px;
+    padding: 50px 0;
     max-width: 768px;
-    width: 80vw;
+    width: 90vw;
     margin: 0 auto;
   }
   
   div {
     margin-bottom: 20px;
   }
+}
+
+.container {
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .example {

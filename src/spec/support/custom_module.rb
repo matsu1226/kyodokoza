@@ -13,4 +13,11 @@ module CustomModule
     fill_in 'パスワード：', with: "example01"
     click_button 'ログイン'
   end
+
+  def authenticated?(attribute_name, token) 
+    digest = send("#{attribute_name}_digest")    # acctivation_digest, 
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end  
+
 end
