@@ -1,5 +1,5 @@
 module CustomModule
-  def fill_user_info_and_click_button
+  def fill_test_user_info_and_click_button
     fill_in 'ニックネーム：', with: "テスト　太郎"
     fill_in 'メールアドレス：', with: "test@test.com"
     fill_in 'パスワード：', with: "testtest"
@@ -9,8 +9,13 @@ module CustomModule
 
   def login(user)
     visit login_path
-    fill_in 'メールアドレス：', with: "qqq.ms1126@gmail.com"
-    fill_in 'パスワード：', with: "example01"
+    fill_in 'メールアドレス：', with: user.email
+    fill_in 'パスワード：', with: user.password
     click_button 'ログイン'
   end
+
+  # def authenticated?(invitation_token)
+  #   BCrypt::Password.new(invitation_digest).is_password?(remember_token)
+  # end
+
 end

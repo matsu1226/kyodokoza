@@ -1,0 +1,27 @@
+<%= provide(:title, "招待コードの確認") %>
+<section class="section-wrapper">
+  <div class="container invitation-code-making">
+
+    <div class="invitation-code-display">
+      <input id="copyTarget" type="text" value="<%= @user.invitation_token %>" readonly>
+      <i class="btn btn-outline-secondary far fa-copy copy-btn" type="button" onclick="copyToClipboard()"></i>
+    </div>
+
+    <script>
+      function copyToClipboard() {
+        var copyTarget = document.getElementById("copyTarget");
+        copyTarget.select();
+        document.execCommand("Copy");
+      }
+    </script>
+    <%#　LINEやメッセージで共有もしたいな…。%>
+
+    <div class="container">
+    <p>こちらの招待コードをパートナーの方の招待コード入力欄に入力してください。</p>
+    <p>招待コードはこのURLに訪問したり、再読み込みをするたびに変わります</p>
+    <p>忘れずにコピーをしてください。また、常に最新の招待コードをご入力ください。</p>
+    <%= link_to "戻る", new_relationship_path, class: "back-btn btn" %>
+    </div>
+
+  </div>
+</section>

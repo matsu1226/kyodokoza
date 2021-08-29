@@ -4,7 +4,7 @@
 
   <%= f.label :name, "ニックネーム：", class: "form-label" %>
   <%= f.text_field :name%>
-  <p class="sub-info">10文字以内(家族内の呼び名)</p>
+  <p class="sub-info">10文字以内<br>家計簿の一覧で表示される名前なので、5文字以下だと見やすいです</p>
   <%# label for="user_name" %>
   <%# input id="user_name" name="user[name]" type="text" %>
   <%# name="user[name]" => Controllerにてparams[:user][:name]として取り出す %>

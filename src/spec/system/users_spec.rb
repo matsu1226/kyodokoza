@@ -6,7 +6,7 @@ RSpec.describe "Users", type: :system do
 
   context "ログイン前" do
     describe "表示されないコンテンツの確認" do      
-      describe "header & footer" do
+      describe "header & footerのロゴ" do
         before { visit root_path }
         it { is_expected.not_to have_link nil, href: user_path(user) }   # 設定icon
         # it { is_expected.not_to have_link nil, href: 一覧へのリンク }   # 一覧icon
@@ -17,7 +17,12 @@ RSpec.describe "Users", type: :system do
     end
 
     describe "新規登録" do
-      before { visit signup_path }
+      before do
+        ActionMailer::Base.deliveries = [] 
+        visit signup_path 
+      end
+
+      let(:test_user) { User.find_by(email: "test@test.com") }
 
       describe "登録フォーム" do
         it "メールアドレス空欄エラー" do
@@ -39,31 +44,45 @@ RSpec.describe "Users", type: :system do
         end
         
         it "正常な新規登録" do
-          fill_user_info_and_click_button
-          expect(page).to have_content '仮登録メールを送信しました'
+          fill_test_user_info_and_click_button
+          expect(page).to have_content '仮登録メールを送信しました' 
+          expect(ActionMailer::Base.deliveries.count).to eq 1  
+          expect( test_user.name ).to eq "テスト　太郎" 
+          expect( test_user.email ).to eq "test@test.com" 
+          expect( test_user.password_digest ).to be_a_kind_of(String) 
+          expect( test_user.authenticated?(:password, "testtest") ).to eq true 
         end
       end
     
-      pending "アカウント有効化" do
-        before do
-          fill_user_info_and_click_button
-          activation_mail = ActionMailer::Base.deliveries.last   # 配信したメールのインスタンスを取得
-          mail_body = activation_mail.body.encoded   # 本文をエンコードして取得
-          activation_url = URI.extract(mail_body, ["account_activations"])[0]  # 文字列からURLの配列で取得
-          # http://localhost:3000/account_activations/6NrI6rdZcVgK4bzWBIchGQ/edit?email=shotaro%40kyodokoza.com
-          get activation_url
-        end
+      # describe "アカウント有効化" do
+      #   # let(:test_user) { User.new(name:"test" ,email: "test@test.com", password: "testtest", password_confirmation: "testtest") }
+      #   let(:activation_mail) { ActionMailer::Base.deliveries.last }  # 配信したメールのインスタンスを取得
+      #   let(:mail_body) { activation_mail.body.encoded.split(/\r\n/).map{|i| Base64.decode64(i)}.join }              # 本文をエンコードして取得
+      #   let(:activation_url) { URI.extract(mail_body, ["account_activations"])[0] }   # 文字列からURLの配列で取得
 
-        it "アカウント有効化" do
-          visit login_path
-          fill_in 'メールアドレス：', with: "test@test.com"
-          fill_in 'パスワード：', with: "testtest"
-          click_button 'ログイン'
-          expect(page).to have_content 'ログインに成功しました'
-        end
+      #   # it { expect{ test_user.save }.to change{ test_user.activation_token }.from(nil).to(String) }
+        
+      #   before do
+      #     ActionMailer::Base.deliveries = [] 
+      #     fill_test_user_info_and_click_button    # user.save, sending activation_mail
+      #   end
+        # it { expect( test_user.activation_token ).to be_a_kind_of(String) }
+        # it { expect( mail_body ).to include test_user.activation_token }
+        # it { expect( activation_url ).to include test_user.activation_token }
+        
+        # it { expect(test_user.authenticated?(:activation, test_user.activation_token)).to eq true }
+        
+        # it "アカウント有効化" do
+        #   get activation_url  # account_activetions#edit
+        #   visit login_path
+        #   fill_in 'メールアドレス：', with: "test@test.com"
+        #   fill_in 'パスワード：', with: "testtest"
+        #   click_button 'ログイン'
+        #   expect(page).to have_content 'ログインに成功しました'
+        # end
 
         # it { expect(page).to have_content('会員登録完了です！') }
-      end
+      # end
     end
 
     describe "パスワード変更" do
