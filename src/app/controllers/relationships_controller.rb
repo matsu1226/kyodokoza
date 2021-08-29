@@ -39,11 +39,11 @@ class RelationshipsController < ApplicationController
       @user = User.find_by(id: current_user.id)
     end
 
-    def create_invitation_digest
-      @user.invitation_token = User.new_token
-      @user.invitation_digest = User.digest(@user.invitation_token)
-      @user.invitation_made_at = Time.zone.now
-    end
+    # def create_invitation_digest
+    #   @user.invitation_token = User.new_token
+    #   @user.invitation_digest = User.digest(@user.invitation_token)
+    #   @user.invitation_made_at = Time.zone.now
+    # end
 
     def create_invitation_digest
       @user.invitation_token = User.new_token

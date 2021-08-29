@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
                     email: "example@gmail.com",
                     password: "example01",
                     password_confirmation: "example01")
+  ActionMailer::Base.deliveries = [] 
   end
   subject { @user }
   
@@ -84,12 +85,27 @@ RSpec.describe User, type: :model do
     end
   end
 
+
+  describe "コールバックのテスト" do
+    describe "before_create :create_activation_digest のテスト" do
+      it { expect{ @user.save }.to change{ @user.activation_token }.from(nil).to(String) }
+      it { expect{ @user.save }.to change{ @user.activation_digest }.from(nil).to(String) }
+    end    
+  end
+
+
   describe "メソッドのテスト" do
     before { @user.save }
+    
+    
+    describe "authenticated?のテスト" do
+      let(:user_activation_token) { @user.activation_token }
+      it { expect(@user.authenticated?(:activation, user_activation_token)).to eq true }
+    end
 
     describe "send_activation_emailのテスト" do
-      before { @user.send_activation_email }
-      it { expect(ActionMailer::Base.deliveries.count).to eq 1 }
+      it { expect{ @user.send_activation_email }.to change { ActionMailer::Base.deliveries.count }.by(1) }
+
     end
 
     describe "authenticateのテスト" do
@@ -106,15 +122,9 @@ RSpec.describe User, type: :model do
       end
     end
 
-      
-    describe "authenticated?のテスト" do
-      let(:user_activation_token) { @user.activation_token }
-      it { expect(@user.authenticated?(:activation, user_activation_token)).to be_truthy }
-    end
-
     describe "activateのテスト" do
       before { @user.activate }
-      it { expect(@user.activated).to be_truthy }
+      it { expect(@user.activated).to eq true }
     end
 
     describe "create_reset_digestのテスト" do
@@ -123,12 +133,12 @@ RSpec.describe User, type: :model do
     end
 
     describe "send_password_reset_emailのテスト" do
-      before do
-        @user.create_reset_digest
-        @user.send_password_reset_email 
+      it "send_password_reset_emailのテスト" do
+        expect do
+          @user.create_reset_digest
+          @user.send_password_reset_email
+        end.to change { ActionMailer::Base.deliveries.count }.by(1) 
       end
-
-      it { expect(ActionMailer::Base.deliveries.count).to eq 1 }
     end
 
     describe "password_reset_expired? のテスト" do    
@@ -147,11 +157,6 @@ RSpec.describe User, type: :model do
         end
         it { expect(@user.password_reset_expired?).to be_truthy }
       end
-    end
-
-    describe "create_invitation_digest のテスト" do
-      it { expect{ @user.create_invitation_digest }.to change{ @user.invitation_token }.from(nil).to(String) }
-      it { expect{ @user.create_invitation_digest }.to change{ @user.invitation_digest }.from(nil).to(String) }
     end
 
   end

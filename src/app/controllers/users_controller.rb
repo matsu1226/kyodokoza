@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: [:create, :show, :edit, :update, :destroy, :index]
+  before_action :logged_in_user, only: [:show, :edit, :update, :destroy]
 
   def new
     @user = User.new
@@ -44,8 +44,6 @@ class UsersController < ApplicationController
     redirect_to root_url
   end
 
-  def index
-  end
 
   private
 
