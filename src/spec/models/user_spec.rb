@@ -97,7 +97,6 @@ RSpec.describe User, type: :model do
   describe "メソッドのテスト" do
     before { @user.save }
     
-    
     describe "authenticated?のテスト" do
       let(:user_activation_token) { @user.activation_token }
       it { expect(@user.authenticated?(:activation, user_activation_token)).to eq true }
