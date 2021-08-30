@@ -21,9 +21,22 @@ User.create!(name: "綾美",
               activated: true,
               activated_at: Time.zone.now)
 
+User.create!(name: "独身太郎",
+                email: "dokushin@kyodokoza.com",
+                password:               "example01",
+                password_confirmation:  "example01",
+                activated: true,
+                activated_at: Time.zone.now)
+
+
+User.create!(name: "有効化 無太",
+                  email: "nashita@kyodokoza.com",
+                  password:               "example01",
+                  password_confirmation:  "example01",
+                  activated: false)
 
 # 追加のユーザーをまとめて生成する
-8.times do |n|
+6.times do |n|
   name = Faker::Name.name
   email = "example-#{n+1}@kyodokoza.com"
   password = "password"
@@ -35,8 +48,10 @@ User.create!(name: "綾美",
               activated_at: Time.zone.now)
 end
 
-User.create!(name: "有効化 無太",
-            email: "nashita@kyodokoza.com",
-            password:               "example01",
-            password_confirmation:  "example01",
-            activated: false)
+Relationship.create!(name: "松田家", 
+                    from_user_id: 1, 
+                    to_user_id: 2)
+
+Relationship.create!(name: "松田家", 
+                      from_user_id: 2, 
+                      to_user_id: 1)

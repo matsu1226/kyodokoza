@@ -158,6 +158,28 @@ RSpec.describe User, type: :model do
       end
     end
 
+    describe "no_relationship?　のテスト" do
+      let!(:to_user) { FactoryBot.create(:user2) }
+
+      it "relationship なし" do
+        expect(@user.no_relationship?).to be true        
+      end
+      
+      it "relationship (from_user_id = user)" do
+        expect do
+          Relationship.create(name: "松田家", from_user_id: @user.id, to_user_id: to_user.id)
+        end.to change { Relationship.count }.by(1)
+        expect(@user.no_relationship?).to be false        
+      end
+      
+      it "relationship (to_user_id = user)" do
+        expect do
+          Relationship.create(name: "山田家", from_user_id: to_user.id, to_user_id: @user.id)
+        end.to change { Relationship.count }.by(1)
+        expect(@user.no_relationship?).to be false        
+      end
+    end
+
   end
 
 end

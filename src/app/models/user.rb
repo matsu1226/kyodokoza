@@ -61,6 +61,14 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  def no_relationship?
+    active_relationship = Relationship.find_by(to_user_id: self.id)
+    passive_relationship = Relationship.find_by(from_user_id: self.id)
+    # return false if active_relationship
+    # return false if passive_relationship
+    active_relationship.nil? && passive_relationship.nil?  # 両方ともnilの時だけtrue
+  end
+
   # def create_invitation_digest
   #   self.invitation_token = User.new_token
   #   self.invitation_digest = User.digest(invitation_token)
