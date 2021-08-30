@@ -5,17 +5,21 @@
     <p class="setting-link">ログアウト</p>
     <i class="fas fa-angle-right fa-lg angle"></i>
   <% end %>
-  <%= link_to edit_user_path(current_user), class: "setting-link-wrapper" do%>
+  <%= link_to edit_user_path(@user), class: "setting-link-wrapper" do%>
     <p class="setting-link">アカウント情報の変更</p>
     <i class="fas fa-angle-right fa-lg angle"></i>
   <% end %>
-  <%= link_to "#", class: "setting-link-wrapper" do%>
-    <p class="setting-link">家族の一覧</p>
-    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% if @user.active_relationships %>
+    <%= link_to relationship_path(@user.active_relationships), class: "setting-link-wrapper" do%>
+      <p class="setting-link">家族の情報</p>
+      <i class="fas fa-angle-right fa-lg angle"></i>
+    <% end %>
   <% end %>
-  <%= link_to new_relationship_path, class: "setting-link-wrapper" do%>
-    <p class="setting-link">家族の登録</p>
-    <i class="fas fa-angle-right fa-lg angle"></i>
+  <% unless @user.active_relationships %>
+    <%= link_to new_relationship_path, class: "setting-link-wrapper" do%>
+      <p class="setting-link">家族の登録</p>
+      <i class="fas fa-angle-right fa-lg angle"></i>
+    <% end %>
   <% end %>
   <%= link_to "#", class: "setting-link-wrapper" do%>
     <p class="setting-link">エクセル出力</p>
