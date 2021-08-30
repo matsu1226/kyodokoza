@@ -5,5 +5,5 @@ class Relationship < ApplicationRecord
   validates :name, presence: true, length: { maximum: 6 }
   validates :from_user_id, presence: true, uniqueness: true
   validates :to_user_id, presence: true, uniqueness: true
-
+  
 end

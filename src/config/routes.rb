@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'relationships/new'
-  get 'relationships/create'
   get 'password_resets/new'
   get 'password_resets/edit'
   root   'static_pages#introduction'
@@ -13,11 +11,8 @@ Rails.application.routes.draw do
   resources :users 
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :relationships,       only: [:new, :create, :show] do
-    collection do     # idを含む=>member routing , idを含まない=>collection routing
-      get :invitation_code
-    end
-  end
+  resources :relationships,       only: [:new, :create, :show] 
+  get    '/relationships/invitation_code', to: "relationships#invitation_code"
 end
 
 # resources :users の内容
