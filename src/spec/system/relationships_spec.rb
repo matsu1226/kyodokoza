@@ -70,8 +70,19 @@ RSpec.describe "Users", type: :system do
 
     it { expect(user2.invitation_digest).to eq "$2a$12$Oy9pzo/SENDh1AqHvRdYLu9XkrUVpcyTY75HuRoF77Z1SFYtije5G" }
     it { expect(user2.invitation_token).to eq "0cDOZN79wl3LZw2zTqdnYQ" }
+    
 
-
+    describe "自分が既に誰かと家族の登録済み" do
+      let(:other_user) { FactoryBot.create(:other_user) }
+      
+      it "" do
+        visit user_path(user)
+        Relationship.create(name: "他の家族", from_user_id: user.id, to_user_id: other_user.id)
+        visit new_relationship_path
+        expect(page).to have_content "すでに家族が登録されています"
+      end
+    end
+    
     it "パートナーのメールアドレス不一致" do
       fill_in "パートナーの招待コード：", with: user2.invitation_token
       fill_in "パートナーの登録メールアドレス：", with: ""
@@ -88,21 +99,6 @@ RSpec.describe "Users", type: :system do
       expect(page).to have_content "招待コードが間違っています"
     end
     
-    pending "自分が既に誰かと家族の登録済み" do
-      let(:other_user) { FactoryBot.create(:other_user) }
-
-      before do
-        Relationship.new(name: "他の家族", from_user_id: user.id, to_user_id: other_user.id)
-      end
-      
-      it "" do
-        fill_in "パートナーの招待コード：", with: user2.invitation_token
-        fill_in "パートナーの登録メールアドレス：", with: user2.email
-        fill_in "登録する家族の名前：", with: "松田家"
-        click_button '登録'
-        expect(page).to have_content "家族の登録に失敗しました"
-      end
-    end
 
     it "家族名が空欄" do  #
       fill_in "パートナーの招待コード：", with: user2.invitation_token
