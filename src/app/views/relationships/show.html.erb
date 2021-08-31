@@ -1,11 +1,13 @@
 <%= provide(:title, "家族の情報") %>
 
 <section class="section-wrapper">
-  <h2>あばばばば</h2>
   <div class="container">
-    <p>1. ご本人とパートナー、お二人とも会員登録をお済ませください</p>
-    <p>2. 「招待コード作成」から、招待コードを確認してください</p>
-    <p>3. 招待コードをパートナーに通知し、パートナーの方は通知された招待コードを「招待コード入力」の入力欄にご入力ください</p>
-    <p>4. パートナーの方は家族名をご入力の上、「接続する」をタップしてください</p>
+  <table>
+  <tr><th>家族：</th><td><%= @relationship.name %></td></tr>
+  <tr><th>家族の登録日:</th><td><%= l @relationship.created_at, format: :date %></td></tr>
+  <tr><th>あなた：</th><td><%= @user.name %></td></tr>
+  <tr><th>パートナー：</th><td><%= @user.to_user.name %></td></tr>
+  </table>
+
   </div>
 </section>

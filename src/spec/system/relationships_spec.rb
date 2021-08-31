@@ -125,4 +125,6 @@ RSpec.describe "Users", type: :system do
     end
 
   end
+
+  describe "家族の情報"
 end

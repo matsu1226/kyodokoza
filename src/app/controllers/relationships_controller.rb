@@ -38,6 +38,7 @@ class RelationshipsController < ApplicationController
   end
 
   def show
+    @relationship = @user.active_relationships
   end
 
 
