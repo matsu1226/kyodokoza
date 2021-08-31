@@ -2,8 +2,15 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   let!(:user) { FactoryBot.create(:user) }   # 登録済みユーザー
+  let(:user2) { FactoryBot.create(:user2) }  # userのパートナー(になる予定)
+
   subject { page }
   before { login(user) }
+
+  it "家族の登録前は「家族の情報」へのリンクがない" do
+    should have_content "家族の登録"
+    should_not have_content "家族の情報"
+  end
   
   describe "招待コードの確認" do
     before { visit new_relationship_path }
@@ -55,8 +62,6 @@ RSpec.describe "Users", type: :system do
   end
   
   describe "家族を登録" do
-    let(:user2) { FactoryBot.create(:user2) }
-    
     before do
       visit new_relationship_path
       user2.invitation_token = "0cDOZN79wl3LZw2zTqdnYQ"
@@ -127,4 +132,18 @@ RSpec.describe "Users", type: :system do
   end
 
   describe "家族の情報"
+    subject { page }
+    
+    it "家族の情報の表示" do
+      Relationship.create(name: "松田家", from_user_id: user.id, to_user_id: user2.id, created_at: Time.local(2021, 8, 31, 12, 00, 00))
+      Relationship.create(name: "松田家", from_user_id: user2.id, to_user_id: user.id, created_at: Time.local(2021, 8, 31, 12, 00, 00))
+      visit user_path(user)
+      should have_content "家族の情報"
+      should_not have_content "家族の登録"
+      visit relationship_path(user.active_relationships)
+      should have_content "松田家"
+      should have_content "2021/08/31"
+      should have_content "正太郎"
+      should have_content "綾美"
+    end
 end

@@ -64,4 +64,8 @@ class RelationshipsController < ApplicationController
       @user.update(invitation_made_at: Time.zone.now)
     end
 
+    def check_no_relationship
+      @user.no_relationship?
+    end
+
 end
