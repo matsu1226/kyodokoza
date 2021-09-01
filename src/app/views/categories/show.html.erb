@@ -1,0 +1,12 @@
+        <div class="category-edit-btn">
+          <%= link_to edit_category_path(category), class: "btn btn-danger category-edit-icon" do %>
+          <i class="fas fa-lg fa-pencil-alt"></i>
+          <% end %>
+        </div>
+        <div class="category-delete-btn">
+          <%= link_to category_path(category), method: :delete, 
+                                              class: "btn btn-danger category-delete-icon", 
+                                              data: { confirm: "カテゴリを削除してよろしいですか？" } do %>
+          <i class="fas fa-trash-alt"></i>
+          <% end %>
+        </div>

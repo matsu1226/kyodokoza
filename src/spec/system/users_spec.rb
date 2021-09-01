@@ -171,6 +171,29 @@ RSpec.describe "Users", type: :system do
         before { visit edit_user_path(user) }
         it { is_expected.to have_content 'ニックネームの変更' }
       end      
+
+      describe "before_action :correct_user フィルターの確認" do
+        it "設定(users#show)" do
+          visit user_path(100)
+          is_expected.to have_content '他のユーザーの情報を見ることはできません' 
+        end
+
+        it "アカウント情報の変更(users#edit)" do
+          visit edit_user_path(100)
+          is_expected.to have_content '他のユーザーの情報を見ることはできません' 
+        end
+
+        it "アカウント情報の更新(users#update)" do
+          PATCH user_path(100)
+          is_expected.to have_content '他のユーザーの情報を見ることはできません' 
+        end
+
+        it "アカウントの削除(users#destroy)" do
+          DELETE user_path(100)
+          is_expected.to have_content '他のユーザーの情報を見ることはできません' 
+        end
+
+      end      
     end
 
     describe "ログアウトの実行" do

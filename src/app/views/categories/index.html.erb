@@ -1,2 +1,19 @@
-<h1>Categories#index</h1>
-<p>Find me in app/views/categories/index.html.erb</p>
+<%= provide(:title, "カテゴリ一覧") %>
+<section class="section-wrapper">
+  <p class="moderate category-index-text">カテゴリをクリックすると<br>編集・削除ページへ遷移します</p>
+  <ul>
+    <% @categories.each do |category| %>
+    <li>
+      <%= link_to edit_category_path(category), class: "card" do %>
+      <div class="category-color-wrapper">
+        <span class="category-color" style="background-color: <%= category.color %>;"></span>
+      </div>
+      <div class="category-content-wrapper">
+        <span class="category-name"><%= category.name %></span>
+        <span class="category-content"><%= category.content %></span>
+      </div>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+</section>
