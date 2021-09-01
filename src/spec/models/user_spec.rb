@@ -21,6 +21,7 @@ RSpec.describe User, type: :model do
   it {should respond_to(:to_user)}
   it {should respond_to(:passive_relationships)}
   it {should respond_to(:from_user)}
+  it {should respond_to(:posts)}
 
   describe "正しいuserを保存するテスト" do
     before { @user.save }

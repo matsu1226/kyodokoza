@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'categories/index'
+  get 'categories/new'
+  get 'categories/edit'
   root   'static_pages#introduction'
   get    '/introduction', to: 'static_pages#introduction'
   get    '/signup',    to: "users#new"  
@@ -8,6 +11,7 @@ Rails.application.routes.draw do
   get    '/relationships/invitation_code', to: "relationships#invitation_code"
   
   resources :users 
+  resources :categories 
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :relationships,       only: [:new, :create, :show] 
@@ -21,6 +25,17 @@ end
 # GET	    /users/1/edit	edit	  edit_user_path(user)	id=1のユーザーを編集するページ
 # PATCH	  /users/1	    update	user_path(user)	      ユーザーを更新するアクション
 # DELETE	/users/1	    destroy	user_path(user)	      ユーザーを削除するアクション
+
+# resources :categories の内容
+# HTTPリクエスト	URL	アクション	名前付きルート	    用途
+# GET	    /categories/1	    show	  category_path(category)	      特定のユーザーを表示するページ
+# GET	    /categories	    index	  categories_path	      ユーザー一覧を表示するページ
+# GET	    /categories/new	  new	    new_category_path	            ユーザーを新規作成するページ（ユーザー登録）
+# POST	  /categories	      create	categories_path	              ユーザーを作成するアクション(メール送信)
+# GET	    /categories/1/edit	edit	  edit_category_path(category)	id=1のユーザーを編集するページ
+# PATCH	  /categories/1	    update	category_path(category)	      ユーザーを更新するアクション
+# DELETE	/categories/1	    destroy	category_path(category)	      ユーザーを削除するアクション
+
 
 # resources :account_activations の内容
 # GET	    /account_activation/トークン/edit	  edit	  edit_account_activation_path(token)	
