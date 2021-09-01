@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_one :passive_relationships, class_name: "Relationship", foreign_key: "to_user_id", dependent: :destroy
   has_one :from_user, through: :passive_relationships
 
+  has_many :posts, dependent: :destroy
+
   attr_accessor :activation_token, :reset_token, :invitation_token
 
   before_create :create_activation_digest
