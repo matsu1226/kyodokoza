@@ -14,31 +14,33 @@ class RelationshipsController < ApplicationController
   def create
     @to_user = User.find_by(email: params[:relationship][:email])
     # (1)「相手ユーザーのemailが登録されている」かつ「招待コードが一致」
-    if @to_user && BCrypt::Password.new(@to_user.invitation_digest).is_password?(params[:relationship][:invitation_code])
-      active_relationship = Relationship.new(name: params[:relationship][:name], from_user_id: @user.id, to_user_id: @to_user.id)
-      passive_relationship = Relationship.new(name: params[:relationship][:name], from_user_id: @to_user.id, to_user_id: @user.id)
-      # (1-1)「家族名の文字数がvalidation内」
-      if (active_relationship.save && passive_relationship.save)    
+    @relationship = Relationship.new(name: params[:relationship][:name])
+
+    if @to_user.nil?
+      flash[:warning] = "そのメールアドレスのユーザーは登録されていません"
+      redirect_to new_relationship_path
+    elsif !@to_user.no_relationship?
+      flash[:danger] = "パートナーが既に他の方と家族登録しています"
+      redirect_to new_relationship_path
+    elsif BCrypt::Password.new(@to_user.invitation_digest).is_password?(params[:relationship][:invitation_code])
+      if @relationship.save
+        @user.create_user_relationship(relationship_id: @relationship.id)
+        @to_user.create_user_relationship(relationship_id: @relationship.id)
         flash[:success] = "家族を登録しました"
-        redirect_to relationship_path(@user.active_relationships)
-      # (1-2)「家族名の文字数error」
-      else  
+      else
         flash[:warning] = "家族の名前の文字数を確認してください"
         redirect_to new_relationship_path    
       end
-    # (2)「相手ユーザーのemailが登録されている」けど「招待コードが一致していない」
-    elsif @to_user  
+    else
       flash[:warning] = "招待コードが間違っています"
-      redirect_to new_relationship_path
-    # (3)「相手ユーザーのemailが登録されていない」
-    else  
-      flash[:warning] = "そのメールアドレスのユーザーは登録されていません"
       redirect_to new_relationship_path
     end
   end
 
+
   def show
-    @relationship = @user.active_relationships
+    @relationship = @user.relationship
+    @users = @relationship.users
   end
 
 
@@ -52,17 +54,17 @@ class RelationshipsController < ApplicationController
       @user = User.find_by(id: current_user.id)
     end
 
-    def create_invitation_digest
-      @user.invitation_token = User.new_token
-      @user.update(invitation_digest: User.digest(@user.invitation_token))
-      @user.update(invitation_made_at: Time.zone.now)
-    end
-
     def check_no_relationship
       unless @user.no_relationship?
         flash[:danger] = "すでに家族が登録されています"
         redirect_to user_path(@user)
       end
+    end
+
+    def create_invitation_digest
+      @user.invitation_token = User.new_token
+      @user.update(invitation_digest: User.digest(@user.invitation_token))
+      @user.update(invitation_made_at: Time.zone.now)
     end
 
 end

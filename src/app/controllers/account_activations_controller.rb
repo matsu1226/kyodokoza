@@ -4,6 +4,7 @@ class AccountActivationsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && !user.activated? && user.authenticated?(:activation, params[:id])
       user.activate
+      set_invitation_digest
       log_in user
       flash[:success] = "会員登録完了です！"
       # redirect_to new_post_path

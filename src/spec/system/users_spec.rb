@@ -173,24 +173,15 @@ RSpec.describe "Users", type: :system do
       end      
 
       describe "before_action :correct_user フィルターの確認" do
+        let(:user2) { FactoryBot.create(:user2) }
         it "設定(users#show)" do
-          visit user_path(100)
-          is_expected.to have_content '他のユーザーの情報を見ることはできません' 
+          visit user_path(user2)
+          is_expected.to have_content 'エクセル出力' 
         end
 
         it "アカウント情報の変更(users#edit)" do
-          visit edit_user_path(100)
-          is_expected.to have_content '他のユーザーの情報を見ることはできません' 
-        end
-
-        it "アカウント情報の更新(users#update)" do
-          PATCH user_path(100)
-          is_expected.to have_content '他のユーザーの情報を見ることはできません' 
-        end
-
-        it "アカウントの削除(users#destroy)" do
-          DELETE user_path(100)
-          is_expected.to have_content '他のユーザーの情報を見ることはできません' 
+          visit edit_user_path(user2)
+          is_expected.to have_content 'エクセル出力' 
         end
 
       end      

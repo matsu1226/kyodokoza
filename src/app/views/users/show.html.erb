@@ -9,13 +9,13 @@
     <p class="setting-link">アカウント情報の変更</p>
     <i class="fas fa-angle-right fa-lg angle"></i>
   <% end %>
-  <% if @user.active_relationships %>
-    <%= link_to relationship_path(@user.active_relationships), class: "setting-link-wrapper" do%>
+  <% if @user.relationship %>
+    <%= link_to relationship_path(@user.relationship), class: "setting-link-wrapper" do%>
       <p class="setting-link">家族の情報</p>
       <i class="fas fa-angle-right fa-lg angle"></i>
     <% end %>
   <% end %>
-  <% if @user.active_relationships.nil? %>
+  <% if @user.relationship.nil? %>
     <%= link_to new_relationship_path, class: "setting-link-wrapper" do%>
       <p class="setting-link">家族の登録</p>
       <i class="fas fa-angle-right fa-lg angle"></i>

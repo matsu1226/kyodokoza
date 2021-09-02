@@ -1,9 +1,9 @@
 class Relationship < ApplicationRecord
-  belongs_to :from_user, class_name: "User"
-  belongs_to :to_user, class_name: "User"
+  has_many :user_relationships
+  has_many :users, through: :user_relationships
+  has_many :categories, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 6 }
-  validates :from_user_id, presence: true, uniqueness: true
-  validates :to_user_id, presence: true, uniqueness: true
   
 end

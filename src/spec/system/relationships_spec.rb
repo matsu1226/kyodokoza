@@ -72,14 +72,28 @@ RSpec.describe "Users", type: :system do
     it { expect(user2.invitation_token).to eq "0cDOZN79wl3LZw2zTqdnYQ" }
     
 
-    describe "自分が既に誰かと家族の登録済み" do
+    describe "既に家族の登録済み" do
       let(:other_user) { FactoryBot.create(:other_user) }
+      let!(:relationship) { Relationship.create(name: "他の家族") }
       
-      it "" do
+      it "自分とほかの誰か" do
         visit user_path(user)
-        Relationship.create(name: "他の家族", from_user_id: user.id, to_user_id: other_user.id)
+        user.create_user_relationship(relationship_id: relationship.id)
+        other_user.create_user_relationship(relationship_id: relationship.id)
         visit new_relationship_path
         expect(page).to have_content "すでに家族が登録されています"
+      end
+
+      it "パートナーとほかの誰か" do
+        visit user_path(user)
+        user2.create_user_relationship(relationship_id: relationship.id)
+        other_user.create_user_relationship(relationship_id: relationship.id)
+        visit new_relationship_path      
+        fill_in "パートナーの招待コード：", with: user2.invitation_token
+        fill_in "パートナーの登録メールアドレス：", with: user2.email
+        fill_in "登録する家族の名前：", with: "松田家"
+        click_button '登録'
+        expect(page).to have_content "パートナーが既に他の方と家族登録しています"
       end
     end
     
@@ -131,12 +145,13 @@ RSpec.describe "Users", type: :system do
     subject { page }
     
     it "家族の情報の表示" do
-      Relationship.create(name: "松田家", from_user_id: user.id, to_user_id: user2.id, created_at: Time.local(2021, 8, 31, 12, 00, 00))
-      Relationship.create(name: "松田家", from_user_id: user2.id, to_user_id: user.id, created_at: Time.local(2021, 8, 31, 12, 00, 00))
+      relationship = Relationship.create(name: "松田家", created_at: Time.local(2021, 8, 31, 12, 00, 00))
+      user.create_user_relationship(relationship_id: relationship.id)
+      user2.create_user_relationship(relationship_id: relationship.id)
       visit user_path(user)
       should have_content "家族の情報"
       should_not have_content "家族の登録"
-      visit relationship_path(user.active_relationships)
+      visit relationship_path(relationship)
       should have_content "松田家"
       should have_content "2021/08/31"
       should have_content "正太郎"

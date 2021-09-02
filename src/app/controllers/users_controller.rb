@@ -59,7 +59,6 @@ class UsersController < ApplicationController
 
     def correct_user
       @user = User.find(params[:id])
-      flash[:warning] = "他のユーザーの情報を見ることはできません"
       redirect_to user_path(current_user) unless current_user?(@user)
     end
 

@@ -1,11 +1,6 @@
 class User < ApplicationRecord
-  has_one :active_relationships, class_name: "Relationship", foreign_key: "from_user_id", dependent: :destroy
-  has_one :to_user, through: :active_relationships
-  
-  has_one :passive_relationships, class_name: "Relationship", foreign_key: "to_user_id", dependent: :destroy
-  has_one :from_user, through: :passive_relationships
-
-  has_many :posts, dependent: :destroy
+  has_one :user_relationship
+  has_one :relationship, through: :user_relationship
 
   attr_accessor :activation_token, :reset_token, :invitation_token
 
@@ -63,20 +58,16 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  def no_relationship?
-    active_relationship = Relationship.find_by(to_user_id: self.id)
-    passive_relationship = Relationship.find_by(from_user_id: self.id)
-    # return false if active_relationship
-    # return false if passive_relationship
-    active_relationship.nil? && passive_relationship.nil?  # 両方ともnilの時だけtrue
+  def set_invitation_digest
+    self.invitation_token = User.new_token
+    update(invitation_digest: User.digest(invitation_token))
+    update(invitation_made_at: Time.zone.now)
   end
 
-  # def create_invitation_digest
-  #   self.invitation_token = User.new_token
-  #   self.invitation_digest = User.digest(invitation_token)
-  #   self.invitation_made_at = Time.zone.now
-  # end
-  
+  def no_relationship?
+    self.user_relationship.nil?
+  end
+
   
   private
   def create_activation_digest
