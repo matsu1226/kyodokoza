@@ -6,6 +6,9 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）
+      category:
+        name: カテゴリの名前
+        content: カテゴリの説明
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"

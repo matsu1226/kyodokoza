@@ -2,7 +2,8 @@ class RelationshipsController < ApplicationController
   before_action :logged_in_user
   before_action :get_user
   before_action :create_invitation_digest, only: [:invitation_code]
-  before_action :check_no_relationship, only: [:new, :create, :invitation_code]   #  (0)「自分が誰とも家族登録されていない」
+  before_action :check_no_relationship, only: [:new, :create, :invitation_code]   
+  before_action :correct_relationship, only: [:show]
   
 
   def new
@@ -65,6 +66,14 @@ class RelationshipsController < ApplicationController
       @user.invitation_token = User.new_token
       @user.update(invitation_digest: User.digest(@user.invitation_token))
       @user.update(invitation_made_at: Time.zone.now)
+    end
+    
+    def correct_relationship
+      relationship = Relationship.find_by(id: params[:id])
+      unless relationship.users.include?(current_user)
+        flash[:danger] = "そのページはあなたの家族ではありません"
+        redirect_to login_url
+      end
     end
 
 end
