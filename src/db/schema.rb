@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_01_095505) do
+ActiveRecord::Schema.define(version: 2021_09_02_014310) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -22,23 +22,28 @@ ActiveRecord::Schema.define(version: 2021_09_01_095505) do
   end
 
   create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "user_id"
     t.integer "category_id"
     t.text "content"
     t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "relationship_id"
   end
 
   create_table "relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "from_user_id"
-    t.integer "to_user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
-    t.index ["from_user_id", "to_user_id"], name: "index_relationships_on_from_user_id_and_to_user_id", unique: true
-    t.index ["from_user_id"], name: "index_relationships_on_from_user_id"
-    t.index ["to_user_id"], name: "index_relationships_on_to_user_id"
+  end
+
+  create_table "user_relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "relationship_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["relationship_id"], name: "index_user_relationships_on_relationship_id"
+    t.index ["user_id", "relationship_id"], name: "index_user_relationships_on_user_id_and_relationship_id", unique: true
+    t.index ["user_id"], name: "index_user_relationships_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

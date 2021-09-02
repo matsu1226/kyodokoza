@@ -5,8 +5,10 @@
   <table>
   <tr><th>家族：</th><td><%= @relationship.name %></td></tr>
   <tr><th>家族の登録日:</th><td><%= l @relationship.created_at, format: :date %></td></tr>
-  <tr><th>あなた：</th><td><%= @user.name %></td></tr>
-  <tr><th>パートナー：</th><td><%= @user.to_user.name %></td></tr>
+  <tr><th>名前：</th>
+  <% @users.each do |user| %>
+    <td><%= user.name %></td>
+  <% end %>
   </table>
 
   </div>

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   before do
     @user = User.new(name: "正太郎", 
-                    email: "example@gmail.com",
+                    email: "shotaro@kyodokoza.com",
                     password: "example01",
                     password_confirmation: "example01")
   ActionMailer::Base.deliveries = [] 
@@ -17,11 +17,8 @@ RSpec.describe User, type: :model do
   it {should respond_to(:activation_token)}
   it {should respond_to(:activation_digest)}
   it {should respond_to(:reset_digest)}
-  it {should respond_to(:active_relationships)}
-  it {should respond_to(:to_user)}
-  it {should respond_to(:passive_relationships)}
-  it {should respond_to(:from_user)}
-  it {should respond_to(:posts)}
+  it {should respond_to(:relationship)}
+
 
   describe "正しいuserを保存するテスト" do
     before { @user.save }
@@ -46,7 +43,7 @@ RSpec.describe User, type: :model do
 
     describe "メールが重複" do
       let(:user_with_same_email) { User.new(name: "健太", 
-                                            email: "example@gmail.com",
+                                            email: "shotaro@kyodokoza.com",
                                             password: "example02",
                                             password_confirmation: "example02")}
       before do
@@ -160,22 +157,14 @@ RSpec.describe User, type: :model do
     end
 
     describe "no_relationship?　のテスト" do
-      let!(:to_user) { FactoryBot.create(:user2) }
-
       it "relationship なし" do
         expect(@user.no_relationship?).to be true        
       end
       
-      it "relationship (from_user_id = user)" do
+      it "relationshipが存在" do
         expect do
-          Relationship.create(name: "松田家", from_user_id: @user.id, to_user_id: to_user.id)
-        end.to change { Relationship.count }.by(1)
-        expect(@user.no_relationship?).to be false        
-      end
-      
-      it "relationship (to_user_id = user)" do
-        expect do
-          Relationship.create(name: "山田家", from_user_id: to_user.id, to_user_id: @user.id)
+          Relationship.create(id: 2, name: "山田家")
+          @user.create_user_relationship(relationship_id: 2)          
         end.to change { Relationship.count }.by(1)
         expect(@user.no_relationship?).to be false        
       end
