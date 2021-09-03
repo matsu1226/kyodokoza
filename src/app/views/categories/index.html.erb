@@ -1,7 +1,7 @@
 <%= provide(:title, "カテゴリ一覧") %>
 <section class="section-wrapper">
   <p class="category-index-text">カテゴリをクリックすると<br>編集・削除ページへ遷移します</p>
-  <%= link_to "パスワード変更はこちら", new_password_reset_path, class: "btn standerd-btn btn-primary" %>
+  <%= link_to "カテゴリの新規作成", new_category_path, class: "btn standerd-btn btn-primary new-category-btn" %>
   <ul>
     <% @categories.each do |category| %>
     <li>
