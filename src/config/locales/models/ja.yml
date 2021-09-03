@@ -9,6 +9,7 @@ ja:
       category:
         name: カテゴリの名前
         content: カテゴリの説明
+        color: カテゴリカラー
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"

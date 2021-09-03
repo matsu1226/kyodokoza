@@ -24,6 +24,14 @@ class CategoriesController < ApplicationController
   def edit
   end
 
+  def update
+
+  end
+
+  def destroy
+    
+  end
+
   private 
     def get_relationship
       @relationship = current_user.relationship
