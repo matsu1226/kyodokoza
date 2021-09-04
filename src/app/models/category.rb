@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  belongs_to :relationship
+  belongs_to :relationship, foreign_key: "relationship_id"
   has_many :posts, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 8 }
