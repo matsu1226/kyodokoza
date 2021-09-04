@@ -11,7 +11,7 @@ RSpec.describe UserMailer, type: :mailer do
 
     it "renders the headers" do
       expect(mail.subject).to eq("仮登録（家計簿アプリ「キョウドウコウザ」）")
-      expect(mail.to).to eq(["qqq.ms1126@gmail.com"])
+      expect(mail.to).to eq(["shotaro@kyodokoza.com"])
       expect(mail.from).to eq(["noreply@kyodokoza.com"])
     end
 
@@ -31,7 +31,7 @@ RSpec.describe UserMailer, type: :mailer do
 
     it "renders the headers" do
       expect(mail.subject).to eq("パスワード変更（家計簿アプリ「キョウドウコウザ」）")
-      expect(mail.to).to eq(["qqq.ms1126@gmail.com"])
+      expect(mail.to).to eq(["shotaro@kyodokoza.com"])
       expect(mail.from).to eq(["noreply@kyodokoza.com"])
     end
 

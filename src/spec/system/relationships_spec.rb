@@ -1,67 +1,76 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
-  let!(:user) { FactoryBot.create(:user) }   # 登録済みユーザー
-  let(:user2) { FactoryBot.create(:user2) }  # userのパートナー(になる予定)
+  let!(:user) { FactoryBot.create(:user, :skip_validate) }
+  let!(:user2) { FactoryBot.create(:user2, :skip_validate) }
 
-  subject { page }
-  before { login(user) }
-
-  it "家族の登録前は「家族の情報」へのリンクがない" do
-    should have_content "家族の登録"
-    should_not have_content "家族の情報"
-  end
   
-  describe "招待コードの確認" do
-    before { visit new_relationship_path }
+  subject { page }
+
+  before { login(user) }
+  
+  context "家族登録前" do
+
+    it "家族の登録前は「家族の情報」へのリンクがない" do
+      should have_content "家族の登録"
+      should_not have_content "家族の情報"
+    end
     
-    it "確認ページに遷移するとinvitation_digestが更新" do
-      click_link "招待コードを作成する"
-      expect { user.reload }.to change { user.invitation_digest }
-    end  
-    
-    it "確認ページに遷移する毎にinvitation_digestが更新" do      
-      click_link "招待コードを作成する"
-      user.reload      
-      click_link "戻る"
-      click_link "招待コードを作成する"
-      expect { user.reload }.to change { user.invitation_digest }
-    end 
-    
-    let(:token) { find('#copyTarget').native.inner_html }
-    
-    pending "確認ページに遷移する毎に招待コードが更新" do
-      click_link "招待コードを作成する"
-      expect do
+    describe "招待コードの確認" do
+      before { visit new_relationship_path }
+      
+      it "確認ページに遷移するとinvitation_digestが更新" do
+        click_link "招待コードを作成する"
+        expect { user.reload }.to change { user.invitation_digest }
+      end  
+      
+      it "確認ページに遷移する毎にinvitation_digestが更新" do      
+        click_link "招待コードを作成する"
+        user.reload      
         click_link "戻る"
         click_link "招待コードを作成する"
-      end.to change { token } 
-    end
-    
-    pending "招待コードがinvitation_digestと一致" do
-      # user.invitation_digest = nil
-      # user.invitation_token = nil
-      click_link "招待コードを作成する"   
-      user.reload
-      find '#copyTarget' 
-      # reloadでインスタンスにも反映
-      # token = find('#copyTarget').native.inner_html
-      # digest = user.invitation_digest
-      expect(token).to be_a_kind_of(String) 
-      expect(user.invitation_digest).to be_a_kind_of(String) 
-      expect(user.authenticated?(:invitation, token)).to eq true    ## <=通らない…。
-    end
+        expect { user.reload }.to change { user.invitation_digest }
+      end 
+      
+      let(:token) { find('#copyTarget').native.inner_html }
+      
+      pending "確認ページに遷移する毎に招待コードが更新" do
+        click_link "招待コードを作成する"
+        expect do
+          click_link "戻る"
+          click_link "招待コードを作成する"
+        end.to change { token } 
+      end
+      
+      pending "招待コードがinvitation_digestと一致" do
+        # user.invitation_digest = nil
+        # user.invitation_token = nil
+        click_link "招待コードを作成する"   
+        user.reload
+        find '#copyTarget' 
+        # reloadでインスタンスにも反映
+        # token = find('#copyTarget').native.inner_html
+        # digest = user.invitation_digest
+        expect(token).to be_a_kind_of(String) 
+        expect(user.invitation_digest).to be_a_kind_of(String) 
+        expect(user.authenticated?(:invitation, token)).to eq true    ## <=通らない…。
+      end
 
-    # it "hoge( find('.hoge').native.inner_html )" do
-    #   visit new_relationship_path
-    #   click_link "招待コードを作成する"   
-    #   hoge = find('.hoge').native.inner_html
-    #   expect(hoge).to eq "hoge"
-    # end
-    
+      # it "hoge( find('.hoge').native.inner_html )" do
+      #   visit new_relationship_path
+      #   click_link "招待コードを作成する"   
+      #   hoge = find('.hoge').native.inner_html
+      #   expect(hoge).to eq "hoge"
+      # end
+      
+    end
   end
+
   
-  describe "家族を登録" do
+  context "家族を登録" do
+    # userのパートナー(になる予定)
+    # let(:user2) { FactoryBot.create(:user2, :skip_validate) }
+
     before do
       visit new_relationship_path
       user2.invitation_token = "0cDOZN79wl3LZw2zTqdnYQ"
@@ -138,23 +147,36 @@ RSpec.describe "Users", type: :system do
       click_button '登録'
       expect(page).to have_content "家族を登録しました"
     end
-
   end
 
-  describe "家族の情報"
-    subject { page }
-    
-    it "家族の情報の表示" do
-      relationship = Relationship.create(name: "松田家", created_at: Time.local(2021, 8, 31, 12, 00, 00))
-      user.create_user_relationship(relationship_id: relationship.id)
-      user2.create_user_relationship(relationship_id: relationship.id)
-      visit user_path(user)
-      should have_content "家族の情報"
-      should_not have_content "家族の登録"
-      visit relationship_path(relationship)
-      should have_content "松田家"
-      should have_content "2021/08/31"
-      should have_content "正太郎"
-      should have_content "綾美"
+  it " " do
+    expect{ FactoryBot.create(:relationship) }.to change { Relationship.count }.by(1)
+    expect{ FactoryBot.create(:relationship) }.to change { UserRelationship.count }.by(2)
+    expect{ FactoryBot.create(:relationship) }.to change { User.count }.by(0)
+  end
+
+  context "家族登録後" do
+    let!(:relationship) { FactoryBot.create(:relationship) }
+
+
+    describe "家族の情報" do
+
+      subject { page }
+      
+      it "家族の情報の表示" do
+        # relationship = FactoryBot.create(:relationship, created_at: Time.local(2021, 8, 31, 12, 00, 00))
+        # relationship = Relationship.create(name: "松田家", created_at: Time.local(2021, 8, 31, 12, 00, 00))
+        # user.create_user_relationship(relationship_id: relationship.id)
+        # user2.create_user_relationship(relationship_id: relationship.id)
+        visit user_path(user)
+        should have_content "家族の情報"
+        should_not have_content "家族の登録"
+        visit relationship_path(relationship)
+        should have_content "松田家"
+        should have_content "2021/08/31"
+        should have_content "正太郎"
+        should have_content "綾美"
+      end
     end
+  end
 end
