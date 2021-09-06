@@ -1,0 +1,48 @@
+<div class="calculator">
+  <div class="btn_box">
+    <div class="row">
+      <button onclick="set(this)" class="col">7</button>
+      <button onclick="set(this)" class="col">8</button>
+      <button onclick="set(this)" class="col">9</button>
+    </div>
+    <div class="row">
+      <button onclick="set(this)" class="col">4</button>
+      <button onclick="set(this)" class="col">5</button>
+      <button onclick="set(this)" class="col">6</button>
+    </div>
+    <div class="row">
+      <button onclick="set(this)" class="col">1</button>
+      <button onclick="set(this)" class="col">2</button>
+      <button onclick="set(this)" class="col">3</button>
+    </div>
+    <div class="row">
+      <button onclick="set(this)" class="col">00</button>
+      <button onclick="set(this)" class="col">0</button>
+      <button onclick="back_space()" class="col ac_btn">
+        <i class="fas fa-backspace"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<%# <script src="./script.js"></script> %>
+<script type="text/javascript">
+  let output = document.getElementById('output');
+
+  function set(nums) {
+    console.log(nums)
+    output.value += nums.value;
+    // output.value = output.value + nums.value; 
+    // outputに入力されている数字 = outputに入力されている数字 + set関数に代入された数字   
+  }
+
+  function calc() {
+    output.value = new Function("return " + output.value)();
+    // new Function(function_body)
+    // つまり生み出される関数は、function(){return "outputに入力されている数字"}
+  }
+
+  function back_space() {
+    // output.textContent = "";
+    output.value = output.value.slice(0, -1);
+  }
+</script>

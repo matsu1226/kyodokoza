@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_one :user_relationship
   has_one :relationship, through: :user_relationship
+  has_many :posts
 
   attr_accessor :activation_token, :reset_token, :invitation_token
 

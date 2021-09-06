@@ -1,0 +1,42 @@
+<%= provide(:title, "支出の記録") %>
+<section class="section-wrapper post-new-wrapper">
+
+  <%= form_with(model: @post, url: {controller: 'posts', action: 'create' },class: "post-new-form", local: true) do |f| %>
+  <%= render 'shared/post_error_messages' %>
+
+  <div class="sub-wrapper">
+    <div>
+      <%= f.label :category_id, class: "form-label" do %>
+      <i class="fas fa-tags"></i>
+      <% end %>
+      <%= f.collection_select :category_id , @relationship.categories, :id, :name %>
+      <%# collection_select => https://qiita.com/_akira19/items/c218186983f444c2d794 %>
+    </div>
+    <div>
+      <%= f.label :user_id, "誰", class: "form-label" do %>
+      <i class="fas fa-user-friends"></i>
+      <% end%>
+      <%= f.collection_select :user_id , @relationship.users, :id, :name %>
+    </div>
+  </div>
+
+  <div class="price-content-wrapper">
+    <%= f.label :content, class: "form-label" do %>
+    <i class="fas fa-pencil-alt"></i>
+    <% end %>
+    <%= f.text_field :content %>
+  </div>
+
+  <div class="price-content-wrapper">
+    <%= f.label :price, class: "form-label" do %>
+    <i class="fas fa-yen-sign"></i>
+    <% end %>
+    <%= f.number_field :price, id: "output" %>
+  </div>
+
+  <%= f.submit "記録" ,class: "btn standerd-btn btn-primary" %>
+  <% end %>
+
+  <%= render "calculator" %>
+
+</section>

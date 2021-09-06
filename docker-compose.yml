@@ -7,15 +7,28 @@ services:
       - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
-  web:
+  web: &app
     build: .
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - ./src:/app
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: webpacker
     ports:
       - "3000:3000"
     depends_on:
       - db
+  webpacker:
+    <<: *app
+    depends_on: 
+      - web
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    command: ./bin/webpack-dev-server
+    ports:
+      - "3035:3035"
 
 volumes:
   mysql_data:   

@@ -10,6 +10,11 @@ ja:
         name: カテゴリの名前
         content: カテゴリの説明
         color: カテゴリカラー
+      post:
+        category_id: カテゴリ
+        user_id: ユーザー
+        content: 内容
+        price: 金額
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"

@@ -27,9 +27,11 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'bootstrap-sass'  
+# gem 'bootstrap-sass'  
 # ページネーション
 gem 'kaminari'
+# 表
+gem 'jquery-datatables-rails'
 # ダミーデータ(for "seed.rb")
 gem 'faker'
 # アイコン
@@ -39,7 +41,7 @@ gem 'rails-i18n'
 # WEB APIを用いたsendgridの導入
 gem 'sendgrid-ruby'
 
-gem 'react-rails'
+# gem 'react-rails'
 
 
 
