@@ -16,6 +16,6 @@ ActiveStorage.start()
 
 import 'bootstrap';
 import '../stylesheets/application';
-// import '../src/calclator';
+import '../javascripts/application';
 
 // https://qiita.com/kazutosato/items/d47b7705ee545de4cb1a
