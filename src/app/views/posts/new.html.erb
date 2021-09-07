@@ -2,7 +2,6 @@
 <section class="section-wrapper post-new-wrapper">
 
   <%= form_with(model: @post, url: {controller: 'posts', action: 'create' },class: "post-new-form", local: true) do |f| %>
-  <%= render 'shared/post_error_messages' %>
 
   <div class="sub-wrapper">
     <div>
@@ -29,9 +28,9 @@
 
   <div class="price-content-wrapper">
     <%= f.label :price, class: "form-label" do %>
-    <i class="fas fa-yen-sign"></i>
+    <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
     <% end %>
-    <%= f.number_field :price, id: "output" %>
+    <%= f.number_field :price, id: "output", class: "output",:readonly => true %>
   </div>
 
   <%= f.submit "記録" ,class: "btn standerd-btn btn-primary" %>

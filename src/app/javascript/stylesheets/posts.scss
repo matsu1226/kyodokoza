@@ -34,25 +34,47 @@
 
     label {
       width: 15%;
+      margin: 3px auto;
     }
     select {
       width: 80%;
+      height: 30px;
+      font-size: 0.9rem;
     }
   }
 }
 
 .price-content-wrapper {
-  display:  flex;
   margin: 0;
 
   .form-label {
-    width: 15%;
-    margin-right: 20px;
+    // width: 15%;
+    margin-right: 3px;
     text-align: center;
+    display: inline;
+    width: 10vw;
+    float: left;
+    
+    .yen-icon {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      justify-content: center;
+    }
   }
 
   input {
-    width: 85%
+    // width: 85%;
+    width: 72vw;
+  }
+  
+  .output {
+    text-align: right;
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 2rem;
   }
 }
 
