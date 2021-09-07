@@ -70,7 +70,7 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
-      aggregate_timeout: 200
+      aggregate_timeout: 1000
       poll: 10000
 
 
