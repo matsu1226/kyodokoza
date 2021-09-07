@@ -21,7 +21,17 @@ class PostsController < ApplicationController
 
 
   def index
+    @month = params[:month] ? Date.parse(params[:month]) : Date.today
+    family_ids = @relationship.user_ids
+    @posts = Post.where(user_id: family_ids, created_at: @month.all_month)
   end
+
+  # def table 
+  #   respond_to do |format|
+  #     format.html
+  #     format.json {render json: EventDatatable.new(params)}
+  #   end
+  # end
 
 
   def edit

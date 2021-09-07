@@ -15,6 +15,7 @@ Turbolinks.start()
 ActiveStorage.start()
 
 import 'bootstrap';
+// require dataTables/jquery.dataTables
 import '../stylesheets/application';
 import '../javascripts/application';
 

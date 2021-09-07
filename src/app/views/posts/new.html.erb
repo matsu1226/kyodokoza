@@ -30,7 +30,8 @@
     <%= f.label :price, class: "form-label" do %>
     <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
     <% end %>
-    <%= f.number_field :price, id: "output", class: "output",:readonly => true %>
+    <%= f.hidden_field :price, id: "output", class: "output" %>
+    <p class="price-display" id="price-display"></p>
   </div>
 
   <%= f.submit "記録" ,class: "btn standerd-btn btn-primary" %>

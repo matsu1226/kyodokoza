@@ -70,7 +70,8 @@
     width: 72vw;
   }
   
-  .output {
+  .price-display {
+    height: 56px;
     text-align: right;
     border: none;
     border-bottom: 1px solid black;
@@ -116,5 +117,98 @@
     .ac_btn{
       color: #ddddff;
     }
+  }
+}
+
+
+// index
+
+@mixin section-wrapper {
+  width: 92vw;
+  max-width: 768px;
+  position: fixed;
+  padding: 0px;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #fff;
+} 
+
+.post-index-header-section{
+  @include section-wrapper();
+  margin: 1px auto;
+  top: 50px;
+}
+
+.post-index-main-section {
+  margin: 85px 0 0 0;
+  padding: 0px;
+  top: 130px;
+  right: 0;
+  width: 100%;
+  border: none;
+}
+
+.post-index-lower-section {
+  @include section-wrapper();
+  margin: 0px auto;
+  bottom: 50px;
+  border-top: 1px solid #ccc;
+  border-bottom: none;
+}
+
+
+.paginate {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 8px auto;
+}
+
+.post-index-wrapper {
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+
+  .card {
+    padding: 7px;
+    margin: 10px auto;
+  }
+  
+  .post-index-head {
+    margin: 0;
+    padding: 0 10px;
+
+    .user_id {
+      text-align: right;
+    }
+  }
+  .user-name {
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: right;
+  }
+  
+  .post-content {
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #555;
+  }
+
+  .category-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .category-name {
+    font-size: 8px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
