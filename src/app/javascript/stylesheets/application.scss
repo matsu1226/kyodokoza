@@ -1,8 +1,10 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap');
-@import "font-awesome";
+@import '~bootstrap/scss/bootstrap';
+@import "users";
+@import "categories";
+@import "posts";
+@import "relationships";
 
+// https://qiita.com/kazutosato/items/d47b7705ee545de4cb1a
 
 // ===== universal ===== 
 $theme-color: #00b;
@@ -26,6 +28,7 @@ $header-height: 50px;
   border-bottom: 1px solid rgba(0, 0, 0, $op1);
   box-shadow: (rgba(225, 225, 225, $op2)0 1px 0) ;
 }
+
 @mixin btn-shape ($color: $theme-color){
   width: 200px;
   height: 50px;
@@ -37,6 +40,18 @@ $header-height: 50px;
 
 .standerd-btn{
   @include btn-shape;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.9;
+  &:hover{
+    opacity: 1;
+  }
+}
+
+.danger-btn {
+  @include btn-shape(red);
   display: flex;
   margin: 0 auto;
   justify-content: center;
@@ -140,8 +155,10 @@ header{
 
     .logo {
       font-family: 'Otomanopee One', sans-serif;
-      height: 100%;
-      // line-height: 14px;
+      font-weight: bold;
+      letter-spacing: -2px;
+      line-height: 20px;
+      font-weight: bold;
       font-size: 1.2em;
       text-align: center;
       color: $theme-color;
@@ -151,13 +168,11 @@ header{
         text-decoration: none;
       }
 
-    }
-    ul {
-      margin: 0;
 
-      a {
-        z-index: 1;
-      }
+    }
+    .config-icon {
+      margin: 0 10px;
+      z-index: 1;
     }
   }
 }
@@ -183,7 +198,9 @@ header{
     flex-direction: column;
     width: 25%;
     height: 100%;
+    padding-top: 12px;
     text-align: center;
+    color: #000;
 
     i{
       align-items: center;
@@ -194,7 +211,7 @@ header{
     p{
       flex: 1;
       font-size: 0.5em;
-      margin: 0 ;
+      margin: 5px 0 0 0;
 
     }
     

@@ -2,12 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-@import "custom";
 
 
 form {
   .sub-info {
-    @include moderate(gray);
+    // @include moderate(gray);
     font-size: 0.8em;
     // margin-bottom: 10px;
   }
@@ -32,7 +31,7 @@ form {
   }
 
   .setting-link-wrapper{
-    border-bottom: 1px solid $standard-gray;
+    border-bottom: 1px solid #ccc;
     padding-bottom: 5px;
     display: flex;
     justify-content: space-between;
@@ -47,7 +46,7 @@ form {
     }
 
     .angle{
-      color: $standard-gray;
+      color: #ccc;
       margin-right: 5px;
     }
   }
@@ -59,7 +58,7 @@ form {
 .section-wrapper {
   margin: 10px auto ;
   padding: 10px;
-  border-bottom: 1px solid $standard-gray;
+  border-bottom: 1px solid #ccc;
 
   h2 {
     margin: 0 0 10px 0;
@@ -68,17 +67,17 @@ form {
   }
 }
 
-.danger-btn {
-  @include btn-shape(red);
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.9;
-  &:hover{
-    opacity: 1;
-  }
-}
+// .danger-btn {
+//   @include btn-shape(red);
+//   display: flex;
+//   margin: 0 auto;
+//   justify-content: center;
+//   align-items: center;
+//   opacity: 0.9;
+//   &:hover{
+//     opacity: 1;
+//   }
+// }
 
 
 // sessions/new (login)
@@ -92,3 +91,4 @@ form {
     margin: 15px 0 5px 0;
   }
 }
+

@@ -17,7 +17,6 @@ RSpec.describe Relationship, type: :model do
   it { should respond_to(:users) }
   it { should respond_to(:user_relationships) }
   it { should respond_to(:categories) }
-  it { should respond_to(:posts) }
   it { should respond_to(:name) }
   it { expect(relationship.users).to contain_exactly(user, user2) }
 

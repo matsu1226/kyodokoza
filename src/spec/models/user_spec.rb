@@ -18,6 +18,7 @@ RSpec.describe User, type: :model do
   it {should respond_to(:activation_digest)}
   it {should respond_to(:reset_digest)}
   it {should respond_to(:relationship)}
+  it {should respond_to(:posts) }
 
 
   describe "正しいuserを保存するテスト" do

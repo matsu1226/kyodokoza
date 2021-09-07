@@ -1,0 +1,120 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.post-new-form {
+
+  &>div {
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    margin: 0 auto;
+  }
+}
+
+.post-new-wrapper {
+  margin: 0;
+}
+
+.sub-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px auto;
+
+  div {
+    margin: 0;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+
+    &:first-of-type {
+      margin-right: 20px;
+    }
+
+    label {
+      width: 15%;
+      margin: 3px auto;
+    }
+    select {
+      width: 80%;
+      height: 30px;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.price-content-wrapper {
+  margin: 0;
+
+  .form-label {
+    // width: 15%;
+    margin-right: 3px;
+    text-align: center;
+    display: inline;
+    width: 10vw;
+    float: left;
+    
+    .yen-icon {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  input {
+    // width: 85%;
+    width: 72vw;
+  }
+  
+  .output {
+    text-align: right;
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 2rem;
+  }
+}
+
+
+
+// calculator
+.calculator {
+  background-color: #333;
+  width: 100vw;
+  position: fixed;
+  bottom: 50px;
+  right: 0;
+  margin: 0;
+}
+
+
+
+.btn_box{
+  // width: 100%;
+  margin: 10px 20px;
+
+  .row {
+    margin: 0;
+  }
+
+  button{
+    margin: 3px;
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    // background: linear-gradient(to left,#18e244,#d4e20c);
+    background-color: transparent;
+    color: white;
+    border-radius: 6px;
+    &:hover{
+        cursor: pointer;
+    }
+
+    .ac_btn{
+      color: #ddddff;
+    }
+  }
+}

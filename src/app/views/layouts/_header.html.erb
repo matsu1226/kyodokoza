@@ -3,15 +3,11 @@
     <%= link_to root_path, id: "logo", class: "logo" do %>
     キョウドウ<br>コウザ!!
     <% end %>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
         <% if logged_in? %>
-          <%= link_to user_path(current_user) do %>
+          <%= link_to user_path(current_user), class: "config-icon" do %>
             <i class="fa fa-cog fa-lg config-icon" aria-hidden="true"></i>
           <% end %>
         <% end %>
-      </li>
-    </ul>
   </nav>
   <div class="page-title-container container">
     <h1 class="page-title"><%= yield(:title) %></h1>

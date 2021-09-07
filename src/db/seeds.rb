@@ -53,19 +53,6 @@ User.create!(name: "有効化 無太",
                   password_confirmation:  "example01",
                   activated: false)
 
-# 追加のユーザーをまとめて生成する
-2.times do |n|
-  name = Faker::Name.name
-  email = "example-#{n+1}@kyodokoza.com"
-  password = "password"
-  User.create!(name: name,
-              email: email,
-              password:               password,
-              password_confirmation:  password,
-              activated: true,
-              activated_at: Time.zone.now)
-end
-
 
 # relationship
 Relationship.create!(name: "松田家")
@@ -123,3 +110,24 @@ Category.create(name:"通信費２",
                   color:"#0000ff",
                   content: "携帯代、wifi",
                   relationship_id: 2)
+
+                  
+# 松田家の投稿
+Post.create(content: "エコス",
+            price: 2000,
+            category_id: 2,
+            user_id: 1)
+Post.create(content: "家賃",
+            price: 70000,
+            category_id: 1,
+            user_id: 1)
+Post.create(content: "ダイソー",
+            price: 330,
+            category_id: 5,
+            user_id: 2)
+
+            
+Post.create(content: "エコス(山田家)",
+            price: 1550,
+            category_id: 9,
+            user_id: 3)

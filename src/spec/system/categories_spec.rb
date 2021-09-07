@@ -3,14 +3,10 @@ require 'rails_helper'
 RSpec.describe "Categories", type: :system do
   let!(:user) { FactoryBot.create(:user) }
   let!(:user2) { FactoryBot.create(:user2) }
-  # let!(:relationship) { FactoryBot.create(:relationship) }
-  # let!(:relationship2) { Relationship.create(id: 2, name: "山田家") }
   let!(:food_expenses) { FactoryBot.create(:food_expenses) }
   let!(:food_expenses2) { FactoryBot.create(:food_expenses2) }
   
   before do
-    # user3.create_user_relationship(relationship_id: 2)          
-    # user4.create_user_relationship(relationship_id: 2) 
     login(user)
     visit categories_path
   end

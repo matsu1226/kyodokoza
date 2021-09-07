@@ -16,7 +16,7 @@ default: &default
   cache_manifest: false
 
   # Extract and emit a css file
-  extract_css: false
+  extract_css: true
 
   static_assets_extensions:
     - .jpg
@@ -54,10 +54,10 @@ development:
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
     https: false
-    host: localhost
+    host: webpacker
     port: 3035
     public: localhost:3035
-    hmr: false
+    hmr: true
     # Inline should be set to true if using HMR
     inline: true
     overlay: true
@@ -70,6 +70,8 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
+      aggregate_timeout: 1000
+      poll: 10000
 
 
 test:

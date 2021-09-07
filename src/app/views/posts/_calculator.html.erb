@@ -1,0 +1,39 @@
+<div class="calculator">
+  <div class="btn_box">
+    <div class="row">
+      <button onclick="set(this)" class="col" value="7">7</button>
+      <button onclick="set(this)" class="col" value="8">8</button>
+      <button onclick="set(this)" class="col" value="9">9</button>
+    </div>
+    <div class="row">
+      <button onclick="set(this)" class="col" value="4">4</button>
+      <button onclick="set(this)" class="col" value="5">5</button>
+      <button onclick="set(this)" class="col" value="6">6</button>
+    </div>
+    <div class="row">
+      <button onclick="set(this)" class="col" value="1">1</button>
+      <button onclick="set(this)" class="col" value="2">2</button>
+      <button onclick="set(this)" class="col" value="3">3</button>
+    </div>
+    <div class="row">
+      <button onclick="set(this)" class="col" value="00">00</button>
+      <button onclick="set(this)" class="col" value="0">0</button>
+      <button onclick="back_space()" class="col ac_btn">
+        <i class="fas fa-backspace"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<%# <script src="./script.js"></script> %>
+<script type="text/javascript">
+  let output = document.getElementById('output');
+
+  function set(nums) {
+    output.value += nums.value;
+  }
+
+  function back_space() {
+    // output.textContent = "";
+    output.value = output.value.slice(0, -1);
+  }
+</script>
