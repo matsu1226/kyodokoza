@@ -27,13 +27,16 @@
 <%# <script src="./script.js"></script> %>
 <script type="text/javascript">
   let output = document.getElementById('output');
+  let price_display = document.getElementById('price-display');
 
   function set(nums) {
     output.value += nums.value;
+    price_display.textContent = output.value;
   }
 
   function back_space() {
     // output.textContent = "";
     output.value = output.value.slice(0, -1);
+    price_display.textContent = output.value;
   }
 </script>

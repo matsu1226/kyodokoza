@@ -10,6 +10,7 @@ RSpec.describe Post, type: :model do
     @post = Post.new(user_id: user.id, 
                     category_id: food_expenses.id, 
                     content: "たいらや_食材", 
+                    purchased_at: Time.local(2021, 8, 31, 12, 00, 00),
                     price: 1200)
   end
 
@@ -24,6 +25,7 @@ RSpec.describe Post, type: :model do
   it { should respond_to(:price) }
   it { should respond_to(:category_id) }
   it { should respond_to(:user_id) }
+  it { should respond_to(:purchased_at) }
   it { should respond_to(:category) }
   it { should respond_to(:user) }
 
@@ -54,6 +56,11 @@ RSpec.describe Post, type: :model do
 
   it "category_idが空欄" do
     @post.category_id = ""
+    should_not be_valid
+  end
+
+  it "purchased_atが空欄" do
+    @post.purchased_at = ""
     should_not be_valid
   end
 

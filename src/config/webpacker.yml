@@ -67,12 +67,10 @@ development:
     quiet: false
     pretty: false
     headers:
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*'            
     watch_options:
       ignored: '**/node_modules/**'
-      aggregate_timeout: 1000
-      poll: 10000
-
+      poll: 12000
 
 test:
   <<: *default

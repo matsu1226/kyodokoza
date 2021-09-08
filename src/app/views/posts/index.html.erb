@@ -1,2 +1,45 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<%= provide(:title, "支出の一覧") %>
+<section class="section-wrapper post-index-header-section">
+  <div class="paginate">
+    <%= link_to posts_path(month: @month.prev_month) do %>
+    <i class="fas fa-angle-double-left"></i>
+    <% end %>
+    <span><%= @month.year %>年 <%= @month.month %>月</span>
+    <%= link_to posts_path(month: @month.next_month) do %>
+    <i class="fas fa-angle-double-right"></i>
+    <% end %>
+  </div>
+  <div class="post-index-head card shadow-none">
+    <span class="date col-2">
+      <i class="fas fa-calendar-alt"></i>
+    </span>
+    <span class="category col-2">
+      <i class="fas fa-tags"></i>
+      <i class="fas fa-sort-down fa-xs"></i>
+    </span>
+    <span class="price col-3">
+      <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
+    </span>
+    <span class="content col-2">
+      <i class="fas fa-pencil-alt"></i>
+    </span>
+    <span class="user_id col-3">
+      <i class="fas fa-user-friends"></i>
+      <i class="fas fa-sort-down fa-xs"></i>
+    </span>
+  </div>
+</section>
+<section class="section-wrapper post-index-main-section">
+  <% @posts.each do |post| %>
+  <%= link_to edit_post_path(post), class: "card" do %>
+  <span class="col-2"><%= l post.purchased_at, format: :short %><%= day_of_week(post.purchased_at) %></span>
+  <span class="category-name col-2" style="color: <%= post.category.color %>;"><%= post.category.name %></span>
+  <span class="col-3"><%= post.price.to_s(:delimited) %></span>
+  <span class="col-2 post-content"><%= post.content %></span>
+  <span class="col-3 user-name"><%= post.user.name %></span>
+  <% end %>
+  <% end %>
+</section>
+<section class="section-wrapper post-index-lower-section">
+  <p>支出の合計: <%= sum_posts_price %></p>
+</section>

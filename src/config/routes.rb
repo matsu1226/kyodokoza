@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   
   resources :users 
   resources :categories 
-  resources :posts 
+  resources :posts do
+    collection do
+      get :table #table_posts_path	GET	/posts/table posts#table
+    end
+  end
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :relationships,       only: [:new, :create, :show] 

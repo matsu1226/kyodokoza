@@ -116,18 +116,35 @@ Category.create(name:"通信費２",
 Post.create(content: "エコス",
             price: 2000,
             category_id: 2,
+            purchased_at: Time.local(2021, 8, 10, 12, 00, 00),
             user_id: 1)
 Post.create(content: "家賃",
             price: 70000,
             category_id: 1,
+            purchased_at: Time.local(2021, 8, 20, 12, 00, 00),
             user_id: 1)
 Post.create(content: "ダイソー",
             price: 330,
             category_id: 5,
+            purchased_at: Time.local(2021, 8, 31, 12, 00, 00),
             user_id: 2)
 
+Post.create(content: "ダイソー",
+            price: 550,
+            category_id: 5,
+            purchased_at: Time.local(2021, 9, 1, 12, 00, 00),
+            user_id: 2)
+            
+10.times do |n|
+  Post.create(content: "テストだよ～～～～～～～～～～ん",
+              price: 140000,
+              purchased_at: Time.local(2021, 9, 1, 12, 00, 00) + 96000 * n,
+              category_id: 4,
+              user_id: 1)
+end
             
 Post.create(content: "エコス(山田家)",
             price: 1550,
             category_id: 9,
+            purchased_at: Time.local(2021, 9, 1, 12, 00, 00),
             user_id: 3)
