@@ -1,2 +1,51 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<%= provide(:title, "記録の編集") %>
+<section class="section-wrapper post-section-wrapper">
+
+  <%= form_with(model: @post, url: {controller: 'posts', action: 'update' },class: "post-form", local: true) do |f| %>
+  <div class="small-sub-wrapper">
+    <div class="form-label-set">
+      <%= f.label :category_id, class: "form-label" do %>
+      <i class="fas fa-tags"></i>
+      <% end %>
+      <%= f.collection_select :category_id , @relationship.categories, :id, :name, { selected: @post.category_id }, { class: "form-select" } %>
+    </div>
+    <div class="form-label-set">
+      <%= f.label :user_id, "誰", class: "form-label" do %>
+      <i class="fas fa-user-friends"></i>
+      <% end%>
+      <%= f.collection_select :user_id , @relationship.users, :id, :name, { selected: @post.user_id }, { class: "form-select" } %>
+    </div>
+  </div>
+
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :purchased_at, class: "form-label" do %>
+    <i class="fas fa-calendar-alt"></i>
+    <% end %>
+    <%= f.date_field :purchased_at, class: "form-control", value: @post.purchased_at.strftime("%Y-%m-%d") %>
+  </div>
+
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :content, class: "form-label" do %>
+    <i class="fas fa-pencil-alt"></i>
+    <% end %>
+    <%= f.text_field :content, class: "form-control", value: @post.content %>
+  </div>
+
+  <div class="large-sub-wrapper price-wrapper">
+    <%= f.label :price, class: "form-label" do %>
+    <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
+    <% end %>
+    <%= f.hidden_field :price, id: "output", class: "output", value: @post.price %>
+    <p class="price-display" id="price-display"><%= @post.price %></p>
+  </div>
+
+  <div class="post-btn-wrapper">
+  <%= f.submit "更新" ,class: "btn standerd-btn btn-primary" %>
+  <%= link_to "記録の削除", post_path(@post), method: :delete, class: "btn danger-btn btn-primary", data: { confirm: "本当によろしいですか？"} %>
+  </div>
+
+  <% end %>
+
+  <%= render "calculator" %>
+
+</section>

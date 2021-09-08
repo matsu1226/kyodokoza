@@ -1,4 +1,4 @@
-<%= provide(:title, "支出の一覧") %>
+<%= provide(:title, "記録の一覧") %>
 <section class="section-wrapper post-index-header-section">
   <div class="paginate">
     <%= link_to posts_path(month: @month.prev_month) do %>
@@ -20,10 +20,10 @@
     <span class="price col-3">
       <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
     </span>
-    <span class="content col-2">
+    <span class="content col-3">
       <i class="fas fa-pencil-alt"></i>
     </span>
-    <span class="user_id col-3">
+    <span class="user_id col-2">
       <i class="fas fa-user-friends"></i>
       <i class="fas fa-sort-down fa-xs"></i>
     </span>
@@ -35,8 +35,8 @@
   <span class="col-2"><%= l post.purchased_at, format: :short %><%= day_of_week(post.purchased_at) %></span>
   <span class="category-name col-2" style="color: <%= post.category.color %>;"><%= post.category.name %></span>
   <span class="col-3"><%= post.price.to_s(:delimited) %></span>
-  <span class="col-2 post-content"><%= post.content %></span>
-  <span class="col-3 user-name"><%= post.user.name %></span>
+  <span class="col-3 post-content"><%= post.content %></span>
+  <span class="col-2 user-name"><%= post.user.name %></span>
   <% end %>
   <% end %>
 </section>

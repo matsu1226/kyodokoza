@@ -1,7 +1,7 @@
 <%= provide(:title, "支出の記録") %>
-<section class="section-wrapper post-new-wrapper">
+<section class="section-wrapper post-section-wrapper">
 
-  <%= form_with(model: @post, url: {controller: 'posts', action: 'create' },class: "post-new-form", local: true) do |f| %>
+  <%= form_with(model: @post, url: {controller: 'posts', action: 'create' },class: "post-form", local: true) do |f| %>
 
   <div class="small-sub-wrapper">
     <div class="form-label-set">
