@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      flash[:success] = "記録をを作成しました"
+      flash[:post] = "記録をを作成しました"
       redirect_to posts_path
     else
       render "posts/new"
@@ -21,9 +21,9 @@ class PostsController < ApplicationController
 
 
   def index
-    @month = params[:month] ? Date.parse(params[:month]) : Date.today
+    @month = params[:month] ? Date.parse(params[:month]) : Time.zone.now.beginning_of_month
     family_ids = @relationship.user_ids
-    @posts = Post.where(user_id: family_ids, created_at: @month.all_month)
+    @posts = Post.where(user_id: family_ids, purchased_at: @month.all_month).order(purchased_at: :asc)
   end
 
   # def table 
@@ -45,7 +45,7 @@ class PostsController < ApplicationController
 
     
     def post_params
-      params.require(:post).permit(:category_id, :user_id, :content, :price)
+      params.require(:post).permit(:category_id, :user_id, :content, :price, :purchased_at)
     end
 
 
