@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      flash[:post] = "記録をを作成しました"
+      flash[:post] = "記録を作成しました"
       redirect_to posts_path
     else
       render "posts/new"
@@ -26,15 +26,28 @@ class PostsController < ApplicationController
     @posts = Post.where(user_id: family_ids, purchased_at: @month.all_month).order(purchased_at: :asc)
   end
 
-  # def table 
-  #   respond_to do |format|
-  #     format.html
-  #     format.json {render json: EventDatatable.new(params)}
-  #   end
-  # end
-
 
   def edit
+    @post = Post.find_by(id: params[:id])
+  end
+  
+  
+  def update
+    @post = Post.find_by(id: params[:id])
+    if @post.update(post_params)
+      flash[:post] = "編集に成功しました"
+      redirect_to posts_path
+    else
+      render "edit"
+    end
+  end
+
+
+  def destroy
+    @post = Post.find_by(id: params[:id]) 
+    @post.destroy
+    redirect_to posts_path
+    flash[:post] = "記録をを削除しました"
   end
 
 
@@ -51,8 +64,8 @@ class PostsController < ApplicationController
 
     def check_posts_with_our_relationships
       post = Post.find_by(id: params[:id])
-      if post.relationship != @relationship
-        flash[:danger] = "あなた以外の家族の情報は閲覧できません"
+      if post.user.relationship != @relationship
+        flash[:post] = "あなた以外の家族の情報は閲覧できません"
         redirect_to posts_path
       end
     end
