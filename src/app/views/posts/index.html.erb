@@ -23,22 +23,48 @@
     <span class="content col-3">
       <i class="fas fa-pencil-alt"></i>
     </span>
-    <span class="user_id col-2">
-      <i class="fas fa-user-friends"></i>
-      <i class="fas fa-sort-down fa-xs"></i>
-    </span>
+    <%= select_tag "post", options_from_collection_for_select(@relationship.users, "id", "name"), 
+                            include_blank: true, 
+                            class: 'form-select user_id', 
+                            id: 'post_user_id' %>
+    <%#= select_tag "post", options_from_collection_for_select(@relationship.users, "id", "name"), 
+                            include_blank: true, 
+                            class: 'form-select user_id', 
+                            id: 'post_user_id',
+                            data: { remote: true,
+                                    method: "GET",
+                                    url: narrow_down_posts_path } %>
   </div>
 </section>
 <section class="section-wrapper post-index-main-section">
-  <% @posts.each do |post| %>
-  <%= link_to edit_post_path(post), class: "card" do %>
-  <span class="col-2"><%= l post.purchased_at, format: :short %><%= day_of_week(post.purchased_at) %></span>
-  <span class="category-name col-2" style="color: <%= post.category.color %>;"><%= post.category.name %></span>
-  <span class="col-3"><%= post.price.to_s(:delimited) %></span>
-  <span class="col-3 post-content"><%= post.content %></span>
-  <span class="col-2 user-name"><%= post.user.name %></span>
-  <% end %>
-  <% end %>
+  <div id="post_list">
+    <%= render 'post_list' %>
+  </div>
+  <p id="testtext">テスト</p>
+  <script type="text/javascript">
+    // $(document).ready(function () {
+    //   $("#testtext").text("成功！！");
+    // });
+
+    // $(function () {
+    //   $('#user_id').change(function () {
+    //     $.get({
+    //       url: "#{narrow_down_posts_path}",
+    //       // type: 'post',
+    //       data: {
+    //         user_id: $('#user_id').has('option:selected').val(),
+    //       },
+    //       dataType: 'html',
+    //       success: function (data) {
+    //         console.log('Postされました');
+    //       },
+    //       error: function (data) {
+    //         console.log('Postエラー');
+    //       },
+    //     });
+    //   });
+    // });
+  </script>
 </section>
 <section class="section-wrapper post-index-lower-section">
   <p>支出の合計: <%= sum_posts_price %></p>
