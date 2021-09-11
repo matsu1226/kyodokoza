@@ -1,71 +1,16 @@
 <%= provide(:title, "記録の一覧") %>
 <section class="section-wrapper post-index-header-section">
-  <div class="paginate">
-    <%= link_to posts_path(month: @month.prev_month) do %>
-    <i class="fas fa-angle-double-left"></i>
-    <% end %>
-    <span><%= @month.year %>年 <%= @month.month %>月</span>
-    <%= link_to posts_path(month: @month.next_month) do %>
-    <i class="fas fa-angle-double-right"></i>
-    <% end %>
-  </div>
-  <div class="post-index-head card shadow-none">
-    <span class="date col-2">
-      <i class="fas fa-calendar-alt"></i>
-    </span>
-    <span class="category col-2">
-      <i class="fas fa-tags"></i>
-      <i class="fas fa-sort-down fa-xs"></i>
-    </span>
-    <span class="price col-3">
-      <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
-    </span>
-    <span class="content col-3">
-      <i class="fas fa-pencil-alt"></i>
-    </span>
-    <%= select_tag "post", options_from_collection_for_select(@relationship.users, "id", "name"), 
-                            include_blank: true, 
-                            class: 'form-select user_id', 
-                            id: 'post_user_id' %>
-    <%#= select_tag "post", options_from_collection_for_select(@relationship.users, "id", "name"), 
-                            include_blank: true, 
-                            class: 'form-select user_id', 
-                            id: 'post_user_id',
-                            data: { remote: true,
-                                    method: "GET",
-                                    url: narrow_down_posts_path } %>
+  <div id="month_info">
+    <%= render partial: 'month_info' %>
   </div>
 </section>
 <section class="section-wrapper post-index-main-section">
   <div id="post_list">
-    <%= render 'post_list' %>
+    <%= render partial: 'post', collection: @posts %>
   </div>
-  <p id="testtext">テスト</p>
-  <script type="text/javascript">
-    // $(document).ready(function () {
-    //   $("#testtext").text("成功！！");
-    // });
-
-    // $(function () {
-    //   $('#user_id').change(function () {
-    //     $.get({
-    //       url: "#{narrow_down_posts_path}",
-    //       // type: 'post',
-    //       data: {
-    //         user_id: $('#user_id').has('option:selected').val(),
-    //       },
-    //       dataType: 'html',
-    //       success: function (data) {
-    //         console.log('Postされました');
-    //       },
-    //       error: function (data) {
-    //         console.log('Postエラー');
-    //       },
-    //     });
-    //   });
-    // });
-  </script>
 </section>
 <section class="section-wrapper post-index-lower-section">
-  <p>支出の合計: <%= sum_posts_price %></p>
+  <div id="price_sum">
+    <%= render partial: 'price_sum' %>
+  </div>
 </section>

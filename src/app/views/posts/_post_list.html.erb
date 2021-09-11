@@ -1,9 +1,0 @@
-<% @posts.each do |post| %>
-  <%= link_to edit_post_path(post), class: "card" do %>
-    <span class="col-2"><%= l post.purchased_at, format: :short %><%= day_of_week(post.purchased_at) %></span>
-    <span class="category-name col-2" style="color: <%= post.category.color %>;"><%= post.category.name %></span>
-    <span class="col-3"><%= post.price.to_s(:delimited) %></span>
-    <span class="col-3 post-content"><%= post.content %></span>
-    <span class="col-2 user-name"><%= post.user.name %></span>
-  <% end %>
-<% end %>

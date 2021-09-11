@@ -150,28 +150,36 @@ main > p.alert-post {
   width: 100vw;
   margin: 1px auto;
   top: 50px;
-
-  .paginate {
-    display: flex;
-    justify-content: space-evenly;
-    margin: 8px auto;
-  }  
   
-  .post-index-head {
-    width: 90vw;
-    margin: 8px auto;
-    padding: 2px 0px;
-    max-width: 768px;
-    margin: 0 auto;
-  
-    .user_id {
-      font-size: 0.9rem;
-      padding: 2px 20px 2px 2px;
-      box-shadow: rgb(0 0 0 / 30%) 0 0 2px;
-      border: none;
-      border-radius: 4px;
+  #month_info {
+    margin: 0;
+    
+    .paginate {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 8px auto;
+    }  
+    
+    .post-index-head {
+      width: 90vw;
+      margin: 8px auto;
+      padding: 2px 0px;
+      max-width: 768px;
+      margin: 0 auto;
+    
+      .narrow_down_select {
+        font-size: 0.9rem;
+        padding: 2px 10px 2px 2px;
+        box-shadow: rgb(0 0 0 / 30%) 0 0 2px;
+        border: none;
+        border-radius: 4px;
+        width: 16.6666%;
+        background-position: right 0.25rem bottom 0.25rem;
+        background-size: 8px;
+      }
     }
   }
+
 }
 
 

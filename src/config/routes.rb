@@ -7,13 +7,12 @@ Rails.application.routes.draw do
   delete '/logout',    to: "sessions#destroy"
   get    '/relationships/invitation_code', to: "relationships#invitation_code"
 
-  get    '/posts/narrow_down', to: "posts#narrow_down", defaults: { format: :json }
+  # get    '/posts/narrow_down', to: "posts#narrow_down", defaults: { format: :json }
+  get    '/posts/narrow_down', to: "posts#narrow_down"
   
   resources :users 
   resources :categories 
   resources :posts 
-    # get "narrow_down", on: :collection
-    # post "narrow_down", on: :collection
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :relationships,       only: [:new, :create, :show] 
