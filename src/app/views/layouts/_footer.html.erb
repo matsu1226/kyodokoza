@@ -5,9 +5,13 @@
       <i class="fas fa-list-ul"></i>
       <p>一覧</p>
     <% end %>
-    <%= link_to "#", class: "nav-link" do %>
+    <%= link_to posts_stat_path, class: "nav-link" do %>
       <i class="fas fa-chart-pie"></i>
-      <p>合計</p>
+      <p>月合計</p>
+    <% end %>
+    <%= link_to posts_stat_path, class: "nav-link" do %>
+      <i class="fas fa-chart-bar"></i>
+      <p>年合計</p>
     <% end %>
     <%= link_to new_post_path, class: "nav-link" do %>
       <i class="fas fa-lg fa-pencil-alt"></i>

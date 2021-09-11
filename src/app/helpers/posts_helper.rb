@@ -10,7 +10,7 @@ module PostsHelper
     @posts.each do |post| 
       sum += post.price
     end
-    sum.to_s(:delimited)
+    yen(sum)
   end
 
   def narrow_down_select(attribute, array )
@@ -21,6 +21,10 @@ module PostsHelper
                             class: 'form-select narrow_down_select col-2',
                             data: { remote: true,
                                     url: posts_narrow_down_path(month: @month) }}
+  end
+
+  def yen(value)
+    "¥ #{value.to_s(:delimited)}"
   end
 
 end

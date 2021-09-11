@@ -1,3 +1,4 @@
-$('#post_list').html('<%= escape_javascript(render partial: "post", collection: @posts) %>');
 $('#month_info').html('<%= escape_javascript(render partial: "month_info") %>');
+$('#post_index_head').html('<%= escape_javascript(render partial: "post_index_head") %>');
+$('#post_list').html('<%= escape_javascript(render partial: "post", collection: @posts) %>');
 $('#price_sum').html('<%= escape_javascript(render partial: "price_sum") %>');

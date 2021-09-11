@@ -22,9 +22,10 @@ class PostsController < ApplicationController
 
   def index
     @month = Time.zone.now.beginning_of_month
-    # binding.pry
-    family_ids = @relationship.user_ids
-    @posts = Post.where(user_id: family_ids, purchased_at: @month.all_month).order(purchased_at: :asc)
+    family_user_ids = @relationship.user_ids
+    family_category_ids = @relationship.category_ids
+    @posts = narrow_downing_posts(family_user_ids, family_category_ids)
+    # @posts = Post.where(user_id: family_ids, purchased_at: @month.all_month).order(purchased_at: :asc)
   end
 
 
@@ -80,6 +81,22 @@ class PostsController < ApplicationController
     redirect_to posts_path
     flash[:post] = "記録をを削除しました"
   end
+
+
+  def stat
+    @month = Time.zone.now.beginning_of_month
+    family_category_ids = @relationship.category_ids
+    @pie_chart = Post.where(category_id: family_category_ids, purchased_at: @month.all_month).joins(:category).group("name").sum(:price)
+    # @group_by_category = Post.where(category_id: family_category_ids, purchased_at: @month.all_month).joins(:category).group("name")
+  end
+
+
+  # def ajax_stat
+  #   @month = Time.parse(params[:month]) 
+  #   family_category_ids = @relationship.category_ids
+  #   @category_groups = Post.where(category_id: family_category_ids, purchased_at: @month.all_month).group(:category_id)
+  #   @total_price_every_category_group = @category_groups.sum(:price)
+  # end
 
 
   private 

@@ -1,0 +1,26 @@
+<%= provide(:title, "記録の一覧") %>
+<section class="section-wrapper post-index-header-section">
+  <div id="month_info">
+    <%= render partial: 'month_info' %>
+  </div>
+</section>
+<section class="section-wrapper post-index-main-section">
+  <%#= pie_chart Post.group(:category_id).sum(:price), donut: true %>
+  <%= pie_chart @pie_chart, donut: true %>
+  <ul class="stat-table">
+    <% @pie_chart.each do |key, value| %>
+    <li>
+      <span class="col-4"><%= key %></span>
+      <span class="col-4"><%= yen(value) %></span>
+    </li>
+    <% end %>
+  </ul>
+  <ul class="stat-table">
+    <% @relationship.categories.each do |category| %>
+    <li>
+      <span class="col-4"><%= category.name %></span>
+      <span class="col-4"><%#= yen(value) %></span>
+    </li>
+    <% end %>
+  </ul>
+</section>

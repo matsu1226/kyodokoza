@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   # get    '/posts/narrow_down', to: "posts#narrow_down", defaults: { format: :json }
   get    '/posts/narrow_down', to: "posts#narrow_down"
+  get    '/posts/stat', to: "posts#stat"
+  get    '/posts/ajax_stat', to: "posts#ajax_stat"
   
   resources :users 
   resources :categories 
