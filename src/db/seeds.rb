@@ -136,7 +136,7 @@ Post.create(content: "ダイソー",
             user_id: 2)
             
 10.times do |n|
-  Post.create(content: "テストだよ～～～～～～～～～～ん",
+  Post.create(content: "テストテストテストテストテスト",
               price: 140000,
               purchased_at: Time.local(2021, 9, 1, 12, 00, 00) + 96000 * n,
               category_id: 4,
