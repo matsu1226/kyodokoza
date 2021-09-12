@@ -21,6 +21,9 @@ var jQuery = require('jquery')
 global.$ = global.jQuery = jQuery;
 window.$ = window.jQuery = jQuery;
 
+
+import "chartkick/chart.js"
+
 import '../stylesheets/application';
 import '../javascripts/application';
 

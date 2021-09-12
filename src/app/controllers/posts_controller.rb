@@ -21,10 +21,11 @@ class PostsController < ApplicationController
 
 
   def index
-    @month = Time.zone.now.beginning_of_month
-    # binding.pry
-    family_ids = @relationship.user_ids
-    @posts = Post.where(user_id: family_ids, purchased_at: @month.all_month).order(purchased_at: :asc)
+    @month = Time.zone.now.beginning_of_month.to_datetime
+    family_user_ids = @relationship.user_ids
+    family_category_ids = @relationship.category_ids
+    @posts = narrow_downing_posts(family_user_ids, family_category_ids)
+    # @posts = Post.where(user_id: family_ids, purchased_at: @month.all_month).order(purchased_at: :asc)
   end
 
 
@@ -82,6 +83,37 @@ class PostsController < ApplicationController
   end
 
 
+  def month_stat
+    @month = Time.zone.now.beginning_of_month
+    family_category_ids = @relationship.category_ids  # [1, 2, 3, 4, 5, 6, 7]
+    category_group = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
+    # {5=>550, 4=>1401522}
+    array = family_category_ids - category_group.keys   # [1,2,3,6,7]
+    array.count.times do |i|
+      array.insert(2*i+1, 0)
+    end   # [1, 0, 2, 0, 3, 0, 6, 0, 7, 0]
+    # Hash[*array] => {1=>0, 2=>0, 3=>0, 6=>0, 7=>0}
+    @pie_chart = Hash[*array].merge(category_group).sort.to_h   # {5=>550, 4=>1401522, 1=>0, 2=>0, 3=>0, 6=>0, 7=>0}
+    @pie_chart_colors = Category.where(id: @pie_chart.keys).map {|c| c.color }
+    @pie_chart_sum = @pie_chart.values.inject(:+)
+    
+  end
+
+
+  def ajax_month_stat
+    @month = Time.parse(params[:month]) 
+    family_category_ids = @relationship.category_ids
+    category_group = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
+    array = family_category_ids - category_group.keys
+    array.count.times do |i|
+      array.insert(2*i+1, 0)
+    end
+    @pie_chart = Hash[*array].merge(category_group).sort.to_h
+    @pie_chart_colors = Category.where(id: @pie_chart.keys).map {|c| c.color }
+    @pie_chart_sum = @pie_chart.values.inject(:+)
+  end
+
+
   private 
     def get_relationship
       @relationship = current_user.relationship
@@ -102,6 +134,7 @@ class PostsController < ApplicationController
     end
 
     def narrow_downing_posts(user_id_set, category_id_set)
-      Post.where(user_id: user_id_set, category_id: category_id_set, purchased_at: @month.all_month).order(purchased_at: :asc)
+      # Post.where(user_id: user_id_set, category_id: category_id_set, purchased_at: @month.all_month).order(purchased_at: :asc)
+      Post.where(user_id: user_id_set, category_id: category_id_set).month(@month).sorted
     end
 end

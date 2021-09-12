@@ -160,27 +160,28 @@ main > p.alert-post {
       margin: 8px auto;
     }  
     
-    .post-index-head {
-      width: 90vw;
-      margin: 8px auto;
-      padding: 2px 0px;
-      max-width: 768px;
-      margin: 0 auto;
-    
-      .narrow_down_select {
-        font-size: 0.9rem;
-        padding: 2px 10px 2px 2px;
-        box-shadow: rgb(0 0 0 / 30%) 0 0 2px;
-        border: none;
-        border-radius: 4px;
-        width: 16.6666%;
-        background-position: right 0.25rem bottom 0.25rem;
-        background-size: 8px;
-      }
+  }
+  
+  .post-index-head {
+    width: 90vw;
+    margin: 8px auto;
+    padding: 2px 0px;
+    max-width: 768px;
+    margin: 0 auto;
+  
+    .narrow_down_select {
+      font-size: 0.9rem;
+      padding: 2px 10px 2px 2px;
+      box-shadow: rgb(0 0 0 / 30%) 0 0 2px;
+      border: none;
+      border-radius: 4px;
+      width: 16.6666%;
+      background-position: right 0.25rem bottom 0.25rem;
+      background-size: 8px;
     }
   }
-
 }
+
 
 
 .post-index-main-section {
@@ -239,5 +240,26 @@ main > p.alert-post {
 
   .standerd-btn {
     margin-right: 20px;
+  }
+}
+
+
+// stat
+#chart-1 {
+  margin: -25px auto 15px;
+}
+
+.pie_chart_sum {
+  font-weight: bold;
+}
+
+
+.stat-table {
+  font-size: 0.9rem;
+
+  li {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
   }
 }

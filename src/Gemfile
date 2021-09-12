@@ -39,6 +39,8 @@ gem 'font-awesome-rails'
 gem 'rails-i18n'
 # WEB APIを用いたsendgridの導入
 gem 'sendgrid-ruby'
+# グラフの導入
+gem "chartkick"
 
 
 group :development, :test do
@@ -53,6 +55,9 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-doc'
+  # rspec with Ajax
+  gem 'selenium-webdriver'
+
 end
 
 group :development do
