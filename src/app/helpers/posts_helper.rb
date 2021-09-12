@@ -24,7 +24,11 @@ module PostsHelper
   end
 
   def yen(value)
-    "¥ #{value.to_s(:delimited)}"
+    if value
+      "¥ #{value.to_s(:delimited)}"
+    else
+      "¥ #{0.to_s(:delimited)}"
+    end
   end
 
 end

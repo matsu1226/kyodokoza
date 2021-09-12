@@ -1,0 +1,13 @@
+<%= pie_chart @pie_chart,legend: {display: false}, donut: true, width: "200px", height: "200px", colors: @pie_chart_colors %>
+<ul class="stat-table">
+  <li class="pie_chart_sum">
+    <span class="col-4">合計</span>
+    <span class="col-4"><%= yen @pie_chart_sum %></span>
+  </li>
+  <% @pie_chart.each do |key, value| %>
+  <li>
+    <span class="col-4" style="color: <%= Category.find(key).color %>;"><%= Category.find(key).name %></span>
+    <span class="col-4"><%= yen value  %></span>
+  </li>
+  <% end %>
+</ul>
