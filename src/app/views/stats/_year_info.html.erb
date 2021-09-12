@@ -1,0 +1,9 @@
+<div class="paginate">
+  <%= link_to stats_year_ajax_path(year: @month.prev_year),class: "prev_year", remote: true do %>
+  <i class="fas fa-angle-double-left"></i>
+  <% end %>
+  <span><%= @month.year %>年</span>
+  <%= link_to stats_year_ajax_path(year: @month.next_year),class: "next_year", remote: true  do %>
+  <i class="fas fa-angle-double-right"></i>
+  <% end %>
+</div>

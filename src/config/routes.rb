@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   post   '/login',     to: "sessions#create"
   delete '/logout',    to: "sessions#destroy"
   get    '/relationships/invitation_code', to: "relationships#invitation_code"
-
-  # get    '/posts/narrow_down', to: "posts#narrow_down", defaults: { format: :json }
-  get    '/posts/narrow_down', to: "posts#narrow_down"
-  get    '/posts/month_stat', to: "posts#month_stat"
-  get    '/posts/ajax_month_stat', to: "posts#ajax_month_stat"
   
+  # get    '/posts/narrow_down', to: "posts#narrow_down", defaults: { format: :json }
+  get 'stats/month'
+  get 'stats/year'
+  get 'stats/month_ajax'
+  get 'stats/year_ajax'
+  
+  get    '/posts/narrow_down', to: "posts#narrow_down"
   resources :users 
   resources :categories 
   resources :posts 

@@ -1,9 +1,0 @@
-<div class="paginate">
-  <%= link_to posts_ajax_month_stat_path(month: @month.prev_month),class: "prev_month", remote: true do %>
-  <i class="fas fa-angle-double-left"></i>
-  <% end %>
-  <span><%= @month.year %>年 <%= @month.month %>月</span>
-  <%= link_to posts_ajax_month_stat_path(month: @month.next_month),class: "next_month", remote: true  do %>
-  <i class="fas fa-angle-double-right"></i>
-  <% end %>
-</div>
