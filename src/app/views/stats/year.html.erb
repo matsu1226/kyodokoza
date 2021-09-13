@@ -1,0 +1,12 @@
+<%= provide(:title, "年毎の合計") %>
+<section class="section-wrapper post-index-header-section">
+  <div id="year_info">
+    <%= render partial: 'year_info' %>
+  </div>
+</section>
+<section class="section-wrapper post-index-main-section">
+  <%# <canvas id="chart_2"> %>
+  <div id="bar_chart">
+    <%= render partial: 'bar_chart' %>
+  </div>
+</section>

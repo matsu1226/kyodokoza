@@ -8,8 +8,6 @@ class Post < ApplicationRecord
   validates :category_id, presence: true
   validates :purchased_at, presence: true
 
-  @month = Time.zone.now.beginning_of_month
-
 
   scope :month, -> (month) { where(purchased_at: month.all_month) }
   scope :sorted, -> { order(purchased_at: :asc) }

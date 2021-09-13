@@ -111,38 +111,65 @@ Category.create(name:"通信費２",
                   content: "携帯代、wifi",
                   relationship_id: 2)
 
-                  
 # 松田家の投稿
-Post.create(content: "エコス",
-            price: 2000,
-            category_id: 2,
-            purchased_at: Time.local(2021, 8, 10, 12, 00, 00),
-            user_id: 1)
-Post.create(content: "家賃",
-            price: 70000,
-            category_id: 1,
-            purchased_at: Time.local(2021, 8, 20, 12, 00, 00),
-            user_id: 1)
-Post.create(content: "ダイソー",
-            price: 330,
-            category_id: 5,
-            purchased_at: Time.local(2021, 8, 31, 12, 00, 00),
-            user_id: 2)
-
-Post.create(content: "ダイソー",
-            price: 550,
-            category_id: 5,
-            purchased_at: Time.local(2021, 9, 1, 12, 00, 00),
-            user_id: 2)
-            
-10.times do |n|
-  Post.create(content: "テストテストテストテストテスト",
-              price: 140000,
-              purchased_at: Time.local(2021, 9, 1, 12, 00, 00) + 96000 * n,
+# timesの使い方 => https://qiita.com/takehanKosuke/items/79a66751fe95010ea5ee
+12.times do |n|
+  Post.create(content: "家賃_#{n+1}月25日",
+              price: 75000,
+              purchased_at: Time.local(2021, n+1, 25, 12, 00, 00),
+              category_id: 1,
+              user_id: 1)
+end
+12.times do |n|
+  Post.create(content: "エコス_#{n}月10日",
+              price: 3500-n*50,
+              purchased_at: Time.local(2021, n+1, 10, 12, 00, 00),
+              category_id: 2,
+              user_id: 1)
+end
+12.times do |n|
+  Post.create(content: "携帯_#{n}月20日",
+              price: 4500,
+              purchased_at: Time.local(2021, n+1, 20, 12, 00, 00),
+              category_id: 3,
+              user_id: 1)
+end
+12.times do |n|
+  Post.create(content: "鳥貴族_#{n}月1日",
+              price: 2000+n*100,
+              purchased_at: Time.local(2021, n+1, 1, 12, 00, 00),
               category_id: 4,
               user_id: 1)
 end
-            
+12.times do |n|
+  Post.create(content: "ダイソー_#{n}月1日",
+              price: 330,
+              purchased_at: Time.local(2021, n+1, 1, 12, 00, 00),
+              category_id: 5,
+              user_id: 1)
+end
+12.times do |n|
+  Post.create(content: "正太郎_立川往復_#{n}月12日",
+              price: 316,
+              purchased_at: Time.local(2021, n+1, 12, 12, 00, 00),
+              category_id: 6,
+              user_id: 1)
+end
+12.times do |n|
+  Post.create(content: "綾美_立川往復_#{n}月12日",
+              price: 316,
+              purchased_at: Time.local(2021, n+1, 12, 12, 00, 00),
+              category_id: 6,
+              user_id: 2)
+end
+12.times do |n|
+  Post.create(content: "歯医者_#{n}月1日",
+              price: 2000,
+              purchased_at: Time.local(2021, n+1, 1, 12, 00, 00),
+              category_id: 7,
+              user_id: 2)
+end
+
 Post.create(content: "エコス(山田家)",
             price: 1550,
             category_id: 9,
