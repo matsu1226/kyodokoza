@@ -6,5 +6,7 @@
 </section>
 <section class="section-wrapper post-index-main-section">
   <%# <canvas id="chart_2"> %>
-  <%# <%= bar_chart Shirt.group(:size).sum(:price) %> %>
+  <div id="bar_chart">
+    <%= render partial: 'bar_chart' %>
+  </div>
 </section>

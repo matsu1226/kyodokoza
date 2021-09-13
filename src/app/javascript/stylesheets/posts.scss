@@ -244,7 +244,7 @@ main > p.alert-post {
 }
 
 
-// stat
+// month
 #chart-1 {
   margin: -25px auto 15px;
 }
@@ -262,4 +262,14 @@ main > p.alert-post {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     margin-bottom: 10px;
   }
+}
+
+
+// year
+
+#bar_chart {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  margin: -25px auto;
 }

@@ -1,17 +1,12 @@
 class StatsController < ApplicationController
+  before_action :logged_in_user
   before_action :get_relationship
 
   def month
     @month = Time.zone.now.beginning_of_month
-    family_category_ids = @relationship.category_ids  # [1, 2, 3, 4, 5, 6, 7]
-    category_group = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
-    # {5=>550, 4=>1401522}
-    array = family_category_ids - category_group.keys   # [1,2,3,6,7]
-    array.count.times do |i|
-      array.insert(2*i+1, 0)
-    end   # [1, 0, 2, 0, 3, 0, 6, 0, 7, 0]
-    # Hash[*array] => {1=>0, 2=>0, 3=>0, 6=>0, 7=>0}
-    @pie_chart = Hash[*array].merge(category_group).sort.to_h   # {5=>550, 4=>1401522, 1=>0, 2=>0, 3=>0, 6=>0, 7=>0}
+    family_category_ids = @relationship.category_ids
+    category_group_hash = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
+    @pie_chart = make_full_hash(family_category_ids, category_group_hash )
     @pie_chart_colors = Category.where(id: @pie_chart.keys).map {|c| c.color }
     @pie_chart_sum = @pie_chart.values.inject(:+)
   end
@@ -19,65 +14,118 @@ class StatsController < ApplicationController
   def month_ajax
     @month = Time.parse(params[:month]) 
     family_category_ids = @relationship.category_ids
-    category_group = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
-    array = family_category_ids - category_group.keys
-    array.count.times do |i|
-      array.insert(2*i+1, 0)
-    end
-    @pie_chart = Hash[*array].merge(category_group).sort.to_h
+    category_group_hash = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
+    @pie_chart = make_full_hash(family_category_ids, category_group_hash )
+    # ex => {1=>0, 2=>0, 3=>0, 4=>1401522 ,5=>550, 6=>0, 7=>0}
     @pie_chart_colors = Category.where(id: @pie_chart.keys).map {|c| c.color }
     @pie_chart_sum = @pie_chart.values.inject(:+)
   end
 
 
   def year
-    @month = Time.zone.now.beginning_of_month
     @year = Time.local(Time.now.year, 1, 1, 9, 00, 00)
+    @month = Time.zone.now.beginning_of_month
+    family_category_ids = @relationship.category_ids
+    
+    @bar_chart = []
+    family_category_ids.length.times do |i| 
+      month_name_and_sum_price_every_category = []
+        # 月ごとの繰り返し
+        12.times do |j|
+          every_months= Time.local(@year.year, j+1, 1, 9, 00, 00)
 
-    family_category_ids = @relationship.category_ids  # [1, 2, 3, 4, 5, 6, 7]
-    category_group = Post.where(category_id: family_category_ids, purchased_at: @month).group("category_id").sum(:price)
-    # {5=>550, 4=>1401522}
-    array = family_category_ids - category_group.keys   # [1,2,3,6,7]
-    array.count.times do |i|
-      array.insert(2*i+1, 0)
-    end   # [1, 0, 2, 0, 3, 0, 6, 0, 7, 0]
-    # Hash[*array] => {1=>0, 2=>0, 3=>0, 6=>0, 7=>0}
-    @pie_chart = Hash[*array].merge(category_group).sort.to_h   # {5=>550, 4=>1401522, 1=>0, 2=>0, 3=>0, 6=>0, 7=>0}
-    @pie_chart_colors = Category.where(id: @pie_chart.keys).map {|c| c.color }
-    @pie_chart_sum = @pie_chart.values.inject(:+)
+          month_name_and_sum_price_every_category.push([
+            "#{j+1}月",
+            Category.left_joins(:posts).select('categories.*, posts.purchased_at, posts.price')
+            .where(id: family_category_ids[i], posts: { purchased_at: every_months.all_month} ).group("name").sum(:price).values[0]
+          ])
+        end
+
+      @bar_chart.push({
+        name: Category.find_by(id: family_category_ids[i]).name, 
+        data: month_name_and_sum_price_every_category,
+        color: Category.find_by(id: family_category_ids[i]).color
+      })
+    end
+
+
+    # [["1月", 75000], ["2月", 75000],["3月", 75000], ... ,["12月", 75000]],
+    # [["1月", 35000], ["2月", 34500],["3月", 39000], ... ,["12月", 37000]],
+    # [["1月", 5000], ["2月", 5000],["3月", 5500], ... ,["12月", 5000]],
+    # [["1月", 5000], ["2月", 3000],["3月", 15000], ... ,["12月", 15000]],
+    # [["1月", 1330], ["2月", 3000],["3月", 2400], ... ,["12月", 14000]],
+    # [["1月", 5000], ["2月", 1200],["3月", 1000], ... ,["12月", 5000]]
+
+    # @bar_chartの完成イメージ
+    # @bar_chart = [
+    #   {
+    #     name: "固定費", 
+    #     data: [["1月", 75000], ["2月", 75000],["3月", 75000], ["12月", 75000]]
+    #   },
+    #   {
+    #     name: "食費", 
+    #     data: [["1月", 35000], ["2月", 34500],["3月", 39000], ["12月", 37000]]
+    #   },
+    #   {
+    #     name: "通信費", 
+    #     data: [["1月", 5000], ["2月", 5000],["3月", 5500], ["12月", 5000]]
+    #   },
+    #   {
+    #     name: "飲み会", 
+    #     data: [["1月", 5000], ["2月", 3000],["3月", 15000], ["12月", 15000]]
+    #   },
+    #   {
+    #     name: "雑費", 
+    #     data: [["1月", 1330], ["2月", 3000],["3月", 2400], ["12月", 14000]]
+    #   },
+    #   {
+    #     name: "交通費", 
+    #     data: [["1月", 5000], ["2月", 1200],["3月", 1000], ["12月", 5000]]
+    #   },
+    # ]
   end
 
 
   def year_ajax
-    @month = Time.parse(params[:month]) 
+    # @year = Time.local(Time.now.year, 1, 1, 9, 00, 00)
+    @year = Time.parse(params[:year]) 
+    @month = Time.zone.now.beginning_of_month
     family_category_ids = @relationship.category_ids
-    category_group = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
-    array = family_category_ids - category_group.keys
-    array.count.times do |i|
-      array.insert(2*i+1, 0)
-    end
-    @pie_chart = Hash[*array].merge(category_group).sort.to_h
-    @pie_chart_colors = Category.where(id: @pie_chart.keys).map {|c| c.color }
-    @pie_chart_sum = @pie_chart.values.inject(:+)
+    
+    @bar_chart = []
+    family_category_ids.length.times do |i| 
+      month_name_and_sum_price_every_category = []
+        # 月ごとの繰り返し
+        12.times do |j|
+          every_months= Time.local(@year.year, j+1, 1, 9, 00, 00)
 
-    @bar_chart= [
-      {
-        name: "Fantasy & Sci Fi", 
-        data: [["2010", 10], ["2020", 16], ["2030", 28]]
-      },
-      {
-        name: "Romance", 
-        data: [["2010", 24], ["2020", 22], ["2030", 19]]
-      },
-      {
-        name: "Mystery/Crime", 
-        data: [["2010", 20], ["2020", 23], ["2030", 29]]
-      }
-    ]
+          month_name_and_sum_price_every_category.push([
+            "#{j+1}月",
+            Category.left_joins(:posts).select('categories.*, posts.purchased_at, posts.price')
+            .where(id: family_category_ids[i], posts: { purchased_at: every_months.all_month} ).group("name").sum(:price).values[0]
+          ])
+        end
+
+      @bar_chart.push({
+        name: Category.find_by(id: family_category_ids[i]).name, 
+        data: month_name_and_sum_price_every_category,
+        color: Category.find_by(id: family_category_ids[i]).color
+      })
+    end
   end
+
 
   private 
     def  get_relationship
       @relationship = current_user.relationship
     end
+
+    def make_full_hash(ids, hash)
+      array = ids - hash.keys
+      array.count.times do |i|
+        array.insert(2*i+1, 0)
+      end
+      return Hash[*array].merge(hash).sort.to_h
+    end
+
 end
