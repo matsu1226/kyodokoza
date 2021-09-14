@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :logged_in_user
   before_action :get_relationship
-  before_action :get_color_list, only: [:new, :edit]
+  before_action :get_color_list, only: [:new, :create, :edit, :update]
   before_action :check_category_with_our_relationships, only: [:edit, :update, :destroy]
 
 
