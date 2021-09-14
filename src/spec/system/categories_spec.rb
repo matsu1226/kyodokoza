@@ -22,18 +22,18 @@ RSpec.describe "Categories", type: :system do
     it "正しい保存" do
       fill_in "カテゴリの名前：", with: "食費"
       fill_in "カテゴリの説明：", with: "スーパー、買い食い、外食など"
-      fill_in "カテゴリカラー：", with: "#f00"
+      fill_in "カテゴリカラー：", with: "#ff4500"
       click_button "作成"
       expect(page).to have_content 'カテゴリを作成しました'
       expect(page).to have_content '食費'
       expect(page).to have_content 'スーパー、買い食い、外食など'
-      expect(page).to have_selector '.category-color[style="background-color: #f00;"]'      
+      expect(page).to have_selector '.category-color[style="background-color: #ff4500;"]'      
     end
 
     it "名前が空欄" do
       fill_in "カテゴリの名前：", with: ""
       fill_in "カテゴリの説明：", with: "スーパー、買い食い、外食など"
-      fill_in "カテゴリカラー：", with: "#f00"
+      fill_in "カテゴリカラー：", with: "#ff4500"
       click_button "作成"
       expect(page).to have_content 'カテゴリの名前を入力してください'
       expect(page).to have_content 'カテゴリの作成'
@@ -51,7 +51,7 @@ RSpec.describe "Categories", type: :system do
     it "正しい編集" do
       fill_in "カテゴリの名前：", with: "食材費"
       fill_in "カテゴリの説明：", with: "スーパー、買い食い、外食など"
-      fill_in "カテゴリカラー：", with: "#f00"
+      fill_in "カテゴリカラー：", with: "#ff4500"
       click_button "カテゴリの更新"
       expect(page).to have_content 'カテゴリを更新しました'
       expect(page).to have_content 'カテゴリ一覧'
@@ -61,7 +61,7 @@ RSpec.describe "Categories", type: :system do
     it "名前が空欄" do
       fill_in "カテゴリの名前：", with: ""
       fill_in "カテゴリの説明：", with: "スーパー、買い食い、外食など"
-      fill_in "カテゴリカラー：", with: "#f00"
+      fill_in "カテゴリカラー：", with: "#ff4500"
       click_button "カテゴリの更新"
       expect(page).to have_content 'カテゴリの名前を入力してください'
       expect(page).to have_content 'カテゴリの編集'

@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :logged_in_user
   before_action :get_relationship
+  before_action :get_color_list, only: [:new, :create, :edit, :update]
   before_action :check_category_with_our_relationships, only: [:edit, :update, :destroy]
 
 
@@ -65,5 +66,10 @@ class CategoriesController < ApplicationController
         flash[:danger] = "あなた以外の家族の情報は閲覧できません"
         redirect_to categories_path
       end
+    end
+
+    def get_color_list
+      @color_list = ["#ff4500","#ff8c00","#ffd700","#006400","#0000cd","#4169e1",
+                    "#800080","#ff1493","#b8860b","#696969","#e9967a"]
     end
 end
