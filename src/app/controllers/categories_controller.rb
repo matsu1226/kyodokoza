@@ -51,6 +51,16 @@ class CategoriesController < ApplicationController
   end
 
 
+  def target_new
+    @categories = @relationship.categories
+    # binding.pry
+  end
+
+  def target_create
+
+  end
+
+
   private 
     def get_relationship
       @relationship = current_user.relationship

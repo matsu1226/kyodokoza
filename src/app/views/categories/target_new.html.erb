@@ -1,0 +1,55 @@
+<%= provide(:title, "目標金額の設定") %>
+<section class="section-wrapper">
+  <p class="category-index-text">毎月の目標額を設定して<br>家計を適切に管理しましょう</p>
+  <%= form_with(model: @categories, url: {controller: 'categories', action: "target_create"}, class: "post-form", local: true) do |f| %>
+  <ul class="taeget-setting-table">
+    <% @categories.each do |category| %>
+    <%# @categories.each.with_index(1) do |category, i| %>
+    <%# each.with_index => https://qiita.com/tomokichi_ruby/items/46094a5fecbd46906f93 %>
+    <li>
+      <span class="col-5 category-name" style="color: <%= category.color %>;">
+        <%= category.name %>
+      </span>
+      <span class="col-5">
+        <%= f.number_field :target_price, class:"form-control input-price", onblur: "sumPrice()" %>
+        <%# onblur => フォーカス外れた時に発動するイベントハンドラ %>
+      </span>
+    </li>
+    <% end %>
+    <li class="pie_chart_sum">
+      <span class="col-5">合計</span>
+      <span>
+        ¥ <span class="col-5" id="sum_price_display">0</span>
+      </span>
+    </li>
+  </ul>
+  <%= f.submit "設定" ,class: "btn standerd-btn btn-primary" %>
+  <% end %>
+</section>
+
+<script type="text/javascript">
+  let sum_price_display = document.getElementById('sum_price_display');   //合計値の表示欄
+  let elements_array = Array.from(document.getElementsByClassName('input-price'));  //input要素の配列化
+
+
+  function sumPrice() {
+    let values_array = [];  //input要素の値の配列
+    let sum_values_array = 0;   //values_arrayの合計
+
+    //values_arrayの作成
+    elements_array.forEach(price => {
+      values_array.push(eval(price.value));
+    })
+
+    //空要素の消去
+    values_array = values_array.filter(i => i);
+
+    //values_arrayの合計を算出
+    sum_values_array = values_array.reduce(function (sum, element) {
+      return sum + element;
+    }, 0);
+
+    //表示
+    sum_price_display.textContent = sum_values_array.toLocaleString();
+  }
+</script>

@@ -71,3 +71,27 @@ div {
     margin: 30px auto;
   }
 }
+
+
+// taeget_setting
+
+.taeget-setting-table {
+  font-size: 0.9rem;
+
+  li {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    justify-content: space-between;
+    
+    .category-name {
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control {
+      padding: 2px;
+      text-align: right;
+    }
+  }
+}
