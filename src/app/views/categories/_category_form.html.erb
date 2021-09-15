@@ -1,0 +1,25 @@
+  <%= form_with(model: @category, local: true) do |f| %>
+  <%= render 'shared/category_error_messages' %>
+
+  <%= f.label :name, "カテゴリの名前：", class: "form-label" %>
+  <%= f.text_field :name, class:"form-control", value: @category.name %>
+  <p class="sub-info">8文字以内<br>記録の一覧で表示。4文字以下だと見やすいです</p>
+
+  <%= f.label :content, "カテゴリの説明：", class: "form-label" %>
+  <%= f.text_field :content, class:"form-control", value: @category.content %>
+  <p class="sub-info">30文字以内(空欄も可)。カテゴリの補足説明です</p>
+
+  <%= f.label :target_price, "月毎の目標金額：", class: "form-label" %>
+  <%= f.number_field :target_price, class:"form-control input-price", value: @category.target_price %>
+
+  <%= f.label :color, "カテゴリカラー：", class: "form-label" %>
+  <%= f.color_field :color, value: @category.color, list: "color-list" %>
+  <datalist id="color-list">
+    <% @color_list.each do |color| %>
+    <option value="<%= color %>"></option>
+    <% end %>
+  </datalist>
+
+  <%= f.submit btn_text ,class: "btn standerd-btn btn-primary" %>
+
+  <% end %>

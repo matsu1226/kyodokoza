@@ -8,11 +8,12 @@ RSpec.describe "Users", type: :system do
     describe "表示されないコンテンツの確認" do      
       describe "header & footerのロゴ" do
         before { visit root_path }
-        it { is_expected.not_to have_link nil, href: user_path(user) }   # 設定icon
-        # it { is_expected.not_to have_link nil, href: 一覧へのリンク }   # 一覧icon
-        # it { is_expected.not_to have_link nil, href: 合計へのリンク }   # 合計icon
-        # it { is_expected.not_to have_link nil, href: 記録へのリンク }   # 記録icon
-        # it { is_expected.not_to have_link nil, href: 使い方へのリンク } # 使い方icon
+        it { is_expected.not_to have_link nil, href: user_path(user) }  
+        it { is_expected.not_to have_link nil, href: posts_path }  
+        it { is_expected.not_to have_link nil, href: stats_month_path }  
+        it { is_expected.not_to have_link nil, href: stats_year_path }  
+        it { is_expected.not_to have_link nil, href: new_post_path } 
+        it { is_expected.not_to have_link nil, href: categories_path } 
       end
     end
 
@@ -136,6 +137,7 @@ RSpec.describe "Users", type: :system do
       fill_in 'パスワード：', with: user.password
       click_button 'ログイン'
       expect(page).to have_content 'ログインに成功しました'
+      expect(page).to have_content '設定'# user_path(user)
     end
 
   end
@@ -156,10 +158,11 @@ RSpec.describe "Users", type: :system do
       describe "header & footer" do
         before { visit root_path }
         it { is_expected.to have_link nil, href: user_path(user) }   # 設定icon
-        # it { is_expected.to have_link nil, href: 一覧へのリンク }   # 一覧icon
-        # it { is_expected.to have_link nil, href: 合計へのリンク }   # 合計icon
-        # it { is_expected.to have_link nil, href: 記録へのリンク }   # 記録icon
-        # it { is_expected.to have_link nil, href: 使い方へのリンク } # 使い方icon
+        it { is_expected.not_to have_link nil, href: posts_path }  
+        it { is_expected.not_to have_link nil, href: stats_month_path }  
+        it { is_expected.not_to have_link nil, href: stats_year_path }  
+        it { is_expected.not_to have_link nil, href: new_post_path } 
+        it { is_expected.not_to have_link nil, href: categories_path } 
       end
 
       describe "設定" do

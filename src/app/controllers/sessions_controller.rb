@@ -7,7 +7,11 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       if user.activated?
         log_in user
-        redirect_to user_url(current_user)
+        if user.relationship.nil?
+          redirect_to user_path(user)
+        else
+          redirect_to new_post_path
+        end
         flash[:success] = "ログインに成功しました"
       else
         message = "アカウントが本登録されていません"
@@ -27,16 +31,3 @@ class SessionsController < ApplicationController
     flash[:success] = "ログアウトしました。"
   end
 end
-
-# --- !ruby/object:ActionController::Parameters
-# parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-#   authenticity_token: it434iKIjwGprqMLcQtwq1sPEm089RSXMdmcFQhEsgbdZ9Ks2DkWPej0COwo3jHDmYyYPoghIHtN5TNmHkK2aA
-#   session: !ruby/object:ActionController::Parameters
-#     parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-#       email: shotaro@kyodokoza.com
-#       password: example01
-#     permitted: false
-#   commit: ログイン
-#   controller: sessions
-#   action: create
-# permitted: false

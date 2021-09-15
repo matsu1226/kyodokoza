@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   get    '/signup',    to: "users#new"  
   resources :users 
   
-  get  '/categories/target_setting', to: "categories#target_new"   # 目標金額の新規ページ
-  post '/categories/target',     to: "categories#target_create"      # 目標金額の作成
+  # get  '/categories/target_setting', to: "categories#target_new"   # 目標金額の新規ページ
+  # post '/categories/target',     to: "categories#target_create"      # 目標金額の作成
   resources :categories 
   
   resources :account_activations, only: [:edit]

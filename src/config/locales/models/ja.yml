@@ -10,6 +10,7 @@ ja:
         name: カテゴリの名前
         content: カテゴリの説明
         color: カテゴリカラー
+        target_price: 目標金額
       post:
         category_id: カテゴリ
         user_id: ユーザー

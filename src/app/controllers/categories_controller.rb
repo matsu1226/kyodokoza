@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :logged_in_user
+  before_action :check_have_relationship
   before_action :get_relationship
   before_action :get_color_list, only: [:new, :create, :edit, :update]
   before_action :check_category_with_our_relationships, only: [:edit, :update, :destroy]
@@ -7,6 +8,9 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = @relationship.categories
+    # @sum_target_price = 0 
+    # @categories.each { |c| @sum_target_price += c.target_price }
+    make_sum_target_price(@categories)
   end
 
 
@@ -46,19 +50,10 @@ class CategoriesController < ApplicationController
   def destroy
     @category = Category.find_by(id: params[:id])
     @category.destroy
-    flash[:info] = "カテゴリを削除しました"
+    flash[:danger] = "カテゴリを削除しました"
     redirect_to categories_path
   end
 
-
-  def target_new
-    @categories = @relationship.categories
-    # binding.pry
-  end
-
-  def target_create
-
-  end
 
 
   private 
@@ -67,7 +62,7 @@ class CategoriesController < ApplicationController
     end
 
     def category_params
-      params.require(:category).permit(:name, :color, :content)
+      params.require(:category).permit(:name, :color, :content, :target_price)
     end
 
     def check_category_with_our_relationships

@@ -1,24 +1,38 @@
 class StatsController < ApplicationController
   before_action :logged_in_user
+  before_action :check_have_relationship
   before_action :get_relationship
 
   def month
     @month = Time.zone.now.beginning_of_month
     family_category_ids = @relationship.category_ids
     category_group_hash = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
-    @pie_chart = make_full_hash(family_category_ids, category_group_hash )
-    @pie_chart_colors = Category.where(id: @pie_chart.keys).map {|c| c.color }
-    @pie_chart_sum = @pie_chart.values.inject(:+)
+    # @pie_chart = make_full_hash(family_category_ids, category_group_hash )
+
+    price_array = make_full_hash(family_category_ids, category_group_hash ).to_a
+    # [[1, 0], [2, 0], [3, 0], [4, 1401522], [5, 550], [6, 0], [7, 0]]
+
+    target_price_array = @relationship.categories.map {|c| c.target_price }
+    # [155000, 36000, 10000, 20000, 20000, 5000, 10000]
+
+    make_pie_chart(price_array, target_price_array)
+    # [[1, 0, 155000],[2, 0, 36000],[3, 0, 10000],[4, 1401522, 20000],[5, 550, 20000],[6, 0, 5000],[7, 0, 10000]]
+
+    make_pie_chart_colors(family_category_ids)
+    make_pie_chart_sum(@pie_chart)
+    make_sum_target_price(@relationship.categories)
   end
 
+  
   def month_ajax
     @month = Time.parse(params[:month]) 
     family_category_ids = @relationship.category_ids
     category_group_hash = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
-    @pie_chart = make_full_hash(family_category_ids, category_group_hash )
-    # ex => {1=>0, 2=>0, 3=>0, 4=>1401522 ,5=>550, 6=>0, 7=>0}
-    @pie_chart_colors = Category.where(id: @pie_chart.keys).map {|c| c.color }
-    @pie_chart_sum = @pie_chart.values.inject(:+)
+    price_array = make_full_hash(family_category_ids, category_group_hash ).to_a
+    target_price_array = @relationship.categories.map {|c| c.target_price }
+    make_pie_chart(price_array, target_price_array)
+    make_pie_chart_colors(family_category_ids)    
+    make_pie_chart_sum(@pie_chart)
   end
 
 
@@ -118,14 +132,6 @@ class StatsController < ApplicationController
   private 
     def  get_relationship
       @relationship = current_user.relationship
-    end
-
-    def make_full_hash(ids, hash)
-      array = ids - hash.keys
-      array.count.times do |i|
-        array.insert(2*i+1, 0)
-      end
-      return Hash[*array].merge(hash).sort.to_h
     end
 
 end

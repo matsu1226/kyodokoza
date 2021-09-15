@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
+  include CategoriesHelper
+  include StatsHelper
+  include RelationshipsHelper
 
   private
     def logged_in_user
@@ -8,4 +11,12 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       end
     end
+
+    def check_have_relationship
+      if no_relationship
+        flash[:danger] = "家族の登録をしてください"
+        redirect_to user_path(current_user)
+      end
+    end
+
 end

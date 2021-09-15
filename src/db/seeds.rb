@@ -69,46 +69,56 @@ UserRelationship.create!(user_id: user4.id, relationship_id: relationship2.id)
 category1 = Category.create(name:"固定費",
                 color:"#ff0000",
                 content: "家賃、光熱費など",
-                relationship_id: relationship1.id)
+                relationship_id: relationship1.id,
+                target_price: 150000)
 category2 = Category.create(name:"食費",
                 color:"#00ff00",
                 content: "スーバー、買い食い、外食など",
-                relationship_id: relationship1.id)
+                relationship_id: relationship1.id,
+                target_price: 36000)
 category3 = Category.create(name:"通信費",
                 color:"#0000ff",
                 content: "携帯代、wifi",
-                relationship_id: relationship1.id)
+                relationship_id: relationship1.id,
+                target_price: 10000)
 category4 = Category.create(name:"飲み会・旅行",
                 color:"#ffff00",
-                content: "家賃、光熱費など",
-                relationship_id: relationship1.id)
+                content: "",
+                relationship_id: relationship1.id,
+                target_price: 20000)
 category5 = Category.create(name:"雑費",
                 color:"#00ffff",
-                content: "家賃、光熱費など",
-                relationship_id: relationship1.id)
+                content: "ドラッグストア、洋服など",
+                relationship_id: relationship1.id,
+                target_price: 20000)
 category6 = Category.create(name:"交通費",
                 color:"#ff00ff",
-                content: "家賃、光熱費など",
-                relationship_id: relationship1.id)
+                content: "",
+                relationship_id: relationship1.id,
+                target_price: 5000)
 category7 = Category.create(name:"その他",
                 color:"#808080",
-                content: "家賃、光熱費など",
-                relationship_id: relationship1.id)
+                content: "病院や特殊な出費",
+                relationship_id: relationship1.id,
+                target_price: 10000)
 
 
 # 山田家のカテゴリ
 category8 = Category.create(name:"固定費２",
                   color:"#ff0000",
                   content: "家賃、光熱費など",
-                  relationship_id: relationship2.id)
+                  relationship_id: relationship2.id,
+                  target_price: 150000)
 category9 = Category.create(name:"食費２",
                   color:"#00ff00",
                   content: "スーバー、買い食い、外食など",
-                  relationship_id: relationship2.id)
+                  relationship_id: relationship2.id,
+                  target_price: 40000)
 category10 = Category.create(name:"通信費２",
                   color:"#0000ff",
                   content: "携帯代、wifi",
-                  relationship_id: relationship2.id)
+                  relationship_id: relationship2.id,
+                  target_price: 10000)
 
 # 松田家の投稿
 # timesの使い方 => https://qiita.com/takehanKosuke/items/79a66751fe95010ea5ee

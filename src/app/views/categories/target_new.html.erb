@@ -3,23 +3,26 @@
   <p class="category-index-text">毎月の目標額を設定して<br>家計を適切に管理しましょう</p>
   <%= form_with(model: @categories, url: {controller: 'categories', action: "target_create"}, class: "post-form", local: true) do |f| %>
   <ul class="taeget-setting-table">
+    <li class="target-prices-head">
+      <span class="col-4">変更前</span>
+      <span class="col-4">更新後</span>
+    </li>
     <% @categories.each do |category| %>
-    <%# @categories.each.with_index(1) do |category, i| %>
-    <%# each.with_index => https://qiita.com/tomokichi_ruby/items/46094a5fecbd46906f93 %>
     <li>
-      <span class="col-5 category-name" style="color: <%= category.color %>;">
+      <span class="col-4 category-name" style="color: <%= category.color %>;">
         <%= category.name %>
       </span>
-      <span class="col-5">
-        <%= f.number_field :target_price, class:"form-control input-price", onblur: "sumPrice()" %>
+      <span class="col-4"><%= category.target_price %></span>
+      <span class="col-4">
+        <%= f.number_field :target_price, class:"form-control input-price", onblur: "sumPrice()", value: category.target_price %>
         <%# onblur => フォーカス外れた時に発動するイベントハンドラ %>
       </span>
     </li>
     <% end %>
     <li class="pie_chart_sum">
-      <span class="col-5">合計</span>
+      <span class="col-4">合計</span>
       <span>
-        ¥ <span class="col-5" id="sum_price_display">0</span>
+        ¥ <span class="col-4" id="sum_price_display">0</span>
       </span>
     </li>
   </ul>
@@ -28,13 +31,13 @@
 </section>
 
 <script type="text/javascript">
-  let sum_price_display = document.getElementById('sum_price_display');   //合計値の表示欄
-  let elements_array = Array.from(document.getElementsByClassName('input-price'));  //input要素の配列化
+  let sum_price_display = document.getElementById('sum_price_display'); //合計値の表示欄
+  let elements_array = Array.from(document.getElementsByClassName('input-price')); //input要素の配列化
 
 
   function sumPrice() {
-    let values_array = [];  //input要素の値の配列
-    let sum_values_array = 0;   //values_arrayの合計
+    let values_array = []; //input要素の値の配列
+    let sum_values_array = 0; //values_arrayの合計
 
     //values_arrayの作成
     elements_array.forEach(price => {
