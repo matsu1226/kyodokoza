@@ -6,5 +6,7 @@ class Category < ApplicationRecord
   validates :color, presence: true
 
   validates :relationship_id, presence: true
+  validates :target_price, numericality: { greater_than_or_equal_to: 0 }
+  # numerrically は自動でpresence: true => presence: true出ないようにしいたなら、allow_nilを付記
 
 end

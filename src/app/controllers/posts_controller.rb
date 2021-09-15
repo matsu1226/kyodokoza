@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :logged_in_user
+  before_action :check_have_relationship
   before_action :get_relationship
   before_action :check_posts_with_our_relationships, only: [:edit, :update, :destroy]
 
@@ -12,8 +13,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      flash[:post] = "記録を作成しました"
-      redirect_to posts_path
+      flash[:success] = "記録を作成しました"
+      redirect_to new_post_path
     else
       render "posts/new"
     end

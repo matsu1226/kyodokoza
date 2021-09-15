@@ -6,6 +6,23 @@ div {
   margin: 0;
 }
 
+
+// index
+@mixin left_col {
+  flex-basis: 10%;
+  margin: 0;
+}
+@mixin center_col {
+  flex-basis: 60%;
+  margin: 0;
+}
+@mixin right_col {
+  flex-basis: 30%;
+  margin: 0;
+  text-align: right;
+}
+
+
 .category-index-text {
   margin: 0 auto 20px;
   text-align: center;
@@ -15,52 +32,74 @@ div {
   margin: 20px auto;
 }
 
-.card {
-  display: flex;
-  flex-direction: initial;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px auto;
-  padding: 10px;
-  border-radius: 4px;
-  border: 0;
-  background-color: #fff;
-  box-shadow: (rgba(0, 0, 0, 0.3)0 0 2px );
-
-  .category-color-wrapper {
-    flex-basis: 10%;
+.category-index-list {
+  
+  .category-index-head {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding: 5px;
 
-    .category-color{
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
+  
+    &:first-child {
+      @include center_col;
+      text-align: right;
+    }
+  
+    &:last-child {
+      @include right_col;
     }
   }
   
-  
-  .category-content-wrapper {
-    flex-basis: 85%;
+  .card{
     display: flex;
-    flex-direction: column;
-    margin: 0;
-    min-width: 0; 
-
-    .category-name {
-      font-weight: bold;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px auto;
+    padding: 5px;
+    border-radius: 4px;
+    border: 0;
+    background-color: #fff;
+    box-shadow: rgb(0 0 0 / 30%) 0 0 2px;
+  
+    .color-wrapper {
+      @include left_col;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      .category-color{
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+      }
     }
-
-    .category-content {
-      font-size: 0.8em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: #ccc;
+    
+    
+    .content-wrapper {
+      @include center_col;
+      display: flex;
+      flex-direction: column;
+  
+      .category-name {
+        font-weight: bold;
+      }
+  
+      .category-content {
+        font-size: 0.8em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #ccc;
+      }
+  
     }
-
+  
+    .target-price-wrapper {
+      @include right_col;
+    }
+  
   }
 
 }
@@ -71,3 +110,41 @@ div {
     margin: 30px auto;
   }
 }
+
+
+// taeget_setting
+
+.taeget-setting-table {
+  font-size: 0.9rem;
+
+  li {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    
+    
+    .category-name {
+      display: flex;
+      align-items: center;
+    }
+    
+    .form-control {
+      padding: 2px;
+      text-align: right;
+    }
+  }
+
+  .target-prices-head {
+    justify-content: flex-end;
+    border: none;
+
+    span {
+      text-align: center;
+    }
+  }
+  
+  .pie_chart_sum {
+    justify-content: space-between;
+  }
+}
+

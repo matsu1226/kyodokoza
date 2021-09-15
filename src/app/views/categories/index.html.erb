@@ -2,16 +2,23 @@
 <section class="section-wrapper">
   <p class="category-index-text">カテゴリをクリックすると<br>編集・削除ページへ遷移します</p>
   <%= link_to "カテゴリの新規作成", new_category_path, class: "btn standerd-btn btn-primary new-category-btn" %>
-  <ul>
+  <ul class="category-index-list">
+    <li class="category-index-head">
+      <span>目標額の合計：</span>
+      <span><%= yen @sum_target_price %></span>
+    </li>
     <% @categories.each do |category| %>
     <li>
       <%= link_to edit_category_path(category), class: "card" do %>
-      <div class="category-color-wrapper">
+      <div class="color-wrapper">
         <span class="category-color" style="background-color: <%= category.color %>;"></span>
       </div>
-      <div class="category-content-wrapper">
+      <div class="content-wrapper">
         <span class="category-name"><%= category.name %></span>
         <span class="category-content"><%= category.content %></span>
+      </div>
+      <div class="target-price-wrapper">
+        <span><%= yen category.target_price %></span>
       </div>
       <% end %>
     </li>

@@ -11,6 +11,7 @@ RSpec.describe Category, type: :model do
     @category = Category.new(name: "食費",
                             color: "#00f",
                             content: "スーパー、外食、買い食いなど",
+                            target_price: 36000,
                             relationship_id: relationship.id)
   end
 
@@ -24,6 +25,7 @@ RSpec.describe Category, type: :model do
   it { should respond_to(:name) }
   it { should respond_to(:content) }
   it { should respond_to(:color) }
+  it { should respond_to(:target_price) }
   it { should respond_to(:relationship) }
   it { should respond_to(:posts) }
 
@@ -39,6 +41,11 @@ RSpec.describe Category, type: :model do
 
   it "relationship_idが空欄" do
     @category.relationship_id = ""
+    should_not be_valid
+  end
+
+  it "target_priceが空欄" do
+    @category.target_price = ""
     should_not be_valid
   end
 

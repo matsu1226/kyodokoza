@@ -1,13 +1,27 @@
 <%= pie_chart @pie_chart,legend: {display: false}, donut: true, width: "200px", height: "200px", colors: @pie_chart_colors %>
 <ul class="stat-table">
-  <li class="pie_chart_sum">
-    <span class="col-4">合計</span>
-    <span class="col-4"><%= yen @pie_chart_sum %></span>
+  <li class="stat-table-head">
+    <span class="col-3">カテゴリ</span>
+    <span class="col-3">実績</span>
+    <span class="col-3 ransparent">目標</span>
+    <span class="col-3 ransparent">差異</span>
   </li>
-  <% @pie_chart.each do |key, value| %>
+  <li class="pie_chart_sum">
+    <span class="col-3">合計</span>
+    <span class="col-3"><%= yen @pie_chart_sum %></span>
+    <span class="col-3 ransparent"><%= yen @sum_target_price %></span>
+    <span class="col-3 ransparent" style="color:<%= price_diff_color(@sum_target_price, @pie_chart_sum) %>;">
+      <%= yen @sum_target_price - @pie_chart_sum %>
+    </span>
+  </li>
+  <% @pie_chart.each do |elm| %>
   <li>
-    <span class="col-4" style="color: <%= Category.find(key).color %>;"><%= Category.find(key).name %></span>
-    <span class="col-4"><%= yen value  %></span>
+    <span class="col-3" style="color: <%= Category.find(elm[0]).color %>;"><%= Category.find(elm[0]).name %></span>
+    <span class="col-3"><%= yen elm[1] %></span>
+    <span class="col-3 ransparent"><%= yen elm[2] %></span>
+    <span class="col-3 ransparent" style="color:<%= price_diff_color(elm[2], elm[1]) %>;">
+      <%= yen elm[2] - elm[1] %>
+    </span>
   </li>
   <% end %>
 </ul>

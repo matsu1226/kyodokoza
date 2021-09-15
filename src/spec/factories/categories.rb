@@ -3,13 +3,22 @@ FactoryBot.define do
     name { "食費" }
     content { "スーパー、買い食い、外食など" }
     color { "#f00" }
+    target_price { 36000 }
     association :relationship, factory: :relationship
+  end
+
+  factory :fixed_cost, class:"Category" do
+    name { "固定費" }
+    content { "家賃" }
+    color { "#0f0" }
+    target_price { 50000 }
   end
 
   factory :food_expenses2, class:"Category" do
     name { "食費２" }
     content { "スーパー、買い食い、外食など" }
     color { "#f00" }
+    target_price { 36000 }
     association :relationship, factory: :relationship2
   end
 

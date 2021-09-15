@@ -23,7 +23,8 @@ class RelationshipsController < ApplicationController
     elsif !@to_user.no_relationship?
       flash[:danger] = "パートナーが既に他の方と家族登録しています"
       redirect_to new_relationship_path
-    elsif BCrypt::Password.new(@to_user.invitation_digest).is_password?(params[:relationship][:invitation_code])
+    # elsif BCrypt::Password.new(@to_user.invitation_digest).is_password?(params[:relationship][:invitation_code])
+    elsif digest_and_token_is_password?(@to_user.invitation_digest, params[:relationship][:invitation_code])
       if @relationship.save
         @user.create_user_relationship(relationship_id: @relationship.id)
         @to_user.create_user_relationship(relationship_id: @relationship.id)

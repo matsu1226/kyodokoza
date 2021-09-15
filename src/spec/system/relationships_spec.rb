@@ -15,6 +15,33 @@ RSpec.describe "Users", type: :system do
       should have_content "家族の登録"
       should_not have_content "家族の情報"
     end
+
+    describe "before_action: check_have_relationship の確認" do
+      it "post_new" do
+        visit new_post_path
+        should have_content "家族の登録をしてください"
+        should have_content "設定"
+      end
+      
+      it "post_index" do
+        visit posts_path
+        should have_content "家族の登録をしてください"
+        should have_content "設定"
+      end
+      
+      it "stats_month" do
+        visit stats_month_path
+        should have_content "家族の登録をしてください"
+        should have_content "設定"
+      end
+      
+      it "stats_year" do
+        visit stats_year_path
+        should have_content "家族の登録をしてください"
+        should have_content "設定"
+      end
+    end
+
     
     describe "招待コードの確認" do
       before { visit new_relationship_path }
@@ -176,6 +203,15 @@ RSpec.describe "Users", type: :system do
         should have_content "2021/08/31"
         should have_content "正太郎"
         should have_content "綾美"
+      end
+
+      describe "footerの表示" do
+        before { visit user_path(user) }
+        it { is_expected.to have_link nil, href: posts_path }  
+        it { is_expected.to have_link nil, href: stats_month_path }  
+        it { is_expected.to have_link nil, href: stats_year_path }  
+        it { is_expected.to have_link nil, href: new_post_path } 
+        it { is_expected.to have_link nil, href: categories_path } 
       end
     end
   end
