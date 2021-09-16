@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  root   'static_pages#introduction'
-  get    '/introduction', to: 'static_pages#introduction'
+  root 'static_pages#introduction'
+  get  '/introduction', to: 'static_pages#introduction'
+  # post '/guest_sign_in', to: 'static_pages#guest_sign_in'
+
   
   get    '/login',     to: "sessions#new"
   post   '/login',     to: "sessions#create"
@@ -11,21 +13,20 @@ Rails.application.routes.draw do
   get 'stats/year'
   get 'stats/month_ajax'
   get 'stats/year_ajax'
+
+  get 'report/single'
+  get 'report/multiple'
+  get 'report/output_multiple'
   
+
   get    '/posts/narrow_down'   # ajaxで絞り込み
   resources :posts 
   
   get    '/signup',    to: "users#new"  
   resources :users 
-  
-  # get  '/categories/target_setting', to: "categories#target_new"   # 目標金額の新規ページ
-  # post '/categories/target',     to: "categories#target_create"      # 目標金額の作成
   resources :categories 
-  
   resources :account_activations, only: [:edit]
-  
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  
   get    '/relationships/invitation_code', to: "relationships#invitation_code"
   resources :relationships,       only: [:new, :create, :show] 
 end

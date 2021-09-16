@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include CategoriesHelper
   include StatsHelper
   include RelationshipsHelper
+  include PostsHelper
 
   private
     def logged_in_user

@@ -1,0 +1,30 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+ 
+    wb.add_worksheet(name: @file_name) do |sheet|
+ 
+        styles = {
+            header: wb.styles.add_style(bg_color: 'FFFF00', :border=> {:style => :medium, :color => "000000", :edges => [:bottom]}),
+            cell: wb.styles.add_style(bg_color: 'FFFFFF'),
+        }
+ 
+        sheet.add_row do |row|
+            row.add_cell('日付', style: styles[:header])
+            row.add_cell('カテゴリ', style: styles[:header])
+            row.add_cell('内容', style: styles[:header])
+            row.add_cell('誰', style: styles[:header])
+            row.add_cell('金額', style: styles[:header])
+        end
+ 
+        @posts.each do |post|
+            sheet.add_row do |row|
+                row.add_cell(post.purchased_at)
+                row.add_cell(post.category.name)
+                row.add_cell(post.content)
+                row.add_cell(post.user.name)
+                row.add_cell(post.price)
+            end
+        end
+    end
+end

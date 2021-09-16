@@ -1,1 +1,20 @@
-<p>支出の合計: <%= sum_posts_price %></p>
+<table>
+  <tr>
+    <th class="col-3" rowspan="2">
+      <%= link_to report_single_path(@posts, format: :xlsx, month: @month), class: "btn btn-primary" do %>
+      <i class="fas fa-file-download"></i>
+      <p>エクセル出力</p>
+      <% end %>
+    </th>
+    <th class="col-3">実績</th>
+    <th class="col-3 ransparent">目標</th>
+    <th class="col-3 ransparent">差異</th>
+  </tr>
+  <tr>
+    <td class="col-3"><%= yen sum_posts_price(@posts) %></td>
+    <td class="col-3 ransparent"><%= yen @sum_target_price %></td>
+    <td class="col-3 ransparent" style="color:<%= price_diff_color(@sum_target_price, sum_posts_price(@posts)) %>;">
+      <%= yen @sum_target_price - sum_posts_price(@posts) %>
+    </td>
+  </tr>
+</table>
