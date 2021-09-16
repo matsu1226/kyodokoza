@@ -191,10 +191,6 @@ RSpec.describe "Users", type: :system do
       subject { page }
       
       it "家族の情報の表示" do
-        # relationship = FactoryBot.create(:relationship, created_at: Time.local(2021, 8, 31, 12, 00, 00))
-        # relationship = Relationship.create(name: "松田家", created_at: Time.local(2021, 8, 31, 12, 00, 00))
-        # user.create_user_relationship(relationship_id: relationship.id)
-        # user2.create_user_relationship(relationship_id: relationship.id)
         visit user_path(user)
         should have_content "家族の情報"
         should_not have_content "家族の登録"

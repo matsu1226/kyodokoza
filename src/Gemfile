@@ -41,6 +41,10 @@ gem 'rails-i18n'
 gem 'sendgrid-ruby'
 # グラフの導入
 gem "chartkick"
+# excel出力
+gem 'caxlsx'
+gem 'caxlsx_rails'
+gem 'rubyzip'
 
 
 group :development, :test do

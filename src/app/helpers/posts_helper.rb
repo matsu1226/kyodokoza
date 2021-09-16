@@ -5,12 +5,12 @@ module PostsHelper
     days[date.wday]
   end
 
-  def sum_posts_price
+  def sum_posts_price(posts)
     sum = 0
-    @posts.each do |post| 
+    posts.each do |post| 
       sum += post.price
     end
-    yen(sum)
+    return sum
   end
 
   def narrow_down_select(attribute, array )
@@ -29,6 +29,11 @@ module PostsHelper
     else
       "¥ #{0.to_s(:delimited)}"
     end
+  end
+
+  def narrow_downing_posts(user_id_set, category_id_set, month)
+    # Post.where(user_id: user_id_set, category_id: category_id_set, purchased_at: @month.all_month).order(purchased_at: :asc)
+    Post.where(user_id: user_id_set, category_id: category_id_set).month(month).sorted
   end
 
 end

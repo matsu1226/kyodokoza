@@ -1,0 +1,19 @@
+<%= provide(:title, "エクセル出力") %>
+<div class="multiple-text">
+  <p>複数月分の支出の記録を<br>excelに出力します</p>
+  <p>1か月だけ出力する場合は<br>「一覧画面」からでも可能です</p>
+</div>
+<%= form_with(url: report_output_multiple_path(format: :xlsx), method: :get, local: true, class:"report-form") do |f| %>
+<%#= report_single_path(@posts, format: :xlsx, month: @month), class: "btn btn-primary" do %>
+<%#= render 'shared/error_messages' %>
+
+
+<%= f.date_select :from_date, discard_day: true, class: "form-control" %>
+<p>↓</p>
+<%= f.date_select :to_date, discard_day: true, class: "form-control" %>
+
+<%= f.submit "エクセル出力" ,class: "btn standerd-btn btn-primary" %>
+
+<% end %>
+
+<%= link_to "戻る", user_path(current_user), class: "back-btn btn" %>

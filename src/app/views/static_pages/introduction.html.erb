@@ -31,6 +31,7 @@
     <div>
       <p class="text-center">さっそく、つかってみよう！</p>
       <%= link_to "会員登録へ", "/signup", class: "btn standerd-btn btn-primary" %>
-      <%= link_to "登録済みの方はこちら", "/login", class: "moderate" %>
+      <%= link_to "登録済みの方はこちら（ログイン）", "/login", class: "moderate" %>
+      <%= link_to "機能の確認はこちら（ゲストログイン）", guest_sign_in_path, class: "moderate" %>
     </div>
     <% end %>

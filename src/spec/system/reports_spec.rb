@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Stats", type: :system do
+RSpec.describe "Reports", type: :system do
   let!(:user) { FactoryBot.create(:user) }
   let!(:user2) { FactoryBot.create(:user2) }
   let!(:other_user) { FactoryBot.create(:other_user) }
@@ -29,46 +29,24 @@ RSpec.describe "Stats", type: :system do
     it { expect(page).to have_content "家族の登録をしてください" }
   end
 
-
+  
   context "user" do
     before do
       login(user)
       travel_to today
     end
   
-    it "create post(固定費)" do
-      expect{FactoryBot.create(:post2,user_id: user.id, category_id: fixed_cost.id)}.to change { Post.count }.by(1)
-    end
-  
-    it "create category(固定費)" do
-      expect{FactoryBot.create(:fixed_cost, relationship_id: user.relationship.id)}.to change { Category.count }.by(1)
-    end
-  
-    subject { page }
-  
-    context "月合計(stats_month_path)" do
-      before { visit stats_month_path }
-  
-      describe "カテゴリ名" do
-        it { is_expected.to have_content "食費" } # 食費
-        it { is_expected.to have_content "固定費" } # 固定費
-      end
-      describe "実績" do
-        it { is_expected.to have_content  "¥ 7,200" } # 食費
-        it { is_expected.to have_content "¥ 75,000" } # 固定費
-        it { is_expected.to have_content "¥ 82,200" } # 合計
-      end
-      describe "目標" do
-        it { is_expected.to have_content "¥ 36,000" } # 食費
-        it { is_expected.to have_content "¥ 50,000" } # 固定費
-        it { is_expected.to have_content "¥ 86,000" } # 合計
-      end
-      describe "差異" do
-        it { is_expected.to have_content "¥ 28,800" } # 食費
-        it { is_expected.to have_content "¥ -25,000" } # 固定費
-        it { is_expected.to have_content "¥ 3,800" } # 合計
+    describe "まとめて出力" do
+      it "fromとtoが逆転（エラー）" do
+        visit report_multiple_path
+        select '2021', from: "_from_date_1i"
+        select '9月', from: "_from_date_2i"
+        select '2021', from: "_to_date_1i"
+        select '8月', from: "_to_date_2i"
+        click_button "エクセル出力"
+        expect(page).to have_content "正しい年月を入力してください"
       end
     end
   end
-  
+
 end
