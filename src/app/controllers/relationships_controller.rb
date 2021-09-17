@@ -61,10 +61,6 @@ class RelationshipsController < ApplicationController
 
 
   private
-    def get_user
-      @user = User.find_by(id: current_user.id)
-    end
-
     def check_no_relationship
       unless @user.no_relationship?
         flash[:danger] = "すでに家族が登録されています"

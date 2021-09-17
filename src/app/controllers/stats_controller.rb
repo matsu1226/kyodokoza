@@ -125,10 +125,4 @@ class StatsController < ApplicationController
     end
   end
 
-
-  private 
-    def  get_relationship
-      @relationship = current_user.relationship
-    end
-
 end
