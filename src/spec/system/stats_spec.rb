@@ -6,6 +6,7 @@ RSpec.describe "Stats", type: :system do
   let!(:other_user) { FactoryBot.create(:other_user) }
   let!(:food_expenses) { FactoryBot.create(:food_expenses) }
   let!(:food_expenses2) { FactoryBot.create(:food_expenses2) }
+  let!(:common_user) {  User.find_by(email: "common_1@kyodokoza.com") }
   let!(:fixed_cost) { FactoryBot.create(:fixed_cost, relationship_id: user.relationship.id) }
   let!(:post) { FactoryBot.create(:post, price:2000, 
                                         user_id: user.id, 
