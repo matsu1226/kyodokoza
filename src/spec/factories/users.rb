@@ -16,6 +16,11 @@ FactoryBot.define do
       name { "綾美" }
       email { "ayami@kyodokoza.com" }
     end
+
+    factory :common_user do
+      name { "共通" }
+      email { "common_1@example.com" }
+    end
     
     factory :user3 do
       name { "健太" }

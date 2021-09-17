@@ -40,12 +40,13 @@
 
 // relationships/show
 
-table {
-  margin: 20px auto;
-  font-size: 1.2em;
+.relationship-info {
+  li {
+    display: flex;
+    justify-content: space-between;
 
-
-  th {
-    padding-right: 20px;
+    .relationship-info-name {
+      margin: 0 5px;
+    }
   }
 }

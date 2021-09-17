@@ -13,7 +13,7 @@
   <tr>
     <td class="col-3"><%= yen sum_posts_price(@posts) %></td>
     <td class="col-3 ransparent"><%= yen @sum_target_price %></td>
-    <td class="col-3 ransparent" style="color:<%= price_diff_color(@sum_target_price, sum_posts_price(@posts)) %>;">
+    <td class="col-3 ransparent" style="color:<%= price_color(@sum_target_price, sum_posts_price(@posts)) %>;">
       <%= yen @sum_target_price - sum_posts_price(@posts) %>
     </td>
   </tr>

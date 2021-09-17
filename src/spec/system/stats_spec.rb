@@ -6,6 +6,7 @@ RSpec.describe "Stats", type: :system do
   let!(:other_user) { FactoryBot.create(:other_user) }
   let!(:food_expenses) { FactoryBot.create(:food_expenses) }
   let!(:food_expenses2) { FactoryBot.create(:food_expenses2) }
+  let!(:common_user) {  User.find_by(email: "common_1@kyodokoza.com") }
   let!(:fixed_cost) { FactoryBot.create(:fixed_cost, relationship_id: user.relationship.id) }
   let!(:post) { FactoryBot.create(:post, price:2000, 
                                         user_id: user.id, 
@@ -14,9 +15,9 @@ RSpec.describe "Stats", type: :system do
                                         user_id: user.id, 
                                         category_id: food_expenses.id)}
   let!(:post3) { FactoryBot.create(:post, price:2800, 
-                                        user_id: user.id, 
+                                        user_id: user2.id, 
                                         category_id: food_expenses.id)} 
-  let!(:post4) { FactoryBot.create(:post2,user_id: user.id, 
+  let!(:post4) { FactoryBot.create(:post2,user_id: common_user.id, 
                                         category_id: fixed_cost.id)}
   let(:today) { Time.new(2021, 9 ,1, 9, 00, 00) }
 
@@ -53,20 +54,32 @@ RSpec.describe "Stats", type: :system do
         it { is_expected.to have_content "食費" } # 食費
         it { is_expected.to have_content "固定費" } # 固定費
       end
-      describe "実績" do
-        it { is_expected.to have_content  "¥ 7,200" } # 食費
-        it { is_expected.to have_content "¥ 75,000" } # 固定費
-        it { is_expected.to have_content "¥ 82,200" } # 合計
+
+      describe"total-table" do
+        describe "実績" do
+          it { is_expected.to have_content  "¥ 7,200" } # 食費
+          it { is_expected.to have_content "¥ 75,000" } # 固定費
+          it { is_expected.to have_content "¥ 82,200" } # 合計
+        end
+        describe "目標" do
+          it { is_expected.to have_content "¥ 36,000" } # 食費
+          it { is_expected.to have_content "¥ 50,000" } # 固定費
+          it { is_expected.to have_content "¥ 86,000" } # 合計
+        end
+        describe "差異" do
+          it { is_expected.to have_content "¥ 28,800" } # 食費
+          it { is_expected.to have_content "¥ -25,000" } # 固定費
+          it { is_expected.to have_content "¥ 3,800" } # 合計
+        end
       end
-      describe "目標" do
-        it { is_expected.to have_content "¥ 36,000" } # 食費
-        it { is_expected.to have_content "¥ 50,000" } # 固定費
-        it { is_expected.to have_content "¥ 86,000" } # 合計
-      end
-      describe "差異" do
-        it { is_expected.to have_content "¥ 28,800" } # 食費
-        it { is_expected.to have_content "¥ -25,000" } # 固定費
-        it { is_expected.to have_content "¥ 3,800" } # 合計
+
+
+      describe "individual-table" do
+        describe "固定費" do
+          it { is_expected.to have_content "¥ 4,400" } # user1
+          it { is_expected.to have_content "¥ 2,800" } # user2
+          it { is_expected.to have_content "¥ 75,000" } # その他
+        end
       end
     end
   end

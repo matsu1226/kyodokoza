@@ -13,21 +13,28 @@ class RelationshipsController < ApplicationController
 
 
   def create
-    @to_user = User.find_by(email: params[:relationship][:email])
+    to_user = User.find_by(email: params[:relationship][:email])
     # (1)「相手ユーザーのemailが登録されている」かつ「招待コードが一致」
     @relationship = Relationship.new(name: params[:relationship][:name])
 
-    if @to_user.nil?
+    if to_user.nil?
       flash[:warning] = "そのメールアドレスのユーザーは登録されていません"
       redirect_to new_relationship_path
-    elsif !@to_user.no_relationship?
+    elsif !to_user.no_relationship?
       flash[:danger] = "パートナーが既に他の方と家族登録しています"
       redirect_to new_relationship_path
-    # elsif BCrypt::Password.new(@to_user.invitation_digest).is_password?(params[:relationship][:invitation_code])
-    elsif digest_and_token_is_password?(@to_user.invitation_digest, params[:relationship][:invitation_code])
+    elsif digest_and_token_is_password?(to_user.invitation_digest, params[:relationship][:invitation_code])
       if @relationship.save
+        common_user_password = SecureRandom.urlsafe_base64(10)
+        common_user = User.create(name: "共通", 
+                                  email: "common_#{@user.id}@kyodokoza.com", 
+                                  password: common_user_password, 
+                                  password_confirmation: common_user_password)
+        # @relationと@user/to_user/common_userをつなげる
         @user.create_user_relationship(relationship_id: @relationship.id)
-        @to_user.create_user_relationship(relationship_id: @relationship.id)
+        to_user.create_user_relationship(relationship_id: @relationship.id)
+        common_user.create_user_relationship(relationship_id: @relationship.id)
+
         flash[:success] = "家族を登録しました"
         redirect_to relationship_path(@relationship)
 

@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
     @categories = @relationship.categories
     # @sum_target_price = 0 
     # @categories.each { |c| @sum_target_price += c.target_price }
-    make_sum_target_price(@categories)
+    @sum_target_price = Category.where(id: @relationship.category_ids).sum(:target_price)
   end
 
 

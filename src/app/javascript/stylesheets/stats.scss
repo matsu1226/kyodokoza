@@ -3,11 +3,20 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 // month
+.pie-chart-text {
+  position: absolute;
+  right: 0;
+  left: 0;
+  text-align: center;
+  top: 190px;
+}
+
+
 #chart-1 {
   margin: -25px auto 15px;
 }
 
-.ransparent {
+.transparent {
   opacity: 0.5;
 }
 

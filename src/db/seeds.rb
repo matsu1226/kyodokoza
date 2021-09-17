@@ -10,48 +10,60 @@
 # user
 # 松田家
 user1 = User.create!(name: "正太郎",
-            email: "shotaro@kyodokoza.com",
-            password:               "example01",
-            password_confirmation:  "example01",
-            activated: true,
-            activated_at: Time.zone.now)
+                    email: "shotaro@kyodokoza.com",
+                    password:               "example01",
+                    password_confirmation:  "example01",
+                    activated: true,
+                    activated_at: Time.zone.now)
 
 user2 = User.create!(name: "綾美",
-              email: "ayami@kyodokoza.com",
-              password:               "example01",
-              password_confirmation:  "example01",
-              activated: true,
-              activated_at: Time.zone.now)
+                    email: "ayami@kyodokoza.com",
+                    password:               "example01",
+                    password_confirmation:  "example01",
+                    activated: true,
+                    activated_at: Time.zone.now)
+
+common_user_password = SecureRandom.urlsafe_base64(10)
+common_user = User.create!(name: "共通ユーザー", 
+                          email: "common_#{user1.id}@kyodokoza.com", 
+                          password: common_user_password, 
+                          password_confirmation: common_user_password)
 
 # 山田家
 user3 = User.create!(name: "健太",
-                email: "kenta@kyodokoza.com",
-                password:               "example01",
-                password_confirmation:  "example01",
-                activated: true,
-                activated_at: Time.zone.now)
+                    email: "kenta@kyodokoza.com",
+                    password:               "example01",
+                    password_confirmation:  "example01",
+                    activated: true,
+                    activated_at: Time.zone.now)
     
 user4 = User.create!(name: "由美",
-                  email: "yumi@kyodokoza.com",
-                  password:               "example01",
-                  password_confirmation:  "example01",
-                  activated: true,
-                  activated_at: Time.zone.now)
+                    email: "yumi@kyodokoza.com",
+                    password:               "example01",
+                    password_confirmation:  "example01",
+                    activated: true,
+                    activated_at: Time.zone.now)
+
+common_user2_password = SecureRandom.urlsafe_base64(10)
+common_user2 = User.create!(name: "共通ユーザー_2", 
+                          email: "common_#{user3.id}@kyodokoza.com", 
+                          password: common_user2_password, 
+                          password_confirmation: common_user2_password)
 
 #その他 
 user5 = User.create!(name: "独身太郎",
-                email: "dokushin@kyodokoza.com",
-                password:               "example01",
-                password_confirmation:  "example01",
-                activated: true,
-                activated_at: Time.zone.now)
+                    email: "dokushin@kyodokoza.com",
+                    password:               "example01",
+                    password_confirmation:  "example01",
+                    activated: true,
+                    activated_at: Time.zone.now)
 
 
 user6 = User.create!(name: "有効化 無太",
-                  email: "nashita@kyodokoza.com",
-                  password:               "example01",
-                  password_confirmation:  "example01",
-                  activated: false)
+                    email: "nashita@kyodokoza.com",
+                    password:               "example01",
+                    password_confirmation:  "example01",
+                    activated: false)
 
 
 # relationship
@@ -61,8 +73,10 @@ relationship2 =  Relationship.create!(name: "山田家")
 # user_relationship
 UserRelationship.create!(user_id: user1.id, relationship_id: relationship1.id)
 UserRelationship.create!(user_id: user2.id, relationship_id: relationship1.id)
+UserRelationship.create!(user_id: common_user.id, relationship_id: relationship1.id)
 UserRelationship.create!(user_id: user3.id, relationship_id: relationship2.id)
 UserRelationship.create!(user_id: user4.id, relationship_id: relationship2.id)
+UserRelationship.create!(user_id: common_user2.id, relationship_id: relationship2.id)
 
 
 # 松田家のカテゴリ
