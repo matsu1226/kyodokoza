@@ -2,14 +2,30 @@
 
 <section class="section-wrapper">
   <div class="container">
-  <table>
-  <tr><th>家族：</th><td><%= @relationship.name %></td></tr>
-  <tr><th>家族の登録日:</th><td><%= l @relationship.created_at, format: :date %></td></tr>
-  <tr><th>名前：</th>
-  <% @users.each do |user| %>
-    <td><%= user.name %></td>
-  <% end %>
-  </table>
-
+    <ul class="relationship-info">
+      <li>
+        <span class="col-3">家族：</span>
+        <span class="col-8"><%= @relationship.name %></span>
+      </li>
+      <li>
+        <span class="col-3">登録日:</span>
+        <span class="col-8"><%= l @relationship.created_at, format: :date %></span>
+      </li>
+      <li>
+        <span class="col-3">名前：</span>
+        <span class="col-8">
+          <span>
+            <%= @users[0].name %>
+          </span>
+          <span class="relationship-info-name">
+            &
+          </span>
+          <span>
+            <%= @users[1].name %>
+          </span>
+        </span>
+      </li>
+    </ul>
   </div>
+  <%= link_to "戻る", user_path(current_user), class: "back-btn btn" %>
 </section>

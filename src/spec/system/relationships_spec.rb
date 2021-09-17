@@ -176,15 +176,12 @@ RSpec.describe "Users", type: :system do
     end
   end
 
-  it " " do
-    expect{ FactoryBot.create(:relationship) }.to change { Relationship.count }.by(1)
-    expect{ FactoryBot.create(:relationship) }.to change { UserRelationship.count }.by(2)
-    expect{ FactoryBot.create(:relationship) }.to change { User.count }.by(0)
-  end
-
+  
   context "家族登録後" do
     let!(:relationship) { FactoryBot.create(:relationship) }
 
+    it { expect(user.relationship.users.count).to eq 3 }
+    it { expect(user.relationship.users.count).not_to eq 2 }
 
     describe "家族の情報" do
 

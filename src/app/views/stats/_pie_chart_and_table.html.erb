@@ -1,27 +1,83 @@
-<%= pie_chart @pie_chart,legend: {display: false}, donut: true, width: "200px", height: "200px", colors: @pie_chart_colors %>
-<ul class="stat-table">
-  <li class="stat-table-head">
-    <span class="col-3">カテゴリ</span>
-    <span class="col-3">実績</span>
-    <span class="col-3 ransparent">目標</span>
-    <span class="col-3 ransparent">差異</span>
-  </li>
-  <li class="pie_chart_sum">
-    <span class="col-3">合計</span>
-    <span class="col-3"><%= yen @pie_chart_sum %></span>
-    <span class="col-3 ransparent"><%= yen @sum_target_price %></span>
-    <span class="col-3 ransparent" style="color:<%= price_diff_color(@sum_target_price, @pie_chart_sum) %>;">
-      <%= yen @sum_target_price - @pie_chart_sum %>
-    </span>
-  </li>
-  <% @pie_chart.each do |elm| %>
-  <li>
-    <span class="col-3" style="color: <%= Category.find(elm[0]).color %>;"><%= Category.find(elm[0]).name %></span>
-    <span class="col-3"><%= yen elm[1] %></span>
-    <span class="col-3 ransparent"><%= yen elm[2] %></span>
-    <span class="col-3 ransparent" style="color:<%= price_diff_color(elm[2], elm[1]) %>;">
-      <%= yen elm[2] - elm[1] %>
-    </span>
-  </li>
-  <% end %>
-</ul>
+<section class="section-wrapper">
+  <%= pie_chart @pie_chart,legend: {display: false}, donut: true, width: "200px", height: "200px", colors: @pie_chart_colors %>
+  <p class="pie-chart-text">
+    支出の合計<br><%= yen month_payment(@family_category_ids) %>
+  </p>
+  <ul class="stat-table total-table">
+    <li class="stat-table-head">
+      <span class="col-3">カテゴリ</span>
+      <span class="col-3">実績</span>
+      <span class="col-3 ransparent">目標</span>
+      <span class="col-3 ransparent">差異</span>
+    </li>
+
+    <li class="pie_chart_sum">
+      <span class="col-3">
+        合計
+      </span>
+      <span class="col-3">
+        <%= yen month_payment(@family_category_ids) %>
+      </span>
+      <span class="col-3 transparent">
+        <%= yen month_target(@family_category_ids) %>
+      </span>
+      <span class="col-3 transparent"
+        style="color:<%= price_color(month_target(@family_category_ids), month_payment(@family_category_ids)) %> ;">
+        <%= yen month_target(@family_category_ids) - month_payment(@family_category_ids) %>
+      </span>
+    </li>
+
+    <% @family_category_ids.each do |c_id| %>
+    <li>
+      <span class="col-3" style="color: <%= Category.find_by(id: c_id).color %>;">
+        <%= Category.find_by(id: c_id).name %>
+      </span>
+      <span class="col-3">
+        <%= yen month_payment(c_id)  %>
+      </span>
+      <span class="col-3 transparent">
+        <%= yen month_target(c_id) %>
+      </span>
+      <span class="col-3 transparent" style="color:<%= price_color(month_target(c_id), month_payment(c_id)) %> ;">
+        <%= yen month_target(c_id) - month_payment(c_id) %>
+      </span>
+    </li>
+    <% end %>
+  </ul>
+</section>
+
+<section class="section-wrapper">
+  <ul class="stat-table individual-table">
+    <li class="stat-table-head">
+      <span class="col-3">カテゴリ</span>
+      <% @relationship.users.each do |user| %>
+      <span class="col-3"><%= user.name%></span>
+      <% end %>
+    </li>
+
+    <li class="pie_chart_sum">
+      <span class="col-3">
+        合計
+      </span>
+      <% @relationship.users.each do |user| %>
+      <span class="col-3">
+        <%= yen post_where_month_sum(user, @family_category_ids, @month) %>
+      </span>
+      <% end %>
+    </li>
+
+    <% @family_category_ids.each do |c_id| %>
+    <li>
+      <span class="col-3" style="color: <%= Category.find_by(id: c_id).color %>;">
+        <%= Category.find_by(id: c_id).name %>
+      </span>
+      <% @relationship.users.each do |user| %>
+      <span class="col-3">
+        <%= yen post_where_month_sum(user, c_id, @month) %>
+      </span>
+      <% end %>
+    </li>
+    <% end %>
+
+  </ul>
+</section>

@@ -5,34 +5,32 @@ class StatsController < ApplicationController
 
   def month
     @month = Time.zone.now.beginning_of_month
-    family_category_ids = @relationship.category_ids
-    category_group_hash = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
-    # @pie_chart = make_full_hash(family_category_ids, category_group_hash )
+    @family_category_ids = @relationship.category_ids
 
-    price_array = make_full_hash(family_category_ids, category_group_hash ).to_a
-    # [[1, 0], [2, 0], [3, 0], [4, 1401522], [5, 550], [6, 0], [7, 0]]
+    @pie_chart = []
+    @family_category_ids.each do |c_id|
+      @pie_chart.push(
+        [Category.find_by(id: c_id).name, 
+          post_where_month_sum(@relationship.users, c_id, @month)]
+      )
+    end
+    @pie_chart_colors = Category.where(id: @family_category_ids).map(&:color)
 
-    target_price_array = @relationship.categories.map {|c| c.target_price }
-    # [155000, 36000, 10000, 20000, 20000, 5000, 10000]
-
-    make_pie_chart(price_array, target_price_array)
-    # [[1, 0, 155000],[2, 0, 36000],[3, 0, 10000],[4, 1401522, 20000],[5, 550, 20000],[6, 0, 5000],[7, 0, 10000]]
-
-    make_pie_chart_colors(family_category_ids)
-    make_pie_chart_sum(@pie_chart)
-    make_sum_target_price(@relationship.categories)
   end
 
   
   def month_ajax
     @month = Time.parse(params[:month]) 
-    family_category_ids = @relationship.category_ids
-    category_group_hash = Post.where(category_id: family_category_ids).month(@month).group("category_id").sum(:price)
-    price_array = make_full_hash(family_category_ids, category_group_hash ).to_a
-    target_price_array = @relationship.categories.map {|c| c.target_price }
-    make_pie_chart(price_array, target_price_array)
-    make_pie_chart_colors(family_category_ids)    
-    make_pie_chart_sum(@pie_chart)
+    @family_category_ids = @relationship.category_ids
+
+    @pie_chart = []
+    @family_category_ids.each do |c_id|
+      @pie_chart.push(
+        [Category.find_by(id: c_id).name, 
+          post_where_month_sum(@relationship.users, c_id, @month)]
+      )
+    end
+    @pie_chart_colors = Category.where(id: @family_category_ids).map(&:color)
   end
 
 
@@ -42,6 +40,7 @@ class StatsController < ApplicationController
     family_category_ids = @relationship.category_ids
     
     @bar_chart = []
+    # カテゴリごとの繰り返し
     family_category_ids.length.times do |i| 
       month_name_and_sum_price_every_category = []
         # 月ごとの繰り返し
@@ -50,8 +49,7 @@ class StatsController < ApplicationController
 
           month_name_and_sum_price_every_category.push([
             "#{j+1}月",
-            Category.left_joins(:posts).select('categories.*, posts.purchased_at, posts.price')
-            .where(id: family_category_ids[i], posts: { purchased_at: every_months.all_month} ).group("name").sum(:price).values[0]
+            post_where_month_sum(@relationship.users, family_category_ids[i], every_months)
           ])
         end
 
@@ -115,8 +113,7 @@ class StatsController < ApplicationController
 
           month_name_and_sum_price_every_category.push([
             "#{j+1}月",
-            Category.left_joins(:posts).select('categories.*, posts.purchased_at, posts.price')
-            .where(id: family_category_ids[i], posts: { purchased_at: every_months.all_month} ).group("name").sum(:price).values[0]
+            post_where_month_sum(@relationship.users, family_category_ids[i], every_months)
           ])
         end
 

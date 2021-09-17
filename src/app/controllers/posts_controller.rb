@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
 
   def index
-    make_sum_target_price(@relationship.categories) # @sum_target_priceの生成
+    @sum_target_price = Category.where(id: @relationship.category_ids).sum(:target_price)
     @month = Time.zone.now.beginning_of_month.to_datetime
     family_user_ids = @relationship.user_ids
     family_category_ids = @relationship.category_ids
