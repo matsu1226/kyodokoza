@@ -57,10 +57,6 @@ class CategoriesController < ApplicationController
 
 
   private 
-    def get_relationship
-      @relationship = current_user.relationship
-    end
-
     def category_params
       params.require(:category).permit(:name, :color, :content, :target_price)
     end

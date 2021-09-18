@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
   root 'static_pages#introduction'
   get  '/introduction', to: 'static_pages#introduction'
-  # post '/guest_sign_in', to: 'static_pages#guest_sign_in'
+  get '/guest_sign_in', to: 'static_pages#guest_sign_in'
 
   
   get    '/login',     to: "sessions#new"
   post   '/login',     to: "sessions#create"
   delete '/logout',    to: "sessions#destroy"
   
-  # get    '/posts/narrow_down', to: "posts#narrow_down", defaults: { format: :json }
   get 'stats/month'
   get 'stats/year'
   get 'stats/month_ajax'

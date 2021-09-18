@@ -3,7 +3,7 @@
   <div class="container invitation-code-making">
 
     <div class="invitation-code-display">
-      <input id="copyTarget" type="text" value="<%= @user.invitation_token %>" readonly>
+      <input id="copyTarget" type="text" value="<%= current_user.invitation_token %>" readonly>
       <i class="btn btn-outline-secondary far fa-copy copy-btn" type="button" onclick="copyToClipboard()"></i>
     </div>
 

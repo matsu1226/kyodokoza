@@ -84,11 +84,6 @@ class PostsController < ApplicationController
 
 
   private 
-    def get_relationship
-      @relationship = current_user.relationship
-    end
-
-    
     def post_params
       params.require(:post).permit(:category_id, :user_id, :content, :price, :purchased_at)
     end

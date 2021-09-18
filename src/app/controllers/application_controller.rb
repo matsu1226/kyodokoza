@@ -20,4 +20,8 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def get_relationship
+      @relationship = current_user.relationship
+    end
+
 end
