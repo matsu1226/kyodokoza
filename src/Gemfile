@@ -45,6 +45,10 @@ gem "chartkick"
 gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'rubyzip'
+#LINE API用
+gem 'line-bot-api'
+#access tokenなどを管理する用
+gem 'dotenv-rails' 
 
 
 group :development, :test do

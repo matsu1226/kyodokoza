@@ -50,7 +50,7 @@ class RelationshipsController < ApplicationController
 
 
   def show
-    @relationship = @user.relationship
+    @relationship = current_user.relationship
     @users = @relationship.users
   end
 

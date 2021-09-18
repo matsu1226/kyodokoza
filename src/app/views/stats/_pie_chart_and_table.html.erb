@@ -3,6 +3,9 @@
   <p class="pie-chart-text">
     支出の合計<br><%= yen month_payment(@family_category_ids) %>
   </p>
+</section>
+<section class="section-wrapper">
+  <h2 class="table-title">支出の合計(全ユーザー)</h2>
   <ul class="stat-table total-table">
     <li class="stat-table-head">
       <span class="col-3">カテゴリ</span>
@@ -11,7 +14,7 @@
       <span class="col-3 ransparent">差異</span>
     </li>
 
-    <li class="pie_chart_sum">
+    <li class="total-sum">
       <span class="col-3">
         合計
       </span>
@@ -28,7 +31,7 @@
     </li>
 
     <% @family_category_ids.each do |c_id| %>
-    <li>
+    <li class="category-sum">
       <span class="col-3" style="color: <%= Category.find_by(id: c_id).color %>;">
         <%= Category.find_by(id: c_id).name %>
       </span>
@@ -47,6 +50,7 @@
 </section>
 
 <section class="section-wrapper">
+  <h2 class="table-title">支出の合計(ユーザーごと)</h2>
   <ul class="stat-table individual-table">
     <li class="stat-table-head">
       <span class="col-3">カテゴリ</span>
@@ -55,7 +59,7 @@
       <% end %>
     </li>
 
-    <li class="pie_chart_sum">
+    <li class="total-sum">
       <span class="col-3">
         合計
       </span>
@@ -67,7 +71,7 @@
     </li>
 
     <% @family_category_ids.each do |c_id| %>
-    <li>
+    <li class="category-sum">
       <span class="col-3" style="color: <%= Category.find_by(id: c_id).color %>;">
         <%= Category.find_by(id: c_id).name %>
       </span>

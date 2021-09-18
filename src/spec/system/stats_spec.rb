@@ -55,32 +55,38 @@ RSpec.describe "Stats", type: :system do
         it { is_expected.to have_content "固定費" } # 固定費
       end
 
-      describe"total-table" do
-        describe "実績" do
-          it { is_expected.to have_content  "¥ 7,200" } # 食費
-          it { is_expected.to have_content "¥ 75,000" } # 固定費
-          it { is_expected.to have_content "¥ 82,200" } # 合計
+      it "実績-目標テーブル / 合計列" do
+        within '.total-table' do
+          within '.total-sum' do
+            is_expected.to have_content "¥ 82,200" # 合計
+            is_expected.to have_content "¥ 86,000" # 合計
+            is_expected.to have_content "¥ 3,800" # 合計
+          end
         end
-        describe "目標" do
-          it { is_expected.to have_content "¥ 36,000" } # 食費
-          it { is_expected.to have_content "¥ 50,000" } # 固定費
-          it { is_expected.to have_content "¥ 86,000" } # 合計
-        end
-        describe "差異" do
-          it { is_expected.to have_content "¥ 28,800" } # 食費
-          it { is_expected.to have_content "¥ -25,000" } # 固定費
-          it { is_expected.to have_content "¥ 3,800" } # 合計
+      end
+
+      it "実績-目標テーブル / カテゴリ列" do
+        within '.total-table' do
+          is_expected.to have_content  "¥ 7,200" # 食費
+          is_expected.to have_content "¥ 36,000" # 食費
+          is_expected.to have_content "¥ 28,800" # 食費
+          is_expected.to have_content "¥ 75,000" # 固定費
+          is_expected.to have_content "¥ 50,000" # 固定費
+          is_expected.to have_content "¥ -25,000" # 固定費
         end
       end
 
 
-      describe "individual-table" do
-        describe "固定費" do
-          it { is_expected.to have_content "¥ 4,400" } # user1
-          it { is_expected.to have_content "¥ 2,800" } # user2
-          it { is_expected.to have_content "¥ 75,000" } # その他
+      it "individual-table" do
+        within '.individual-table' do
+          within '.total-sum' do
+            is_expected.to have_content "¥ 4,400" # user1
+            is_expected.to have_content "¥ 2,800" # user2
+            is_expected.to have_content "¥ 75,000" # その他
+          end
         end
       end
+
     end
   end
   
