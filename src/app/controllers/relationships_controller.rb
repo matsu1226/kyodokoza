@@ -1,7 +1,7 @@
 class RelationshipsController < ApplicationController
   before_action :logged_in_user
-  before_action :get_user
   before_action :create_invitation_digest, only: [:invitation_code]
+  # before_action :get_user, only: [:new, :create, :invitation_code] 
   before_action :check_no_relationship, only: [:new, :create, :invitation_code]   
   before_action :correct_relationship, only: [:show]
   
@@ -27,11 +27,11 @@ class RelationshipsController < ApplicationController
       if @relationship.save
         common_user_password = SecureRandom.urlsafe_base64(10)
         common_user = User.create(name: "共通", 
-                                  email: "common_#{@user.id}@kyodokoza.com", 
+                                  email: "common_#{current_user.id}@kyodokoza.com", 
                                   password: common_user_password, 
                                   password_confirmation: common_user_password)
-        # @relationと@user/to_user/common_userをつなげる
-        @user.create_user_relationship(relationship_id: @relationship.id)
+        # @relationとcurrent_user/to_user/common_userをつなげる
+        current_user.create_user_relationship(relationship_id: @relationship.id)
         to_user.create_user_relationship(relationship_id: @relationship.id)
         common_user.create_user_relationship(relationship_id: @relationship.id)
 
@@ -62,16 +62,17 @@ class RelationshipsController < ApplicationController
 
   private
     def check_no_relationship
-      unless @user.no_relationship?
+      unless current_user.no_relationship?
         flash[:danger] = "すでに家族が登録されています"
-        redirect_to user_path(@user)
+        redirect_to user_path(current_user)
       end
     end
 
+
     def create_invitation_digest
-      @user.invitation_token = User.new_token
-      @user.update(invitation_digest: User.digest(@user.invitation_token))
-      @user.update(invitation_made_at: Time.zone.now)
+      current_user.invitation_token = User.new_token
+      current_user.update(invitation_digest: User.digest(current_user.invitation_token))
+      current_user.update(invitation_made_at: Time.zone.now)
     end
     
     def correct_relationship

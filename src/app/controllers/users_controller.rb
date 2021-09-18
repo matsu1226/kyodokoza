@@ -11,6 +11,20 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    
+    # non_activate_user = User.find_by(email: params[:user][:email])
+    # if non_activate_user && non_activate_user.update(user_params)
+    #   non_activate_user.send_activation_email
+    #   flash[:info] = "仮登録メールを送信しました。メールを確認して登録を完了させてください。"
+    #   redirect_to root_url
+    # elsif @user.save
+    #   @user.send_activation_email
+    #   flash[:info] = "仮登録メールを送信しました。メールを確認して登録を完了させてください。"
+    #   redirect_to root_url
+    # else
+    #   render action: :new
+    # end
+    
     if @user.save
       @user.send_activation_email
       flash[:info] = "仮登録メールを送信しました。メールを確認して登録を完了させてください。"
