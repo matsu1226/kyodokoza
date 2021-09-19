@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :posts 
   
   get    '/signup',    to: "users#new"  
-  resources :users 
+  resources :users , except: :index
   resources :categories 
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
