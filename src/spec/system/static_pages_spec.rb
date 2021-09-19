@@ -12,17 +12,17 @@ RSpec.describe "StaticPages", type: :system do
   subject { page }
   
   it "家族の情報の表示" do
-    visit user_path(user)
+    visit user_path(guest)
     should have_content "家族の情報"
     should_not have_content "家族の登録"
-    visit relationship_path(user.relationship)
-    should have_content "ゲスト一家"
+    visit relationship_path(guest.relationship)
+    should have_content "ゲスト用家族"
     should have_content "ゲスト1"
     should have_content "ゲスト2"
   end
 
   describe "footerの表示" do
-    before { visit user_path(user) }
+    before { visit user_path(guest) }
     it { is_expected.to have_link nil, href: posts_path }  
     it { is_expected.to have_link nil, href: stats_month_path }  
     it { is_expected.to have_link nil, href: stats_year_path }  
@@ -33,11 +33,11 @@ RSpec.describe "StaticPages", type: :system do
   describe "カテゴリの表示" do
     before { visit categories_path }
     it { is_expected.to have_content "固定費" }
-    it { is_expected.not_to have_content "食費" }
-    it { is_expected.not_to have_content "通信費" }
-    it { is_expected.not_to have_content "飲み会・旅行" }
-    it { is_expected.not_to have_content "雑費" }
-    it { is_expected.not_to have_content "その他" }
+    it { is_expected.to have_content "食費" }
+    it { is_expected.to have_content "通信費" }
+    it { is_expected.to have_content "飲み会・旅行" }
+    it { is_expected.to have_content "雑費" }
+    it { is_expected.to have_content "その他" }
   end
 
   describe "月合計の表示" do
@@ -57,7 +57,7 @@ RSpec.describe "StaticPages", type: :system do
       within '.total-table' do
         is_expected.to have_content "¥ 100,000" # 固定費
         is_expected.to have_content "¥ 150,000" # 固定費
-        is_expected.to have_content "¥ 5,0000" # 固定費
+        is_expected.to have_content "¥ 50,000" # 固定費
         is_expected.to have_content  "¥ 6,000" # 食費
         is_expected.to have_content "¥ 36,000" # 食費
         is_expected.to have_content "¥ 30,000" # 食費
@@ -81,8 +81,11 @@ RSpec.describe "StaticPages", type: :system do
 
   describe "ログアウト" do
     before  do
-      user_path(guest)
-      click_link "ログアウト", href: logout_path
+      visit guest_sign_in_path
+      visit user_path(guest)
+      # click_link "ログアウト", href: logout_path
+      link = find('.logout-wrapeer')
+      link.click
     end
 
     it { expect( Category.where(relationship_id: guest.relationship.id).count ).to eq 0  }

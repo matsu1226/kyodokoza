@@ -1,12 +1,17 @@
 <%= provide(:title, "パスワード変更") %>
-  <div class="form">
+  <div class="password-reset-form">
     <%= form_with(url: password_resets_path, scope: :password_reset, local: true) do |f| %>
       <%# <%= render 'shared/error_messages' %>
       <%= f.label :email, "メールアドレス：", class: "form-label" %>
-      <%= f.email_field :email%>
+      <%= f.email_field :email, class: "form-control"%>
 
       <%= f.submit "メール送信" ,class: "btn standerd-btn btn-primary" %>
 
     <% end %>
+    <% if logged_in? %>
+    <%= link_to "設定一覧へ戻る", user_path(current_user), class: "back-btn btn" %>
+    <% end %>
+    <% unless logged_in? %>
     <%= link_to "戻る", login_path, class: "back-btn btn" %>
+    <% end %>
   </div>

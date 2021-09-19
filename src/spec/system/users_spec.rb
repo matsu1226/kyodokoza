@@ -209,6 +209,12 @@ RSpec.describe "Users", type: :system do
         before { visit root_path }
         it { is_expected.not_to have_content '登録済みの方はこちら' } 
       end
+
+      describe "login_path" do
+        before { visit login_path }
+        it { is_expected.to have_content '既にログインしています' } 
+        it { is_expected.to have_content '設定' } 
+      end
     end
 
 
