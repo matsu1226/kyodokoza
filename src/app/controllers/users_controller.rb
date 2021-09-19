@@ -60,12 +60,12 @@ class UsersController < ApplicationController
   end
   # updateのバリデーション => https://hene.dev/blog/2019/06/03/rails-validation
 
-  def destroy
-    @user=User.find_by(id: params[:id])
-    @user.destroy
-    flash[:danger] = "アカウントを削除しました"
-    redirect_to root_url
-  end
+  # def destroy
+  #   @user=User.find_by(id: params[:id])
+  #   @user.destroy
+  #   flash[:danger] = "アカウントを削除しました"
+  #   redirect_to root_url
+  # end
 
 
   private

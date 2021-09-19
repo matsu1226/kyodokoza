@@ -282,7 +282,7 @@ RSpec.describe "Users", type: :system do
         expect(page).to have_content 'パスワード変更'
       end
       
-      it "アカウントの削除" do
+      pending "アカウントの削除" do
         visit edit_user_path(user)
         click_on 'アカウント削除'
         # expect(page).to have_content '本当によろしいですか？'

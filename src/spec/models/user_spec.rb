@@ -157,6 +157,11 @@ RSpec.describe User, type: :model do
       end
     end
 
+    describe "create_invitation_digestのテスト" do
+      it { expect{ @user.create_invitation_digest }.to change{ @user.invitation_token }.from(nil).to(String) }
+      it { expect{ @user.create_invitation_digest }.to change{ @user.invitation_digest }.from(nil).to(String) }
+    end
+
     describe "no_relationship?　のテスト" do
       it "relationship なし" do
         expect(@user.no_relationship?).to be true        

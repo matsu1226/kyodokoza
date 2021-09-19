@@ -26,6 +26,11 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    guest = User.find_by(email: 'guest@example.com')
+    if current_user == guest
+      Category.where(relationship_id: guest.relationship.id).each { |category| category.destroy }
+    end
+
     log_out
     redirect_to login_path
     flash[:success] = "ログアウトしました。"

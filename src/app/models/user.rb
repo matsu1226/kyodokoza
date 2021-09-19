@@ -23,7 +23,8 @@ class User < ApplicationRecord
   validates :password_confirmation, 
             presence: true, 
             unless: -> { validation_context == :except_password_change }
-  
+  # https://hene.dev/blog/2019/06/03/rails-validation
+
   has_secure_password   
   # gem 'bcrypt' (password_digest属性/attr_accessor :password, :password_confirmation /authenticateメソッド)
   # => https://naokirin.hatenablog.com/entry/2019/03/29/032801
@@ -44,37 +45,37 @@ class User < ApplicationRecord
   #   BCrypt::Password.new(digest).is_password?(token)
   # end
 
-  def authenticated?(attribute_name, token)   ##
+  def authenticated?(attribute_name, token)   
     digest = send("#{attribute_name}_digest")    # acctivation_digest, 
     return false if digest.nil?
     # digest_and_token_is_password?(digest, token)
     BCrypt::Password.new(digest).is_password?(token)
   end
 
-  def send_activation_email   # user#create   ##
+  def send_activation_email   # user#create   
     UserMailer.account_activation(self).deliver_now
   end
 
-  def activate  # account_activation#edit     ##
+  def activate  # account_activation#edit     
     update(activated_at: Time.zone.now)
     update(activated: true)
   end
 
-  def create_reset_digest                     ##
+  def create_reset_digest                     
     self.reset_token = User.new_token
     update(reset_digest: User.digest(reset_token))
     update(reset_sent_at: Time.zone.now)
   end
 
-  def send_password_reset_email               ##
+  def send_password_reset_email               
     UserMailer.password_reset(self).deliver_now
   end
 
-  def password_reset_expired?                 ##
+  def password_reset_expired?                 
     reset_sent_at < 2.hours.ago
   end
 
-  def set_invitation_digest
+  def create_invitation_digest
     self.invitation_token = User.new_token
     update(invitation_digest: User.digest(invitation_token))
     update(invitation_made_at: Time.zone.now)
@@ -87,10 +88,6 @@ class User < ApplicationRecord
   
   private
   def create_activation_digest
-    # self.activation_token = User.new_token
-    # # self.activation_digest = User.digest(activation_token)
-    # update(:activation_digest, User.digest(activation_token))
-    # update(:activated_at, Time.zone.now)
     self.activation_token = User.new_token
     self.activation_digest = User.digest(activation_token)
   end

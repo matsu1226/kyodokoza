@@ -77,7 +77,7 @@ RSpec.describe "Stats", type: :system do
       end
 
 
-      it "individual-table" do
+      it "ユーザー毎テーブル / 合計" do
         within '.individual-table' do
           within '.total-sum' do
             is_expected.to have_content "¥ 4,400" # user1
