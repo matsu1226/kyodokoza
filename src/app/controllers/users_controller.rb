@@ -11,27 +11,31 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    
-    # non_activate_user = User.find_by(email: params[:user][:email])
-    # if non_activate_user && non_activate_user.update(user_params)
-    #   non_activate_user.send_activation_email
-    #   flash[:info] = "仮登録メールを送信しました。メールを確認して登録を完了させてください。"
-    #   redirect_to root_url
-    # elsif @user.save
-    #   @user.send_activation_email
-    #   flash[:info] = "仮登録メールを送信しました。メールを確認して登録を完了させてください。"
-    #   redirect_to root_url
-    # else
-    #   render action: :new
-    # end
-    
-    if @user.save
+    @non_activated_user = User.find_by(email: params[:user][:email])
+
+    # 入力したアドレスのユーザーがDBに存在し、activateされていないなら、
+
+    if @non_activated_user && @non_activated_user.activated == false
+      if @non_activated_user.update(user_params)
+        @user = @non_activated_user 
+
+        @user.activation_token = User.new_token
+        @user.activation_digest = User.digest(@user.activation_token)
+        @user.send_activation_email
+        flash[:info] = "仮登録メールを送信しました。確認してください。"
+        redirect_to root_url
+      else
+        redirect_to new_user_path
+        flash[:warning] = "フォームの入力値が不適切です"
+      end
+    elsif @user.save
       @user.send_activation_email
-      flash[:info] = "仮登録メールを送信しました。メールを確認して登録を完了させてください。"
+      flash[:info] = "仮登録メールを送信しました。確認してください。"
       redirect_to root_url
     else
       render action: :new
     end
+    
   end
 
   
@@ -45,13 +49,16 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find_by(id: params[:id])
-    if @user.update(user_params_name_only)
+    @user.attributes = { name: params[:user][:name] }
+    if @user.save(context: :except_password_change)
+    # if @user.update(name: params[:user][:name])
       flash[:success] = "名前を変更しました！"
       redirect_to edit_user_path(@user)
     else
       render "edit"
     end
   end
+  # updateのバリデーション => https://hene.dev/blog/2019/06/03/rails-validation
 
   def destroy
     @user=User.find_by(id: params[:id])

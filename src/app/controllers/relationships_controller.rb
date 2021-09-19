@@ -71,8 +71,11 @@ class RelationshipsController < ApplicationController
 
     def create_invitation_digest
       current_user.invitation_token = User.new_token
-      current_user.update(invitation_digest: User.digest(current_user.invitation_token))
-      current_user.update(invitation_made_at: Time.zone.now)
+      # current_user.update(invitation_digest: User.digest(current_user.invitation_token))
+      # current_user.update(invitation_made_at: Time.zone.now)
+      current_user.attributes = { invitation_digest: User.digest(current_user.invitation_token),
+                                  invitation_made_at: Time.zone.now }
+      current_user.save(context: :except_password_change)
     end
     
     def correct_relationship

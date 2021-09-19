@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   let(:user) { FactoryBot.create(:user) }   # 登録済みユーザー
+  let!(:non_activated_user) { FactoryBot.create(:other_user, activated: false) }
+  let!(:activated_user) { FactoryBot.create(:user3, activated: true) }
   subject { page }
 
   context "ログイン前" do
@@ -23,36 +25,92 @@ RSpec.describe "Users", type: :system do
         visit signup_path 
       end
 
-      let(:test_user) { User.find_by(email: "test@test.com") }
-
       describe "登録フォーム" do
-        it "メールアドレス空欄エラー" do
-          fill_in 'ニックネーム：', with: "テスト　太郎"
-          fill_in 'メールアドレス：', with: ""
-          fill_in 'パスワード：', with: "testtest"
-          fill_in 'パスワード（確認）：', with: "testtest"
-          click_button '仮登録（メール送信）'
-          expect(page).to have_content 'メールアドレスを入力してください'
-        end      
-        
-        it "メールアドレス重複エラー" do
-          fill_in 'ニックネーム：', with: "テスト　太郎"
-          fill_in 'メールアドレス：', with: user.email
-          fill_in 'パスワード：', with: "testtest"
-          fill_in 'パスワード（確認）：', with: "testtest"
-          click_button '仮登録（メール送信）'
-          expect(page).to have_content 'メールアドレスはすでに存在します'
+        describe "DBにアドレスが登録されていないユーザー(新規ユーザー)" do
+          it "ニックネーム空欄エラー" do
+            fill_in 'ニックネーム：', with: ""
+            fill_in 'メールアドレス：', with: "test@test.com"
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'ニックネームを入力してください'
+          end
+
+          it "メールアドレス空欄エラー" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: ""
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'メールアドレスを入力してください'
+          end
+
+          it "password空欄エラー" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: "test@test.com"
+            fill_in 'パスワード：', with: ""
+            fill_in 'パスワード（確認）：', with: ""
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'パスワードを入力してください'
+          end
+
+          let(:test_user) { User.find_by(email: "test@test.com") }
+          it "正常な新規登録" do
+            fill_test_user_info_and_click_button
+            expect(page).to have_content '仮登録メールを送信しました' 
+            expect(ActionMailer::Base.deliveries.count).to eq 1  
+            expect( test_user.name ).to eq "テスト　太郎" 
+            expect( test_user.email ).to eq "test@test.com" 
+            expect( test_user.password_digest ).to be_a_kind_of(String) 
+            expect( test_user.authenticated?(:password, "testtest") ).to eq true 
+          end
         end
-        
-        it "正常な新規登録" do
-          fill_test_user_info_and_click_button
-          expect(page).to have_content '仮登録メールを送信しました' 
-          expect(ActionMailer::Base.deliveries.count).to eq 1  
-          expect( test_user.name ).to eq "テスト　太郎" 
-          expect( test_user.email ).to eq "test@test.com" 
-          expect( test_user.password_digest ).to be_a_kind_of(String) 
-          expect( test_user.authenticated?(:password, "testtest") ).to eq true 
+
+        describe "以前に一度仮登録メール送信している(non_activated_userの確認)" do
+          it { expect(non_activated_user.activated).to be false }
+          
+          it "ニックネーム空欄エラー" do
+            fill_in 'ニックネーム：', with: ""
+            fill_in 'メールアドレス：', with: non_activated_user.email
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'フォームの入力値が不適切です'
+          end
+  
+          it "password空欄エラー" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: non_activated_user.email
+            fill_in 'パスワード：', with: ""
+            fill_in 'パスワード（確認）：', with: ""
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'フォームの入力値が不適切です'
+          end
+
+          it "正常な新規登録" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: non_activated_user.email
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content '仮登録メールを送信しました' 
+            expect( User.find_by(email: non_activated_user.email).name ).to eq "テスト　太郎" 
+            expect( User.find_by(email: non_activated_user.email).password_digest ).to be_a_kind_of(String) 
+            expect( User.find_by(email: non_activated_user.email).authenticated?(:password, "testtest") ).to eq true 
+          end
         end
+
+        describe "既に登録している(activated_userの確認)" do
+          it "正常な情報" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: activated_user.email
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'メールアドレスはすでに存在します' 
+          end
+        end       
+
       end
     
       # describe "アカウント有効化" do
@@ -177,6 +235,7 @@ RSpec.describe "Users", type: :system do
 
       describe "before_action :correct_user フィルターの確認" do
         let(:user2) { FactoryBot.create(:user2) }
+
         it "設定(users#show)" do
           visit user_path(user2)
           is_expected.to have_content 'エクセル出力' 
