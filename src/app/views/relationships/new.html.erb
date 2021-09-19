@@ -27,15 +27,15 @@
       <%# <%= render 'shared/error_messages' %> 
 
       <%= f.label :invitation_code, "パートナーの招待コード：", class: "form-label" %>
-      <%= f.text_field :invitation_code %>
+      <%= f.text_field :invitation_code , class: "form-control"%>
       <%# input id="relationship_invitation_code" name="relationship[invitation_code]" type="text" %>
       <%# name="relationship[invitation_code]" => Controllerにてparams[:relationship][:invitation_code]として取り出す %>
 
       <%= f.label :email, "パートナーの登録メールアドレス：", class: "form-label" %>
-      <%= f.email_field :email %>
+      <%= f.email_field :email , class: "form-control"%>
 
       <%= f.label :name, "登録する家族の名前：", class: "form-label" %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name , class: "form-control"%>
       <p class="sub-info">6文字以内（例：松田家）</p>
 
       <%= f.submit "登録" ,class: "btn standerd-btn btn-primary"%>

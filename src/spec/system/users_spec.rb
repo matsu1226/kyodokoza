@@ -209,6 +209,12 @@ RSpec.describe "Users", type: :system do
         before { visit root_path }
         it { is_expected.not_to have_content '登録済みの方はこちら' } 
       end
+
+      describe "login_path" do
+        before { visit login_path }
+        it { is_expected.to have_content '既にログインしています' } 
+        it { is_expected.to have_content '設定' } 
+      end
     end
 
 
@@ -282,7 +288,7 @@ RSpec.describe "Users", type: :system do
         expect(page).to have_content 'パスワード変更'
       end
       
-      it "アカウントの削除" do
+      pending "アカウントの削除" do
         visit edit_user_path(user)
         click_on 'アカウント削除'
         # expect(page).to have_content '本当によろしいですか？'
