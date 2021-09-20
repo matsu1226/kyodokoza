@@ -14,14 +14,10 @@ class UsersController < ApplicationController
     @non_activated_user = User.find_by(email: params[:user][:email])
 
     # 入力したアドレスのユーザーがDBに存在し、activateされていないなら、
-
     if @non_activated_user && @non_activated_user.activated == false
       if @non_activated_user.update(user_params)
         @user = @non_activated_user 
 
-        # @user.activation_token = User.new_token
-        # # @user.activation_digest = User.digest(@user.activation_token)
-        # @user.update(activation_digest: User.digest(@user.activation_token))
         @user.send_activation_email
         flash[:info] = "仮登録メールを送信しました。確認してください。"
         redirect_to root_url

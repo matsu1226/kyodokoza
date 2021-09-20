@@ -121,8 +121,9 @@ RSpec.describe User, type: :model do
     end
 
     describe "activateのテスト" do
-      before { @user.activate }
-      it { expect(@user.activated).to eq true }
+      # before { @user.activate }
+      # it { expect(@user.activated).to eq true }
+      it { expect{ @user.activate }.to change{ @user.activated }.from(false).to(true) }
     end
 
     describe "create_reset_digestのテスト" do
