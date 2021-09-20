@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   attr_accessor :activation_token, :reset_token, :invitation_token
 
-  before_create :create_activation_digest
+  before_save :create_activation_digest
   
   validates :name, 
             presence: true, 
