@@ -16,9 +16,10 @@ Rails.application.routes.draw do
   get 'report/single'
   get 'report/multiple'
   get 'report/output_multiple'
-  
 
-  get    '/posts/narrow_down'   # ajaxで絞り込み
+  post '/callback', to: 'linebot#callback'
+
+  get    '/posts/narrow_down'   # post/index を ajaxで絞り込み
   resources :posts 
   
   get    '/signup',    to: "users#new"  

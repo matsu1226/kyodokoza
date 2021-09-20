@@ -59,24 +59,24 @@ RSpec.describe "Users", type: :system do
         expect { user.reload }.to change { user.invitation_digest }
       end 
       
-      let(:token) { find('#copyTarget').native.inner_html }
       
-      pending "確認ページに遷移する毎に招待コードが更新" do
+      pending "確認ページに遷移する毎に招待コードが更新(view)" do
         click_link "招待コードを作成する"
-        expect do
-          click_link "戻る"
-          click_link "招待コードを作成する"
-        end.to change { token } 
+        before_token = find('#copyTarget').native.inner_html
+        click_link "戻る"
+        click_link "招待コードを作成する"
+        after_token = find('#copyTarget').native.inner_html
+        expect(before_token).not_to eq after_token
       end
       
       pending "招待コードがinvitation_digestと一致" do
         # user.invitation_digest = nil
         # user.invitation_token = nil
         click_link "招待コードを作成する"   
-        user.reload
+        # user.reload
         find '#copyTarget' 
         # reloadでインスタンスにも反映
-        # token = find('#copyTarget').native.inner_html
+        token = find('#copyTarget').native.inner_html
         # digest = user.invitation_digest
         expect(token).to be_a_kind_of(String) 
         expect(user.invitation_digest).to be_a_kind_of(String) 
