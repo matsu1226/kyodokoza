@@ -6,6 +6,8 @@ class User < ApplicationRecord
   attr_accessor :activation_token, :reset_token, :invitation_token
 
   before_save :create_activation_digest
+  # before_save => createもupdateも
+  # before_create :create_activation_digest
   
   validates :name, 
             presence: true, 
@@ -18,10 +20,10 @@ class User < ApplicationRecord
             uniqueness: true
   validates :password, 
             presence: true, 
-            length: { minimum: 8, maximum: 20 }, 
+            length: { minimum: 8, maximum: 20 } ,
             unless: -> { validation_context == :except_password_change }
   validates :password_confirmation, 
-            presence: true, 
+            presence: true,
             unless: -> { validation_context == :except_password_change }
   # https://hene.dev/blog/2019/06/03/rails-validation
 
@@ -56,8 +58,10 @@ class User < ApplicationRecord
   end
 
   def activate  # account_activation#edit     
-    update(activated_at: Time.zone.now)
-    update(activated: true)
+    self.attributes = { activated_at: Time.zone.now, activated: true }
+    save(context: :except_password_change)
+    # update(activated_at: Time.zone.now)
+    # update(activated: true)
   end
 
   def create_reset_digest                     
