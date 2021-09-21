@@ -25,7 +25,7 @@
         <%= yen month_target(@family_category_ids) %>
       </span>
       <span class="col-3 transparent"
-        style="color:<%= price_color(month_target(@family_category_ids), month_payment(@family_category_ids)) %> ;">
+        style="color:<%= price_color(month_target(@family_category_ids) - month_payment(@family_category_ids)) %> ;">
         <%= yen month_target(@family_category_ids) - month_payment(@family_category_ids) %>
       </span>
     </li>
@@ -41,7 +41,7 @@
       <span class="col-3 transparent">
         <%= yen month_target(c_id) %>
       </span>
-      <span class="col-3 transparent" style="color:<%= price_color(month_target(c_id), month_payment(c_id)) %> ;">
+      <span class="col-3 transparent" style="color:<%= price_color(month_target(c_id) - month_payment(c_id)) %> ;">
         <%= yen month_target(c_id) - month_payment(c_id) %>
       </span>
     </li>

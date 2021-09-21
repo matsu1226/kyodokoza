@@ -35,7 +35,7 @@ class StatsController < ApplicationController
 
 
   def year
-    @year = Time.local(Time.now.year, 1, 1, 9, 00, 00)
+    @year = Time.zone.local(Time.now.year, 1, 1, 9, 00, 00)
     @month = Time.zone.now.beginning_of_month
     family_category_ids = @relationship.category_ids
     
@@ -45,7 +45,7 @@ class StatsController < ApplicationController
       month_name_and_sum_price_every_category = []
         # 月ごとの繰り返し
         12.times do |j|
-          every_months= Time.local(@year.year, j+1, 1, 9, 00, 00)
+          every_months= Time.zone.local(@year.year, j+1, 1, 00, 00, 00)
 
           month_name_and_sum_price_every_category.push([
             "#{j+1}月",

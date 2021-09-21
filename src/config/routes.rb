@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get 'report/multiple'
   get 'report/output_multiple'
 
-  post '/callback', to: 'linebot#callback'
+  # post '/callback', to: 'linebot#callback'
 
   get    '/posts/narrow_down'   # post/index を ajaxで絞り込み
   resources :posts 

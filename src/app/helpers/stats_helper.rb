@@ -5,18 +5,22 @@ module StatsHelper
     Post.where(user_id: user_id, category_id: category_id).month(month).sum(:price)
   end
   
-  def price_color(target_price, payment)
-    if target_price - payment < 0
+  def price_color(price_diff)
+    if price_diff.is_a?(Integer) && price_diff < 0
       "#ff4500"
     else
       "#000"
     end
   end
 
+  
+
   # views
   
   def yen(value)
-    if value
+    if value == "bar"
+      " - "
+    elsif value
       "¥ #{value.to_s(:delimited)}"
     else
       "¥ #{0.to_s(:delimited)}"

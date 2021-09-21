@@ -1,0 +1,87 @@
+<p><%= @user1.name %>（<%= @user1.email %>）さん、
+  <br><%= @user2.name %>（<%= @user2.email %>）さん、
+  <br>おはようございます。</p>
+
+<p>家計簿アプリ「キョウドウコウザ」の案内役を任されている
+  <br>かわうその「うそうそ」です♪</p>
+
+<%= image_tag attachments['kawauso.png'].url, alt: 'kawauso', width: "200px" %>
+
+<p>先週もお疲れさまでした。
+  <br>それでは早速、先週の家計簿のまとめを報告しますね♪</p>
+
+<p>========</p>
+<p>
+  【先週（<%= l Time.zone.now.prev_week(:monday), format: :short_date %> ~
+  <%= l Time.zone.now.prev_week(:sunday), format: :short_date %>）の支出レポート】
+</p>
+<br>
+<span>〈合計額〉</span>
+<table>
+  <tr>
+    <th>支出の合計 </th>
+    <th>支出の目標 </th>
+    <th>差異 </th>
+  </tr>
+  <tr>
+    <td>
+      <%= yen Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) * 7 / @this_month_days %>
+    </td>
+    <td>
+      <%= yen Category.where(id: @relationship.category_ids).sum(:target_price) * 7 / @this_month_days %>
+    </td>
+    <td>
+      <%= yen ( Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) - 
+      Category.where(id: @relationship.category_ids).sum(:target_price)) * 7 / @this_month_days  %>
+    </td>
+  </tr>
+</table>
+<br>
+<span>〈カテゴリ毎〉</span>
+<table>
+  <tr>
+    <th>カテゴリ</th>
+    <th>支出の合計 </th>
+    <th>支出の目標 </th>
+    <th>差異 </th>
+  </tr>
+  <% @relationship.category_ids.each do |category| %>
+  <tr>
+    <td>
+      <%= Category.find_by(id: category).name %>
+    </td>
+    <td>
+      <%= yen Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) * 7 / @this_month_days %>
+    </td>
+    <td>
+      <%= yen Category.where(id: category).sum(:target_price) * 7 / @this_month_days %>
+    </td>
+    <td>
+      <%= yen ( Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) - 
+      Category.where(id: category).sum(:target_price)) * 7 / @this_month_days  %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+
+
+<p>========</p>
+
+<p>
+  記録漏れはありませんか？
+  <br>もし、あれば忘れないうちに記録しましょうね↓
+  <br>(https://kyodokoza.herokuapp.com/)
+  <br>
+  <br>今週もこの調子で頑張りましょう！
+  <br>
+  <br>もきゅっ！
+</p>
+
+<p>
+  =============================<br>
+  ▼送信元<br>
+  家計簿アプリ「キョウドウコウザ」<br>
+  https://kyodokoza.herokuapp.com/<br>
+  =============================<br>
+</p>

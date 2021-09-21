@@ -8,6 +8,7 @@
       <i class="fas fa-tags"></i>
       <% end %>
       <%= f.collection_select :category_id , @relationship.categories, :id, :name, { selected: @post.category_id }, { class: "form-select" } %>
+      <%# collection_select => https://qiita.com/_akira19/items/c218186983f444c2d794 %>
     </div>
     <div class="form-label-set">
       <%= f.label :user_id, "誰", class: "form-label" do %>

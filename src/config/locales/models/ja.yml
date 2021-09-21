@@ -20,6 +20,7 @@ ja:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
       date: "%Y/%m/%d"
+      short_date: "%m/%d"
       short: "%d"
 
 # https://qiita.com/satreu16/items/a072a4be415f30087ed7
