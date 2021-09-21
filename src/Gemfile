@@ -65,6 +65,8 @@ group :development, :test do
   gem 'pry-doc'
   # rspec with Ajax
   gem 'selenium-webdriver'
+  # バッチ処理
+  gem 'whenever', require: false
 
 end
 

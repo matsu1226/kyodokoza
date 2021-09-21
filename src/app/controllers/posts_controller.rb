@@ -22,11 +22,13 @@ class PostsController < ApplicationController
 
 
   def index
-    @sum_target_price = Category.where(id: @relationship.category_ids).sum(:target_price)
     @month = Time.zone.now.beginning_of_month.to_datetime
     family_user_ids = @relationship.user_ids
     family_category_ids = @relationship.category_ids
     @posts = narrow_downing_posts(family_user_ids, family_category_ids, @month)
+    @sum_posts_price = sum_posts_price(@posts)
+    @sum_target_price = Category.where(id: @relationship.category_ids).sum(:target_price)
+    @price_diff = @sum_target_price - @sum_posts_price
   end
 
 
@@ -37,17 +39,20 @@ class PostsController < ApplicationController
     family_category_ids = @relationship.category_ids
     
     if params[:user_id].blank? && params[:category_id].blank?
-      @sum_target_price = Category.where(id: family_category_ids).sum(:target_price)
       @posts = narrow_downing_posts(family_user_ids, family_category_ids, @month)
-    elsif params[:user_id].present?
+      @sum_posts_price = sum_posts_price(@posts)
       @sum_target_price = Category.where(id: family_category_ids).sum(:target_price)
+      @price_diff = @sum_target_price - @sum_posts_price
+    elsif params[:user_id].present?
       @posts = narrow_downing_posts(params[:user_id], family_category_ids, @month)
-    elsif params[:category_id].present?
-      @sum_target_price = Category.where(id: params[:category_id]).sum(:target_price)
+      @sum_posts_price = sum_posts_price(@posts)
+      @sum_target_price = "bar"
+      @price_diff = "bar"
+    else        # params[:category_id].present?
       @posts = narrow_downing_posts(family_user_ids, params[:category_id], @month)
-    else  # categoryもuserも指定
+      @sum_posts_price = sum_posts_price(@posts)
       @sum_target_price = Category.where(id: params[:category_id]).sum(:target_price)
-      @posts = narrow_downing_posts(params[:user_id], params[:category_id], @month)
+      @price_diff = @sum_target_price - @sum_posts_price
     end
   end
   # (1)月の変更 or (2)ユーザー絞り込み
@@ -97,6 +102,14 @@ class PostsController < ApplicationController
         flash[:post] = "あなた以外の家族の情報は閲覧できません"
         redirect_to posts_path
       end
+    end
+
+    def sum_posts_price(posts)
+      sum = 0
+      posts.each do |post| 
+        sum += post.price
+      end
+      return sum
     end
 
 end

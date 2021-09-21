@@ -1,8 +1,10 @@
 <%= provide(:title, "支出の記録") %>
+<% content_for(:body_attributes) do %>
+data-turbolinks="false"
+<% end %>
 <section class="section-wrapper post-section-wrapper">
 
   <%= form_with(model: @post, url: {controller: 'posts', action: 'create' },class: "post-form", local: true) do |f| %>
-
   <div class="small-sub-wrapper">
     <div class="form-label-set">
       <%= f.label :category_id, class: "form-label" do %>

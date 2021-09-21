@@ -8,6 +8,13 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.account_activation(user)
   end
 
+  # Preview this email at http://localhost:3000/rails/mailers/user_mailer/weekly_notification
+  def weekly_notification
+    user = User.first
+    relationship = user.relationship
+    UserMailer.weekly_notification(relationship)
+  end
+
   # Preview this email at http://localhost:3000/rails/mailers/user_mailer/password_reset
   def password_reset
     user = User.first

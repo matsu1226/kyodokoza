@@ -11,10 +11,10 @@
     <th class="col-3 ransparent">差異</th>
   </tr>
   <tr>
-    <td class="col-3"><%= yen sum_posts_price(@posts) %></td>
-    <td class="col-3 ransparent"><%= yen @sum_target_price %></td>
-    <td class="col-3 ransparent" style="color:<%= price_color(@sum_target_price, sum_posts_price(@posts)) %>;">
-      <%= yen @sum_target_price - sum_posts_price(@posts) %>
-    </td>
+    <td class="col-3"><%= yen @sum_posts_price %></td>
+      <td class="col-3 ransparent"><%= yen @sum_target_price %></td>
+      <td class="col-3 ransparent" style="color:<%= price_color(@price_diff) %>;">
+        <%= yen @price_diff %>
+      </td>
   </tr>
 </table>

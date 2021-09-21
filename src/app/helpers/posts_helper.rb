@@ -5,14 +5,6 @@ module PostsHelper
     days[date.wday]
   end
 
-  def sum_posts_price(posts)
-    sum = 0
-    posts.each do |post| 
-      sum += post.price
-    end
-    return sum
-  end
-
   def narrow_down_select(attribute, array )
     id = "#{attribute}_id".to_sym
     # association_method = "#{attribute}".pluralize
@@ -21,14 +13,6 @@ module PostsHelper
                             class: 'form-select narrow_down_select col-2',
                             data: { remote: true,
                                     url: posts_narrow_down_path(month: @month) }}
-  end
-
-  def yen(value)
-    if value
-      "¥ #{value.to_s(:delimited)}"
-    else
-      "¥ #{0.to_s(:delimited)}"
-    end
   end
 
   def narrow_downing_posts(user_id_set, category_id_set, month)
