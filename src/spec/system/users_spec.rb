@@ -245,12 +245,12 @@ RSpec.describe "Users", type: :system do
 
         it "設定(users#show)" do
           visit user_path(user2)
-          is_expected.to have_content 'エクセル出力' 
+          is_expected.to have_content '他のユーザーの情報は見ることができません' 
         end
 
         it "アカウント情報の変更(users#edit)" do
           visit edit_user_path(user2)
-          is_expected.to have_content 'エクセル出力' 
+          is_expected.to have_content '他のユーザーの情報は見ることができません' 
         end
 
       end      

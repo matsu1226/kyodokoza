@@ -1,0 +1,42 @@
+<%= provide(:title, "収入の記録") %>
+<% content_for(:body_attributes) do %>
+data-turbolinks="false"
+<% end %>
+<section class="section-wrapper post-section-wrapper">
+
+  <%= form_with(model: @income ,class: "post-form", local: true) do |f| %>
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :user_id, "誰", class: "form-label" do %>
+    <i class="fas fa-user-friends"></i>
+    <% end%>
+    <%= f.collection_select :user_id , @relationship.users, :id, :name, { selected: 1 }, { class: "form-select" } %>
+  </div>
+
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :deposit_at, class: "form-label" do %>
+    <i class="fas fa-calendar-alt"></i>
+    <% end %>
+    <%= f.date_field :deposit_at, value: Time.zone.today , class: "form-control" %>
+  </div>
+
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :content, class: "form-label" do %>
+    <i class="fas fa-pencil-alt"></i>
+    <% end %>
+    <%= f.text_field :content, class: "form-control" %>
+  </div>
+
+  <div class="large-sub-wrapper price-wrapper">
+    <%= f.label :price, class: "form-label" do %>
+    <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
+    <% end %>
+    <%= f.hidden_field :price, id: "output", class: "output" %>
+    <p class="price-display" id="price-display"></p>
+  </div>
+
+  <%= f.submit "記録" ,class: "btn standerd-btn btn-primary" %>
+  <% end %>
+
+  <%= render "shared/calculator" %>
+
+</section>

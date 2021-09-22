@@ -4,7 +4,7 @@ data-turbolinks="false"
 <% end %>
 <section class="section-wrapper post-section-wrapper">
 
-  <%= form_with(model: @post, url: {controller: 'posts', action: 'create' },class: "post-form", local: true) do |f| %>
+  <%= form_with(model: @post ,class: "post-form", local: true) do |f| %>
   <div class="small-sub-wrapper">
     <div class="form-label-set">
       <%= f.label :category_id, class: "form-label" do %>
@@ -46,6 +46,6 @@ data-turbolinks="false"
   <%= f.submit "記録" ,class: "btn standerd-btn btn-primary" %>
   <% end %>
 
-  <%= render "calculator" %>
+  <%= render "shared/calculator" %>
 
 </section>

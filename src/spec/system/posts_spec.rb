@@ -9,15 +9,15 @@ RSpec.describe "Posts", type: :system do
   let!(:post) { FactoryBot.create(:post, price:2000, 
                                         user_id: user.id, 
                                         category_id: food_expenses.id,
-                                        purchased_at: Time.local(2021, 9, 01, 12, 00, 00)) }  
+                                        payment_at: Time.local(2021, 9, 01, 12, 00, 00)) }  
   let!(:post2) { FactoryBot.create(:post, price:2400, 
                                         user_id: user.id, 
                                         category_id: food_expenses.id,
-                                        purchased_at: Time.local(2021, 9, 11, 12, 00, 00)) }  
+                                        payment_at: Time.local(2021, 9, 11, 12, 00, 00)) }  
   let!(:post3) { FactoryBot.create(:post, price:2800, 
                                         user_id: user.id, 
                                         category_id: food_expenses.id,
-                                        purchased_at: Time.local(2021, 9, 21, 12, 00, 00)) }   
+                                        payment_at: Time.local(2021, 9, 21, 12, 00, 00)) }   
   # let(:month) { today.beginning_of_month }
   let(:today) { Time.new(2021, 9 ,1, 9, 00, 00) }
 
@@ -54,7 +54,7 @@ RSpec.describe "Posts", type: :system do
       it "正しい保存" do
         select '食費', from: 'post[category_id]'
         select '正太郎', from: 'post[user_id]'
-        find('#post_purchased_at').set("2021-09-08")
+        find('#post_payment_at').set("2021-09-08")
         find('#output', visible: false).set('0700')
         fill_in "post_content", with: 'テスト用'
         click_button "記録"
@@ -72,7 +72,7 @@ RSpec.describe "Posts", type: :system do
       it "priceが空欄" do
         select '食費', from: 'post[category_id]'
         select '正太郎', from: 'post[user_id]'
-        find('#post_purchased_at').set("2021-09-08")
+        find('#post_payment_at').set("2021-09-08")
         find('#output', visible: false).set('')
         fill_in "post_content", with: 'テスト用'
         click_button "記録"
@@ -82,7 +82,7 @@ RSpec.describe "Posts", type: :system do
       it "contentが空欄" do
         select '食費', from: 'post[category_id]'
         select '正太郎', from: 'post[user_id]'
-        find('#post_purchased_at').set("2021-09-08")
+        find('#post_payment_at').set("2021-09-08")
         find('#output', visible: false).set('0700')
         fill_in "post_content", with: ''
         click_button "記録"
@@ -92,7 +92,7 @@ RSpec.describe "Posts", type: :system do
       it "日付が空欄" do
         select '食費', from: 'post[category_id]'
         select '正太郎', from: 'post[user_id]'
-        find('#post_purchased_at').set("")
+        find('#post_payment_at').set("")
         find('#output', visible: false).set('0700')
         fill_in "post_content", with: 'テスト用'
         click_button "記録"
@@ -128,7 +128,7 @@ RSpec.describe "Posts", type: :system do
       
       it "日付を編集" do
         click_link nil, href: edit_post_path(post)
-        find('#post_purchased_at').set('2021-09-25')
+        find('#post_payment_at').set('2021-09-25')
         click_on "更新"
         expect(page).to have_selector 'span', text: "25(土)"
         expect(page).to have_selector '.alert-post', text: '編集に成功しました'

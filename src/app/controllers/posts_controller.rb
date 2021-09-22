@@ -37,23 +37,31 @@ class PostsController < ApplicationController
     
     family_user_ids = @relationship.user_ids
     family_category_ids = @relationship.category_ids
-    
-    if params[:user_id].blank? && params[:category_id].blank?
-      @posts = narrow_downing_posts(family_user_ids, family_category_ids, @month)
-      @sum_posts_price = sum_posts_price(@posts)
-      @sum_target_price = Category.where(id: family_category_ids).sum(:target_price)
-      @price_diff = @sum_target_price - @sum_posts_price
-    elsif params[:user_id].present?
-      @posts = narrow_downing_posts(params[:user_id], family_category_ids, @month)
+
+    if params[:price] == "income"
+      @posts = Income.where(user_id: family_user_ids).month(@month).sorted
       @sum_posts_price = sum_posts_price(@posts)
       @sum_target_price = "bar"
       @price_diff = "bar"
-    else        # params[:category_id].present?
-      @posts = narrow_downing_posts(family_user_ids, params[:category_id], @month)
-      @sum_posts_price = sum_posts_price(@posts)
-      @sum_target_price = Category.where(id: params[:category_id]).sum(:target_price)
-      @price_diff = @sum_target_price - @sum_posts_price
+    else
+      if params[:user_id].blank? && params[:category_id].blank?
+        @posts = narrow_downing_posts(family_user_ids, family_category_ids, @month)
+        @sum_posts_price = sum_posts_price(@posts)
+        @sum_target_price = Category.where(id: family_category_ids).sum(:target_price)
+        @price_diff = @sum_target_price - @sum_posts_price
+      elsif params[:user_id].present?
+        @posts = narrow_downing_posts(params[:user_id], family_category_ids, @month)
+        @sum_posts_price = sum_posts_price(@posts)
+        @sum_target_price = "bar"
+        @price_diff = "bar"
+      else        # params[:category_id].present?
+        @posts = narrow_downing_posts(family_user_ids, params[:category_id], @month)
+        @sum_posts_price = sum_posts_price(@posts)
+        @sum_target_price = Category.where(id: params[:category_id]).sum(:target_price)
+        @price_diff = @sum_target_price - @sum_posts_price
+      end
     end
+    
   end
   # (1)月の変更 or (2)ユーザー絞り込み
   # (1)例:現在9月の画面
@@ -92,7 +100,7 @@ class PostsController < ApplicationController
 
   private 
     def post_params
-      params.require(:post).permit(:category_id, :user_id, :content, :price, :purchased_at)
+      params.require(:post).permit(:category_id, :user_id, :content, :price, :payment_at)
     end
 
 

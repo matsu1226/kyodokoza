@@ -2,9 +2,11 @@
   <i class="fas fa-calendar-alt"></i>
 </span>
 <%= narrow_down_select("category", @relationship.categories) %>
-<span class="price col-3">
-  <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
-</span>
+<%= select_tag "price" , options_for_select({ 支出: "post", 収入: "income"}), 
+                            {class: 'form-select narrow_down_select col-3',
+                            data: { remote: true,
+                                    url: posts_narrow_down_path(month: @month) }} %>
+<%# select_tag https://railsdoc.com/page/options_for_select %>
 <span class="content col-3">
   <i class="fas fa-pencil-alt"></i>
 </span>
