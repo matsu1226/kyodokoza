@@ -1,7 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import "users";
 @import "categories";
-@import "posts";
 @import "relationships";
 @import "stats";
 @import "report";
@@ -255,7 +254,7 @@ header{
 main {  
   .main-wrapper{
     padding: 50px 0;
-    max-width: 768px;
+    max-width: $wrapper-max-width;
     width: 90vw;
     margin: 0 auto;
   }

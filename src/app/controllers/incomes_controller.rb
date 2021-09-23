@@ -12,27 +12,37 @@ class IncomesController < ApplicationController
     @income = Income.new(income_params)
     if @income.save
       flash[:success] = "記録を作成しました"
-      redirect_to new__path
+      redirect_to new_income_path
     else
       render "posts/new"
     end
   end
 
   def edit
+    @income = Income.find_by(id: params[:id])
   end
 
   def update
-
+    @income = Income.find_by(id: params[:id])
+    if @income.update(income_params)
+      flash[:post] = "編集に成功しました"
+      redirect_to posts_path
+    else
+      render "edit"
+    end
   end
 
   def destroy
-
+    @income = Income.find_by(id: params[:id])
+    @income.destroy
+    redirect_to posts_path
+    flash[:post] = "記録をを削除しました"
   end
 
 
   private 
     def income_params
-      params.require(:post).permit(:user_id, :content, :price, :payment_at)
+      params.require(:income).permit(:user_id, :content, :price, :payment_at)
     end
 
 

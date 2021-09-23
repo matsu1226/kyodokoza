@@ -27,6 +27,14 @@ module StatsHelper
     end
   end
 
+  def plus_minus(value)
+    if value >= 0
+      " + #{value.to_s(:delimited)}"
+    else
+      " - #{value.to_s(:delimited)}"
+    end
+  end
+
   def month_payment(category_id)
     post_where_month_sum(@relationship.users, category_id, @month)
   end
@@ -34,5 +42,6 @@ module StatsHelper
   def month_target(category_id)
     Category.where(id: category_id).sum(:target_price)
   end
+
 
 end

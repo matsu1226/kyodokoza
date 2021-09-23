@@ -66,31 +66,31 @@ class StaticPagesController < ApplicationController
 
     Post.find_or_create_by!(content: "家賃",
       price: 100000,
-      purchased_at: Time.zone.now,
+      payment_at: Time.zone.now,
       category_id: guest_category1.id,
       user_id: common_guest.id)
 
     Post.find_or_create_by!(content: "サトウココノカドー",
       price: 6000,
-      purchased_at: Time.zone.now,
+      payment_at: Time.zone.now,
       category_id: guest_category2.id,
       user_id: guest1.id)
 
     Post.find_or_create_by!(content: "携帯",
       price: 4000,
-      purchased_at: Time.zone.now,
+      payment_at: Time.zone.now,
       category_id: guest_category3.id,
       user_id: guest2.id)
 
     Post.find_or_create_by!(content: "携帯",
       price: 4000,
-      purchased_at: Time.zone.now,
+      payment_at: Time.zone.now,
       category_id: guest_category3.id,
       user_id: guest1.id)
 
     Post.find_or_create_by!(content: "カツモトキヨシ",
       price: 4000,
-      purchased_at: Time.zone.now,
+      payment_at: Time.zone.now,
       category_id: guest_category5.id,
       user_id: guest2.id)
 

@@ -43,7 +43,7 @@ class PostsController < ApplicationController
       @sum_posts_price = sum_posts_price(@posts)
       @sum_target_price = "bar"
       @price_diff = "bar"
-    else
+    else params[:price] == "post"
       if params[:user_id].blank? && params[:category_id].blank?
         @posts = narrow_downing_posts(family_user_ids, family_category_ids, @month)
         @sum_posts_price = sum_posts_price(@posts)

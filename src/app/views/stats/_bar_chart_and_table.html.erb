@@ -1,0 +1,66 @@
+<%= column_chart @bar_chart, stacked: true, 
+                            height: "50vh", 
+                            # width: "284vw", 
+                            legend: {display: false} %>
+
+<ul class="stat-table post-table">
+    <li class="stat-table-head">
+      <span class="span-head">支出</span>
+      <% 12.times do |i| %>
+      <span class="span-data"><%= i+1 %>月</span>
+      <% end %>
+    </li>
+    
+    <% @bar_chart.each do |category| %>
+    <li class="category">
+      <span class="span-head" style="color: <%= category[:color] %>;">
+        <%= category[:name] %>
+      </span>
+      <% 12.times do |i| %>
+        <span class="span-data">
+          <%#= yen Post.where(user_id: @relationship.users, category_id: category).month(@every_months[i]).sum(:price) %>
+          <%= yen category[:data][i][1] %>
+        </span>
+      <% end %>
+    </li>
+    <% end %>
+
+    <li class="post-sum">
+      <span class="span-head">支出計</span>
+      <% @post_array.each do |post| %>
+      <span class="span-data">
+          <%= yen post  %>
+      </span>
+      <% end %>
+    </li>
+  </ul>
+
+  <ul class="stat-table income-table">
+    <li class="income-sum">
+      <span class="span-head">収入計</span>
+      <% @income_array.each do |income| %>
+      <span class="span-data">
+          <%= yen income %>
+      </span>
+      <% end %>
+    </li>
+  </ul>
+  
+  <ul class="stat-table remainder-table">
+    <li class="month-total">
+      <span class="span-head">月収支</span>
+      <% @month_total_array.each do |month_total| %>
+      <span class="span-data">
+          <%= plus_minus month_total %>
+      </span>
+      <% end %>
+    </li>
+    <li class="remainder">
+      <span class="span-head">残高</span>
+      <% @remainder_array.each do |remainder| %>
+      <span class="span-data">
+          <%= yen remainder %>
+      </span>
+      <% end %>
+    </li>
+  </ul>                      

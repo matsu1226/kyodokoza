@@ -1,7 +1,17 @@
-<%= link_to edit_post_path(post), class: "card" do %>
-  <span class="col-2"><%= l post.payment_at, format: :short %><%= day_of_week(post.payment_at) %></span>
-  <span class="category-name col-2" style="color: <%= post.category.color %>;"><%= post.category.name %></span>
-  <span class="col-3"><%= yen post.price %></span>
-  <span class="col-3 post-content"><%= post.content %></span>
-  <span class="col-2 user-name"><%= post.user.name %></span>
+<% if post.respond_to?(:category) %>
+  <%= link_to edit_post_path(post), class: "card" do %>
+    <span class="col-2"><%= l post.payment_at, format: :short %><%= day_of_week(post.payment_at) %></span>
+    <span class="category-name col-2" style="color: <%= post.category.color %>;"><%= post.category.name %></span>
+    <span class="col-3"><%= yen post.price %></span>
+    <span class="col-3 post-content"><%= post.content %></span>
+    <span class="col-2 user-name"><%= post.user.name %></span>
+  <% end %>
+<% else %>
+  <%= link_to edit_income_path(post), class: "card" do %>
+    <span class="col-2"><%= l post.payment_at, format: :short %><%= day_of_week(post.payment_at) %></span>
+    <span class="category-name col-2"> - </span>
+    <span class="col-3"><%= yen post.price %></span>
+    <span class="col-3 post-content"><%= post.content %></span>
+    <span class="col-2 user-name"><%= post.user.name %></span>
+  <% end %>
 <% end %>

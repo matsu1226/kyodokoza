@@ -2,7 +2,7 @@
   <i class="fas fa-calendar-alt"></i>
 </span>
 <%= narrow_down_select("category", @relationship.categories) %>
-<%= select_tag "price" , options_for_select({ 支出: "post", 収入: "income"}), 
+<%= select_tag "price" , options_for_select({ 支出: "post", 収入: "income"}, selected: params[:price]), 
                             {class: 'form-select narrow_down_select col-3',
                             data: { remote: true,
                                     url: posts_narrow_down_path(month: @month) }} %>
