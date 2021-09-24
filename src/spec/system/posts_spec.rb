@@ -76,7 +76,7 @@ RSpec.describe "Posts", type: :system do
         find('#output', visible: false).set('')
         fill_in "post_content", with: 'テスト用'
         click_button "記録"
-        expect(page).to have_selector 'div.field_with_errors'
+        expect(page).to have_content "正しい値を入力してください"
       end
   
       it "contentが空欄" do
@@ -86,7 +86,7 @@ RSpec.describe "Posts", type: :system do
         find('#output', visible: false).set('0700')
         fill_in "post_content", with: ''
         click_button "記録"
-        expect(page).to have_selector 'div.field_with_errors'
+        expect(page).to have_content "正しい値を入力してください"
       end
   
       it "日付が空欄" do
@@ -96,7 +96,7 @@ RSpec.describe "Posts", type: :system do
         find('#output', visible: false).set('0700')
         fill_in "post_content", with: 'テスト用'
         click_button "記録"
-        expect(page).to have_selector 'div.field_with_errors'
+        expect(page).to have_content "正しい値を入力してください"
       end
     end
   
@@ -147,14 +147,14 @@ RSpec.describe "Posts", type: :system do
           click_link nil, href: edit_post_path(post)
           fill_in "post_content", with: ''
           click_button "更新"
-          expect(page).to have_selector 'div.field_with_errors'
+          expect(page).to have_content "正しい値を入力してください"
         end
     
         it "priceが空欄" do
           click_link nil, href: edit_post_path(post)
           find('#output', visible: false).set('')
           click_button "更新"
-          expect(page).to have_selector 'div.field_with_errors'
+          expect(page).to have_content "正しい値を入力してください"
         end
       end
   

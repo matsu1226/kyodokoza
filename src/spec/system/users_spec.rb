@@ -25,93 +25,93 @@ RSpec.describe "Users", type: :system do
         visit signup_path 
       end
 
-      # describe "登録フォーム" do
-      #   describe "DBにアドレスが登録されていないユーザー(新規ユーザー)" do
-      #     it "ニックネーム空欄エラー" do
-      #       fill_in 'ニックネーム：', with: ""
-      #       fill_in 'メールアドレス：', with: "test@test.com"
-      #       fill_in 'パスワード：', with: "testtest"
-      #       fill_in 'パスワード（確認）：', with: "testtest"
-      #       click_button '仮登録（メール送信）'
-      #       expect(page).to have_content 'ニックネームを入力してください'
-      #     end
+      describe "登録フォーム" do
+        describe "DBにアドレスが登録されていないユーザー(新規ユーザー)" do
+          it "ニックネーム空欄エラー" do
+            fill_in 'ニックネーム：', with: ""
+            fill_in 'メールアドレス：', with: "test@test.com"
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'ニックネームを入力してください'
+          end
 
-      #     it "メールアドレス空欄エラー" do
-      #       fill_in 'ニックネーム：', with: "テスト　太郎"
-      #       fill_in 'メールアドレス：', with: ""
-      #       fill_in 'パスワード：', with: "testtest"
-      #       fill_in 'パスワード（確認）：', with: "testtest"
-      #       click_button '仮登録（メール送信）'
-      #       expect(page).to have_content 'メールアドレスを入力してください'
-      #     end
+          it "メールアドレス空欄エラー" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: ""
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'メールアドレスを入力してください'
+          end
 
-      #     it "password空欄エラー" do
-      #       fill_in 'ニックネーム：', with: "テスト　太郎"
-      #       fill_in 'メールアドレス：', with: "test@test.com"
-      #       fill_in 'パスワード：', with: ""
-      #       fill_in 'パスワード（確認）：', with: ""
-      #       click_button '仮登録（メール送信）'
-      #       expect(page).to have_content 'パスワードを入力してください'
-      #     end
+          it "password空欄エラー" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: "test@test.com"
+            fill_in 'パスワード：', with: ""
+            fill_in 'パスワード（確認）：', with: ""
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'パスワードを入力してください'
+          end
 
-      #     let(:test_user) { User.find_by(email: "test@test.com") }
-      #     it "正常な新規登録" do
-      #       fill_test_user_info_and_click_button
-      #       expect(page).to have_content '仮登録メールを送信しました' 
-      #       expect(ActionMailer::Base.deliveries.count).to eq 1  
-      #       expect( test_user.name ).to eq "テスト　太郎" 
-      #       expect( test_user.email ).to eq "test@test.com" 
-      #       expect( test_user.password_digest ).to be_a_kind_of(String) 
-      #       expect( test_user.authenticated?(:password, "testtest") ).to eq true 
-      #     end
-      #   end
+          let(:test_user) { User.find_by(email: "test@test.com") }
+          it "正常な新規登録" do
+            fill_test_user_info_and_click_button
+            expect(page).to have_content '仮登録メールを送信しました' 
+            expect(ActionMailer::Base.deliveries.count).to eq 1  
+            expect( test_user.name ).to eq "テスト　太郎" 
+            expect( test_user.email ).to eq "test@test.com" 
+            expect( test_user.password_digest ).to be_a_kind_of(String) 
+            expect( test_user.authenticated?(:password, "testtest") ).to eq true 
+          end
+        end
 
-      #   describe "以前に一度仮登録メール送信している(non_activated_userの確認)" do
-      #     it { expect(non_activated_user.activated).to be false }
+        describe "以前に一度仮登録メール送信している(non_activated_userの確認)" do
+          it { expect(non_activated_user.activated).to be false }
           
-      #     it "ニックネーム空欄エラー" do
-      #       fill_in 'ニックネーム：', with: ""
-      #       fill_in 'メールアドレス：', with: non_activated_user.email
-      #       fill_in 'パスワード：', with: "testtest"
-      #       fill_in 'パスワード（確認）：', with: "testtest"
-      #       click_button '仮登録（メール送信）'
-      #       expect(page).to have_content 'フォームの入力値が不適切です'
-      #     end
+          it "ニックネーム空欄エラー" do
+            fill_in 'ニックネーム：', with: ""
+            fill_in 'メールアドレス：', with: non_activated_user.email
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'フォームの入力値が不適切です'
+          end
   
-      #     it "password空欄エラー" do
-      #       fill_in 'ニックネーム：', with: "テスト　太郎"
-      #       fill_in 'メールアドレス：', with: non_activated_user.email
-      #       fill_in 'パスワード：', with: ""
-      #       fill_in 'パスワード（確認）：', with: ""
-      #       click_button '仮登録（メール送信）'
-      #       expect(page).to have_content 'フォームの入力値が不適切です'
-      #     end
+          it "password空欄エラー" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: non_activated_user.email
+            fill_in 'パスワード：', with: ""
+            fill_in 'パスワード（確認）：', with: ""
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'フォームの入力値が不適切です'
+          end
 
-      #     it "正常な新規登録" do
-      #       fill_in 'ニックネーム：', with: "テスト　太郎"
-      #       fill_in 'メールアドレス：', with: non_activated_user.email
-      #       fill_in 'パスワード：', with: "testtest"
-      #       fill_in 'パスワード（確認）：', with: "testtest"
-      #       click_button '仮登録（メール送信）'
-      #       expect(page).to have_content '仮登録メールを送信しました' 
-      #       expect( User.find_by(email: non_activated_user.email).name ).to eq "テスト　太郎" 
-      #       expect( User.find_by(email: non_activated_user.email).password_digest ).to be_a_kind_of(String) 
-      #       expect( User.find_by(email: non_activated_user.email).authenticated?(:password, "testtest") ).to eq true 
-      #     end
-      #   end
+          it "正常な新規登録" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: non_activated_user.email
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content '仮登録メールを送信しました' 
+            expect( User.find_by(email: non_activated_user.email).name ).to eq "テスト　太郎" 
+            expect( User.find_by(email: non_activated_user.email).password_digest ).to be_a_kind_of(String) 
+            expect( User.find_by(email: non_activated_user.email).authenticated?(:password, "testtest") ).to eq true 
+          end
+        end
 
-      #   describe "既に登録している(activated_userの確認)" do
-      #     it "正常な情報" do
-      #       fill_in 'ニックネーム：', with: "テスト　太郎"
-      #       fill_in 'メールアドレス：', with: activated_user.email
-      #       fill_in 'パスワード：', with: "testtest"
-      #       fill_in 'パスワード（確認）：', with: "testtest"
-      #       click_button '仮登録（メール送信）'
-      #       expect(page).to have_content 'メールアドレスはすでに存在します' 
-      #     end
-      #   end       
+        describe "既に登録している(activated_userの確認)" do
+          it "正常な情報" do
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: activated_user.email
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）'
+            expect(page).to have_content 'メールアドレスはすでに存在します' 
+          end
+        end       
 
-      # end
+      end
     
       describe "本登録メール(@user)" do
         before do

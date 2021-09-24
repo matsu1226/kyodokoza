@@ -45,7 +45,7 @@ RSpec.describe Post, type: :model do
   end
   
   it "priceがマイナス" do
-    @post.price = -100
+    @post.price = -1
     should_not be_valid
   end
 

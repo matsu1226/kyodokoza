@@ -14,6 +14,7 @@ class IncomesController < ApplicationController
       flash[:success] = "記録を作成しました"
       redirect_to new_income_path
     else
+      flash[:warning] = "正しい値を入力してください"
       render "posts/new"
     end
   end
@@ -28,6 +29,7 @@ class IncomesController < ApplicationController
       flash[:post] = "編集に成功しました"
       redirect_to posts_path
     else
+      flash[:warning] = "正しい値を入力してください"
       render "edit"
     end
   end

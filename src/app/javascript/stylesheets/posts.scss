@@ -215,6 +215,7 @@ main>p.alert-post {
     margin: 10px auto;
     padding: 7px;
     flex-direction: row;
+    font-size: 0.9em;
 
     .category-name {
       display: flex;
@@ -227,7 +228,6 @@ main>p.alert-post {
     }
 
     .post-content {
-      font-size: 0.9em;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -235,7 +235,6 @@ main>p.alert-post {
     }
 
     .user-name {
-      font-size: 0.9em;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
