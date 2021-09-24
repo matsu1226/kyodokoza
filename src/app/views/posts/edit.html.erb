@@ -1,7 +1,10 @@
 <%= provide(:title, "記録の編集") %>
+<% content_for(:body_attributes) do %>
+data-turbolinks="false"
+<% end %>
 <section class="section-wrapper post-section-wrapper">
 
-  <%= form_with(model: @post, url: {controller: 'posts', action: 'update' },class: "post-form", local: true) do |f| %>
+  <%= form_with(model: @post,class: "post-form", local: true) do |f| %>
   <div class="small-sub-wrapper">
     <div class="form-label-set">
       <%= f.label :category_id, class: "form-label" do %>
@@ -19,10 +22,10 @@
   </div>
 
   <div class="large-sub-wrapper form-label-set">
-    <%= f.label :purchased_at, class: "form-label" do %>
+    <%= f.label :payment_at, class: "form-label" do %>
     <i class="fas fa-calendar-alt"></i>
     <% end %>
-    <%= f.date_field :purchased_at, class: "form-control", value: @post.purchased_at.strftime("%Y-%m-%d") %>
+    <%= f.date_field :payment_at, class: "form-control", value: @post.payment_at.strftime("%Y-%m-%d") %>
   </div>
 
   <div class="large-sub-wrapper form-label-set">
@@ -47,6 +50,6 @@
 
   <% end %>
 
-  <%= render "calculator" %>
+  <%= render "shared/calculator" %>
 
 </section>

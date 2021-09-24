@@ -1,15 +1,31 @@
 module StatsHelper
-
-  # def manth/month_ajax
-  def post_where_month_sum(user_id, category_id, month)
-    Post.where(user_id: user_id, category_id: category_id).month(month).sum(:price)
-  end
   
   def price_color(price_diff)
     if price_diff.is_a?(Integer) && price_diff < 0
       "#ff4500"
     else
       "#000"
+    end
+  end
+
+  # 今月以降は残高を表示させない
+  def set_future_month_count(year, array)
+    beginning_of_year = year.to_date
+    today = Time.zone.now.to_date
+    if beginning_of_year.year == today.year 
+      months_of_beginning_of_year = beginning_of_year.year * 12 + beginning_of_year.month
+      months_of_today = today.year * 12 + today.month
+      month_count = months_of_today -  months_of_beginning_of_year
+      @future_month_count = 12 - month_count - 1
+    elsif beginning_of_year.year > today.year
+      @future_month_count = 12
+    elsif beginning_of_year.year < today.year
+      @future_month_count = 0
+    end
+
+    array.pop(@future_month_count)
+    (@future_month_count).times do |i|
+      array.push("bar")
     end
   end
 
@@ -27,12 +43,13 @@ module StatsHelper
     end
   end
 
-  def month_payment(category_id)
-    post_where_month_sum(@relationship.users, category_id, @month)
+  def plus_minus(value)
+    if value >= 0
+      " + #{value.to_s(:delimited)}"
+    else
+      " - #{value.to_s(:delimited)}"
+    end
   end
 
-  def month_target(category_id)
-    Category.where(id: category_id).sum(:target_price)
-  end
 
 end

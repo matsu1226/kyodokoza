@@ -139,77 +139,77 @@ target_price: 10000)
 12.times do |n|
 Post.create(content: "家賃_#{n+1}月25日",
 price: 75000,
-purchased_at: Time.local(2021, n+1, 25, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 25, 12, 00, 00),
 category_id: category1.id,
 user_id: user1.id)
 end
 12.times do |n|
 Post.create(content: "エコス_#{n+1}月10日",
 price: 4200-n*50,
-purchased_at: Time.local(2021, n+1, 10, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 10, 12, 00, 00),
 category_id: category2.id,
 user_id: user1.id)
 end
 12.times do |n|
 Post.create(content: "業務スーパー_#{n+1}月3日",
 price: 3300-n*50,
-purchased_at: Time.local(2021, n+1, 3, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 3, 12, 00, 00),
 category_id: category2.id,
 user_id: user1.id)
 end
 12.times do |n|
 Post.create(content: "携帯_#{n+1}月20日",
 price: 4500,
-purchased_at: Time.local(2021, n+1, 20, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 20, 12, 00, 00),
 category_id: category3.id,
 user_id: user1.id)
 end
 12.times do |n|
 Post.create(content: "鳥貴族_#{n+1}月1日",
 price: 2000+n*100,
-purchased_at: Time.local(2021, n+1, 1, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 1, 12, 00, 00),
 category_id: category4.id,
 user_id: user1.id)
 end
 6.times do |n|
 Post.create(content: "一心_#{2*n+1}月12日",
 price: 6000,
-purchased_at: Time.local(2021, 2*n+1, 12, 12, 00, 00),
+payment_at: Time.local(2021, 2*n+1, 12, 12, 00, 00),
 category_id: category4.id,
 user_id: user1.id)
 end
 12.times do |n|
 Post.create(content: "ダイソー_#{n+1}月1日",
 price: 330,
-purchased_at: Time.local(2021, n+1, 1, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 1, 12, 00, 00),
 category_id: category5.id,
 user_id: user1.id)
 end
 12.times do |n|
 Post.create(content: "マツキヨ_#{n+1}月2日",
 price: 2700,
-purchased_at: Time.local(2021, n+1, 2, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 2, 12, 00, 00),
 category_id: category5.id,
 user_id: user1.id)
 end
 12.times do |n|
 Post.create(content: "正太郎_立川往復_#{n+1}月12日",
 price: 316,
-purchased_at: Time.local(2021, n+1, 12, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 12, 12, 00, 00),
 category_id: category6.id,
 user_id: user1.id)
 end
 12.times do |n|
 Post.create(content: "綾美_立川往復_#{n+1}月12日",
 price: 316,
-purchased_at: Time.local(2021, n+1, 12, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 12, 12, 00, 00),
 category_id: category6.id,
 user_id: user2.id)
 end
 12.times do |n|
 Post.create(content: "歯医者_#{n+1}月1日",
 price: 2000,
-purchased_at: Time.local(2021, n+1, 1, 12, 00, 00),
+payment_at: Time.local(2021, n+1, 1, 12, 00, 00),
 category_id: category7.id,
 user_id: user2.id)
 end
@@ -217,5 +217,29 @@ end
 Post.create(content: "エコス(山田家)",
 price: 1550,
 category_id: category9.id,
-purchased_at: Time.local(2021, 9, 1, 12, 00, 00),
+payment_at: Time.local(2021, 9, 1, 12, 00, 00),
 user_id: user3.id)
+
+
+# 収入
+12.times do |n|
+  Income.create(content: "給与_#{n+1}月25日",
+                user_id: user1.id,
+                price: 160000,
+                payment_at: Time.local(2021, n+1, 25, 12, 00, 00) 
+  )
+end
+12.times do |n|
+  Income.create(content: "給与_#{n+1}月25日",
+                user_id: user2.id,
+                price: 100000,
+                payment_at: Time.local(2021, n+1, 25, 12, 00, 00) 
+  )
+end
+12.times do |n|
+  Income.create(content: "給与_#{n+1}月25日",
+                user_id: user3.id,
+                price: 200000,
+                payment_at: Time.local(2021, n+1, 25, 12, 00, 00) 
+  )
+end

@@ -63,10 +63,6 @@ class ReportController < ApplicationController
 
 
   private
-    def get_relationship
-      @relationship = current_user.relationship
-    end
-
     def redirect_to_user_path
       redirect_to user_path(current_user)
     end

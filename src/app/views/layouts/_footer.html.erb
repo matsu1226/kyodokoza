@@ -5,22 +5,21 @@
     <i class="fas fa-list-ul"></i>
     <p>一覧</p>
     <% end %>
+    <%= link_to new_income_path, class: "nav-link" do %>
+    <i class="fas fa-coins"></i>
+    <p>収入</p>
+    <% end %>
+    <%= link_to new_post_path, class: "nav-link" do %>
+    <i class="fas fa-lg fa-pencil-alt"></i>
+    <p>支出</p>
+    <% end %>
     <%= link_to stats_month_path, class: "nav-link" do %>
     <i class="fas fa-chart-pie"></i>
     <p>月合計</p>
     <% end %>
-    <%= link_to new_post_path, class: "nav-link" do %>
-    <i class="fas fa-lg fa-pencil-alt"></i>
-    <p>記録</p>
-    <% end %>
-    <div class="new-post-link-circle"></div>
     <%= link_to stats_year_path, class: "nav-link" do %>
     <i class="fas fa-chart-bar"></i>
     <p>年合計</p>
-    <% end %>
-    <%= link_to categories_path, class: "nav-link" do %>
-    <i class="fas fa-tags"></i>
-    <p>カテゴリ</p>
     <% end %>
   </nav>
 </footer>

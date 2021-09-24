@@ -1,7 +1,7 @@
 <section class="section-wrapper">
   <%= pie_chart @pie_chart,legend: {display: false}, donut: true, width: "200px", height: "200px", colors: @pie_chart_colors %>
   <p class="pie-chart-text">
-    支出の合計<br><%= yen month_payment(@family_category_ids) %>
+    支出の合計<br><%= yen @month_post_total %>
   </p>
 </section>
 <section class="section-wrapper">
@@ -19,33 +19,34 @@
         合計
       </span>
       <span class="col-3">
-        <%= yen month_payment(@family_category_ids) %>
+        <%= yen @month_post_total %>
       </span>
       <span class="col-3 transparent">
-        <%= yen month_target(@family_category_ids) %>
+        <%= yen @month_target_total %>
       </span>
       <span class="col-3 transparent"
-        style="color:<%= price_color(month_target(@family_category_ids) - month_payment(@family_category_ids)) %> ;">
-        <%= yen month_target(@family_category_ids) - month_payment(@family_category_ids) %>
+        style="color:<%= price_color(@month_target_total - @month_post_total) %> ;">
+        <%= yen @month_target_total - @month_post_total %>
       </span>
     </li>
 
-    <% @family_category_ids.each do |c_id| %>
+    <% @pie_chart.each_with_index do |category, i| %>
     <li class="category-sum">
-      <span class="col-3" style="color: <%= Category.find_by(id: c_id).color %>;">
-        <%= Category.find_by(id: c_id).name %>
+      <span class="col-3" style="color: <%= @pie_chart_colors[i] %>;">
+        <%= category[0] %>
       </span>
       <span class="col-3">
-        <%= yen month_payment(c_id)  %>
+        <%= yen category[1]  %>
       </span>
       <span class="col-3 transparent">
-        <%= yen month_target(c_id) %>
+        <%= yen @month_target_every_category_array[i] %>
       </span>
-      <span class="col-3 transparent" style="color:<%= price_color(month_target(c_id) - month_payment(c_id)) %> ;">
-        <%= yen month_target(c_id) - month_payment(c_id) %>
+      <span class="col-3 transparent" style="color:<%= price_color(@month_target_every_category_array[i] - category[1]) %> ;">
+        <%= yen @month_target_every_category_array[i] - category[1] %>
       </span>
     </li>
     <% end %>
+
   </ul>
 </section>
 
@@ -63,21 +64,25 @@
       <span class="col-3">
         合計
       </span>
-      <% @relationship.users.each do |user| %>
+      <% @relationship.users.count.times do |i| %>
       <span class="col-3">
-        <%= yen post_where_month_sum(user, @family_category_ids, @month) %>
+        <%#= yen post_where_month_sum(user, @family_category_ids, @month) %>
+        <%#= yen Post.where(user_id: user, category_id: @family_category_ids).month(@month).sum(:price) %>
+        <%= yen @month_post_every_users_array[i] %>
       </span>
       <% end %>
     </li>
 
-    <% @family_category_ids.each do |c_id| %>
+    <% @month_post_every_users_and_categories_array.count.times do |i| %>
     <li class="category-sum">
-      <span class="col-3" style="color: <%= Category.find_by(id: c_id).color %>;">
-        <%= Category.find_by(id: c_id).name %>
+      <span class="col-3" style="color: <%= @pie_chart_colors[i] %>;">
+        <%= @pie_chart[i][0] %>
       </span>
-      <% @relationship.users.each do |user| %>
+      <% @month_post_every_users_and_categories_array[i].count.times do |j| %>
       <span class="col-3">
-        <%= yen post_where_month_sum(user, c_id, @month) %>
+        <%#= yen post_where_month_sum(user, c_id, @month) %>
+        <%#= yen Post.where(user_id: user.id, category_id: c_id).month(@month).sum(:price) %>
+        <%= yen  @month_post_every_users_and_categories_array[i][j] %>
       </span>
       <% end %>
     </li>

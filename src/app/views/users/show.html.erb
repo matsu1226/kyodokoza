@@ -14,15 +14,19 @@
       <p class="setting-link">家族の情報</p>
       <i class="fas fa-angle-right fa-lg angle"></i>
     <% end %>
+    <%= link_to categories_path, class: "setting-link-wrapper" do%>
+      <p class="setting-link">カテゴリーの情報</p>
+      <i class="fas fa-angle-right fa-lg angle"></i>
+    <% end %>
+    <%= link_to report_multiple_path, class: "setting-link-wrapper" do%>
+      <p class="setting-link">まとめてエクセル出力</p>
+      <i class="fas fa-angle-right fa-lg angle"></i>
+    <% end %>
   <% end %>
   <% if @user.relationship.nil? %>
     <%= link_to new_relationship_path, class: "setting-link-wrapper" do%>
       <p class="setting-link">家族の登録</p>
       <i class="fas fa-angle-right fa-lg angle"></i>
     <% end %>
-  <% end %>
-  <%= link_to report_multiple_path, class: "setting-link-wrapper" do%>
-    <p class="setting-link">まとめてエクセル出力</p>
-    <i class="fas fa-angle-right fa-lg angle"></i>
   <% end %>
 </div>

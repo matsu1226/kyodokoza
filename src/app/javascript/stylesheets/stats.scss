@@ -1,6 +1,7 @@
 // Place all the styles related to the Stats controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import "posts";
 
 // month
 .pie-chart-text {
@@ -61,6 +62,52 @@
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
-  margin: -25px auto;
+  margin: 0px auto;
+
+  li {
+    span {
+      font-size: 0.8rem;
+    }
+
+    .span-head {
+      width: 5%;
+    }
+
+    .span-data {
+      width: 7.9%;
+    }
+  }
+  
 }
+
+
+@media screen and (max-width: 768px) {
+  #bar_chart {
+
+    #chart-1 {
+      width: 880px !important;
+      margin-left: 17px !important;
+    }
+
+    .stat-table {
+      width: 880px;
+
+    }
+  }
+}
+
+@media screen and (min-width: $wrapper-max-width) {
+  #bar_chart {
+
+    #chart-1 {
+      width: $wrapper-max-width !important;
+    }
+
+    .stat-table {
+      width: $wrapper-max-width;
+
+    }
+  }
+}
+
 
