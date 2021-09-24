@@ -45,9 +45,9 @@ module StatsHelper
 
   def plus_minus(value)
     if value >= 0
-      " + #{value.to_s(:delimited)}"
+      "+#{value.to_s(:delimited)}"
     else
-      " - #{value.to_s(:delimited)}"
+      "#{value.to_s(:delimited)}"
     end
   end
 
