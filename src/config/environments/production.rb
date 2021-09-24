@@ -71,14 +71,24 @@ Rails.application.configure do
   host = 'kyodokoza.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
-    :user_name      => ENV['SENDGRID_SMTP_USERNAME'],
-    :password       => ENV['SENDGRID_SMTP_PASSWORD'],
-    :domain => 'yourdomain.com',
+    :user_name      => 'apikey',
+    :password => ENV['SENDGRID_API_KEY'],
+    :domain => 'kyodokoza.com',
     :address        => 'smtp.sendgrid.net',
-    :port           => 587,
+    :port => 2525,
     :authentication => :plain,
     :enable_starttls_auto => true
   }
+  # https://qiita.com/lumbermill/items/cf22ccc54206a820414b
+  # ActionMailer::Base.smtp_settings = {
+  #   :user_name      => ENV['SENDGRID_SMTP_USERNAME'],
+  #   :password       => ENV['SENDGRID_SMTP_PASSWORD'],
+  #   :domain => 'yourdomain.com',
+  #   :address        => 'smtp.sendgrid.net',
+  #   :port           => 587,
+  #   :authentication => :plain,
+  #   :enable_starttls_auto => true
+  # }
   # https://sendgrid.kke.co.jp/docs/Integrate/Frameworks/rubyonrails.html
   # ActionMailer::Base.smtp_settings = {
   #   :port           => ENV['MAILGUN_SMTP_PORT'],
