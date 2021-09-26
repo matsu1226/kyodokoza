@@ -49,6 +49,8 @@ gem 'rubyzip'
 gem 'line-bot-api'
 #access tokenなどを管理する用
 gem 'dotenv-rails' 
+# googleAdsense用（https://www.dragonarrow.work/articles/200）
+gem 'rack-cors'
 
 
 group :development, :test do

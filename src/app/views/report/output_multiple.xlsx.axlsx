@@ -7,7 +7,7 @@ wb.styles do |style|
         wb.add_worksheet( name: "sheet_#{index + 1}" ) do |sheet|
 
             sheet.add_row [ "No.", "date" ]
-            sheet.add_row [ index + 1 , excel[0].purchased_at.to_date.to_s ]
+            sheet.add_row [ index + 1 , excel[0].payment_at.to_date.to_s ]
       
 
             styles = {
@@ -25,7 +25,7 @@ wb.styles do |style|
     
             excel.each do |post|
                 sheet.add_row do |row|
-                    row.add_cell(post.purchased_at)
+                    row.add_cell(post.payment_at)
                     row.add_cell(post.category.name)
                     row.add_cell(post.content)
                     row.add_cell(post.user.name)

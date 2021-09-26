@@ -52,5 +52,13 @@ module App
     # validation error発生時のfield_with_errorsの自動挿入を禁止
     # https://yukimasablog.com/rails-field-with-errors
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+
+    # rackの設定(adsense向け) / Rails 5 の場合、以下を追記
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :options]
+      end
+    end
   end
 end

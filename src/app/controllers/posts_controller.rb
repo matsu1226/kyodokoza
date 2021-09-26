@@ -99,6 +99,10 @@ class PostsController < ApplicationController
     flash[:post] = "記録をを削除しました"
   end
 
+  def fixed_cost
+    
+  end
+
 
   private 
     def post_params
