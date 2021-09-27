@@ -13,7 +13,7 @@ RSpec.describe "StaticPages", type: :system do
   
   it "家族の情報の表示" do
     visit user_path(guest)
-    should have_content "家族の情報"
+    should have_content "家族情報の確認"
     should_not have_content "家族の登録"
     visit relationship_path(guest.relationship)
     should have_content "ゲスト用家族"

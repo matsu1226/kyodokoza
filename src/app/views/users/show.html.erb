@@ -6,20 +6,34 @@
     <i class="fas fa-angle-right fa-lg angle"></i>
   <% end %>
   <%= link_to edit_user_path(@user), class: "setting-link-wrapper" do%>
-    <p class="setting-link">アカウント情報の変更</p>
+    <p class="setting-link">アカウント情報の変更
+      <span class="sub-info">パスワードの変更/名前の変更</span>
+    </p>
     <i class="fas fa-angle-right fa-lg angle"></i>
   <% end %>
   <% if @user.relationship %>
     <%= link_to relationship_path(@user.relationship), class: "setting-link-wrapper" do%>
-      <p class="setting-link">家族の情報</p>
+      <p class="setting-link">家族情報の確認
+        <span class="sub-info">家族の名前の確認/登録日の確認</span>
+      </p>
       <i class="fas fa-angle-right fa-lg angle"></i>
     <% end %>
     <%= link_to categories_path, class: "setting-link-wrapper" do%>
-      <p class="setting-link">カテゴリーの情報</p>
+      <p class="setting-link">カテゴリー情報の編集
+        <span class="sub-info">カテゴリの一覧・編集/目標額の設定</span>
+      </p>
+      <i class="fas fa-angle-right fa-lg angle"></i>
+    <% end %>
+    <%= link_to fixed_costs_path, class: "setting-link-wrapper" do%>
+      <p class="setting-link">支出テンプレートの編集
+        <span class="sub-info">固定費用の一覧・編集・反映</span>
+      </p>
       <i class="fas fa-angle-right fa-lg angle"></i>
     <% end %>
     <%= link_to report_multiple_path, class: "setting-link-wrapper" do%>
-      <p class="setting-link">まとめてエクセル出力</p>
+      <p class="setting-link">まとめてエクセル出力
+        <span class="sub-info">支出のエクセル出力</span>
+      </p>
       <i class="fas fa-angle-right fa-lg angle"></i>
     <% end %>
   <% end %>

@@ -1,0 +1,38 @@
+<%= provide(:title, "テンプレート一覧") %>
+
+<section class="section-wrapper post-index-header-section">
+  <div id="post_index_head" class="post-index-head card shadow-none">
+    <span class="date col-2">
+      <i class="fas fa-calendar-alt"></i>
+    </span>
+    <%= narrow_down_select("category", @relationship.categories) %>
+    <span class="content col-3">
+      <i class="fas fa-yen-sign"></i>
+    </span>
+    <span class="content col-3">
+      <i class="fas fa-pencil-alt"></i>
+    </span>
+    <%= narrow_down_select("user", @relationship.users) %>
+  </div>
+</section>
+
+<%= form_with(model: @fixed_costs, url: {controller: 'fixed_costs', action: 'exec'}, local: true) do |f| %>
+<section class="section-wrapper fixed-cost-main-section">
+  <div class="">
+    まずは、毎月支払のある支出を登録してみましょう！
+    <div class="fixed-cost-index-btn-wrapper">
+      <%= link_to new_fixed_cost_path, class: "btn standerd-btn btn-primary" do %>
+      テンプレートの<br>新規作成
+      <% end %>
+      <%= f.submit "今月の記録に反映" ,id: "fixed_exec_btn",class: "btn standerd-btn btn-primary",
+                                      data: { confirm: "選択した支出を今月の記録に反映します。よろしいですか？"} %>
+    </div>
+  </div>
+  <div id="post_list">
+    <%= render partial: 'fixed_cost', collection: @fixed_costs %>
+  </div>
+</section>
+<% end %>
+
+<section class="section-wrapper post-index-lower-section">
+</section>

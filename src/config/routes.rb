@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get    '/posts/narrow_down'   # post/index を ajaxで絞り込み
   resources :posts, except: [:show]
   resources :incomes, except: [:show, :index]
+  post    '/fixed_costs/exec'   # 
+  resources :fixed_costs, except: [:show]
   
   get    '/signup',    to: "users#new"  
   resources :users , except: [:index, :destroy]

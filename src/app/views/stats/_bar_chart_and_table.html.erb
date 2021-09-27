@@ -56,10 +56,10 @@
       <% end %>
     </li>
     <li class="remainder">
-      <span class="span-head">残高</span>
+      <span class="span-head">年収支</span>
       <% @remainder_array.each do |remainder| %>
       <span class="span-data">
-          <%= yen remainder %>
+          <%= plus_minus remainder.to_i %>
       </span>
       <% end %>
     </li>

@@ -19,7 +19,7 @@ wb.styles do |style|
  
         @posts.each do |post|
             sheet.add_row do |row|
-                row.add_cell(post.purchased_at)
+                row.add_cell(post.payment_at)
                 row.add_cell(post.category.name)
                 row.add_cell(post.content)
                 row.add_cell(post.user.name)

@@ -43,6 +43,14 @@ form {
       font-size: 1.2em;
       text-align: start;
       margin: 5px;
+      display: flex;
+      flex-direction: column;
+
+      span {
+        font-size: 0.6rem;
+        line-height: 0.6rem;
+        color: #ccc;
+      }
     }
 
     .angle{
