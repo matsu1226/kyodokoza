@@ -66,7 +66,7 @@ class StatsController < ApplicationController
     family_category_ids.each do |c_id|
       @pie_chart.push(
         [Category.find_by(id: c_id).name, 
-          post_where_month_sum(@relationship.users, c_id, @month)]
+          Post.where(user_id: @relationship.users, category_id: c_id).month(@month).sum(:price)]
       )
     end
     @pie_chart_colors = Category.where(id: family_category_ids).map(&:color)
