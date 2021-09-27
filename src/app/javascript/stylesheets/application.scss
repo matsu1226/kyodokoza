@@ -4,6 +4,8 @@
 @import "relationships";
 @import "stats";
 @import "report";
+@import "fixed_costs";
+
 
 // https://qiita.com/kazutosato/items/d47b7705ee545de4cb1a
 
@@ -165,13 +167,14 @@ header{
     .logo {
       font-family: 'Otomanopee One', sans-serif;
       font-weight: bold;
-      letter-spacing: -2px;
-      line-height: 20px;
-      font-weight: bold;
-      font-size: 1.2em;
       text-align: center;
-      color: $theme-color;
+      letter-spacing: -3px;
+      line-height: 18px;
+      font-size: 1em;
+      margin-top: 3px;
       z-index: 1;
+      color: $theme-color;
+
 
       &:hover{
         text-decoration: none;

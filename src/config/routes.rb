@@ -20,9 +20,9 @@ Rails.application.routes.draw do
   # post '/callback', to: 'linebot#callback'
 
   get    '/posts/narrow_down'   # post/index を ajaxで絞り込み
-  get    '/posts/fixed_cost'   # 
   resources :posts, except: [:show]
   resources :incomes, except: [:show, :index]
+  post    '/fixed_costs/exec'   # 
   resources :fixed_costs, except: [:show]
   
   get    '/signup',    to: "users#new"  

@@ -1,0 +1,87 @@
+// Place all the styles related to the FixedCosts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.alert-fixed_cost {
+  margin: 83px 0 -83px 0 !important; 
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
+
+
+.fixed-cost-main-section {
+  margin: 50px 0 60px 0;
+  padding: 0px;
+  top: 130px;
+  right: 0;
+  width: 100%;
+  border: none;
+  
+  .fixed-cost-index-btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+      width: 45%;
+      margin: 10px auto 0;
+    }
+  }
+
+  .fixed-cost {
+    display: flex;
+    margin: 0;
+
+    .check-box {
+      width: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .card {
+    margin: 5px 0;
+    padding: 7px;
+    flex-direction: row;
+    font-size: 0.9em;
+    width: 90%;
+
+    .category-name {
+      display: flex;
+      align-items: center;
+      // font-size: 8px;
+      color: #666;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .post-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #555;
+    }
+
+    .user-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: right;
+    }
+  }
+
+}
+
+//  new
+.sub-info-wrapper {
+  text-align: right;
+  margin-top: -14px;
+
+  .sub-info {
+    text-align: left;
+    display: inline-block;
+    margin: 0;
+  }
+}

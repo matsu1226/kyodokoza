@@ -1,2 +1,58 @@
-<h1>FixedCosts#edit</h1>
-<p>Find me in app/views/fixed_costs/edit.html.erb</p>
+<%= provide(:title, "テンプレートの編集") %>
+<% content_for(:body_attributes) do %>
+data-turbolinks="false"
+<% end %>
+<section class="section-wrapper post-section-wrapper">
+
+  <%= form_with(model: @fixed_cost,class: "post-form", local: true) do |f| %>
+  <div class="small-sub-wrapper">
+    <div class="form-label-set">
+      <%= f.label :category_id, class: "form-label" do %>
+      <i class="fas fa-tags"></i>
+      <% end %>
+      <%= f.collection_select :category_id , @relationship.categories, :id, :name, { selected: @fixed_cost.category_id }, { class: "form-select" } %>
+      <%# collection_select => https://qiita.com/_akira19/items/c218186983f444c2d794 %>
+    </div>
+    <div class="form-label-set">
+      <%= f.label :user_id, "誰", class: "form-label" do %>
+      <i class="fas fa-user-friends"></i>
+      <% end%>
+      <%= f.collection_select :user_id , @relationship.users, :id, :name, { selected: @fixed_cost.user_id }, { class: "form-select" } %>
+    </div>
+  </div>
+
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :payment_date, class: "form-label" do %>
+    <i class="fas fa-calendar-alt"></i>
+    <% end %>
+    <%= f.number_field :payment_date,  class: "form-control" %>
+  </div>
+  <div class="sub-info-wrapper">
+    <p class="sub-info">毎月何日に発生する記録ですか？</p>
+  </div>
+
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :content, class: "form-label" do %>
+    <i class="fas fa-pencil-alt"></i>
+    <% end %>
+    <%= f.text_field :content, class: "form-control", value: @fixed_cost.content %>
+  </div>
+
+  <div class="large-sub-wrapper price-wrapper">
+    <%= f.label :price, class: "form-label" do %>
+    <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
+    <% end %>
+    <%= f.hidden_field :price, id: "output", class: "output", value: @fixed_cost.price %>
+    <p class="price-display" id="price-display"><%= @fixed_cost.price %></p>
+  </div>
+
+  <div class="post-btn-wrapper">
+  <%= f.submit "更新" ,class: "btn standerd-btn btn-primary" %>
+  <%= link_to "削除", fixed_cost_path(@fixed_cost), method: :delete, class: "btn danger-btn btn-primary", data: { confirm: "本当によろしいですか？"} %>
+  </div>
+
+  <% end %>
+
+  <%= render "shared/calculator" %>
+
+</section>

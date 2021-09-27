@@ -6,10 +6,9 @@ class FixedCost < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :user_id, presence: true
   validates :category_id, presence: true
-  validates :payment_at, presence: true
+  validates :payment_date, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 31}
 
-  
-  scope :month, -> (month) { where(payment_at: month.all_month) }
-  scope :sorted, -> { order(payment_at: :asc) }
+  scope :sorted, -> { order(payment_date: :asc) }
+
 end
   
