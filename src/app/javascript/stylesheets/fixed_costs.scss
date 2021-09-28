@@ -50,18 +50,15 @@
     .category-name {
       display: flex;
       align-items: center;
-      // font-size: 8px;
-      color: #666;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .post-content {
+    .post_content {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      color: #555;
     }
 
     .user-name {
@@ -84,4 +81,26 @@
     display: inline-block;
     margin: 0;
   }
+}
+
+.payment-date-wrapper {
+  justify-content: start;
+  align-items: center;
+
+  .form-label {
+    margin: 3px 0;
+  }
+
+  .every-month {
+    text-align: right;
+  }
+
+  .form-control {
+    margin: 3px 0;
+    width: 56%;
+  }
+}
+
+#fixed_cost_content {
+  width: 85%;
 }
