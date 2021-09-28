@@ -21,14 +21,13 @@ data-turbolinks="false"
     </div>
   </div>
 
-  <div class="large-sub-wrapper form-label-set">
-    <%= f.label :payment_date, class: "form-label" do %>
+  <div class="large-sub-wrapper form-label-set payment-date-wrapper">
+    <%= f.label :payment_date, class: "form-label col-2" do %>
     <i class="fas fa-calendar-alt"></i>
     <% end %>
-    <%= f.number_field :payment_date,  class: "form-control" %>
-  </div>
-  <div class="sub-info-wrapper">
-    <p class="sub-info">毎月何日に発生する記録ですか？</p>
+    <span class="col-2 everu-month">毎月</span>
+    <%= f.number_field :payment_date,  class: "form-control col-2" %>
+    <span class="col-2">日</span>
   </div>
 
   <div class="large-sub-wrapper form-label-set">
