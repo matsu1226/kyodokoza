@@ -57,9 +57,9 @@
     </li>
     <li class="remainder">
       <span class="span-head">年収支</span>
-      <% @remainder_array.each do |remainder| %>
-      <span class="span-data">
-          <%= plus_minus remainder.to_i %>
+      <% @remainder_array.each_with_index do |remainder, i| %>
+      <span class="span-data remainder_<%=i+1%>" style="color:<%= price_color(remainder) %> ;">
+          <%= plus_minus remainder %>
       </span>
       <% end %>
     </li>

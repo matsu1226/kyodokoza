@@ -64,7 +64,7 @@ RSpec.describe "Stats", type: :system do
           end
         end
       end
-
+      
       it "実績-目標テーブル / カテゴリ列" do
         within '.total-table' do
           is_expected.to have_content  "¥ 7,200" # 食費
@@ -76,7 +76,6 @@ RSpec.describe "Stats", type: :system do
         end
       end
 
-
       it "ユーザー毎テーブル / 合計" do
         within '.individual-table' do
           within '.total-sum' do
@@ -87,6 +86,22 @@ RSpec.describe "Stats", type: :system do
         end
       end
 
+    end
+
+    context "年合計" do
+      before { visit stats_year_path }
+      it { is_expected.to have_content "食費" } # 食費
+      it { is_expected.to have_content "固定費" } # 固定費
+      
+      it "stat-table" do
+        is_expected.to have_content  "¥ 7,200" # 食費
+        is_expected.to have_content "¥ 75,000" # 固定費
+        is_expected.to have_content "¥ 82,200" # 収入計
+        is_expected.to have_content "-82,200" # 収入計
+        is_expected.to have_selector('.remainder_10', text: "-")
+        is_expected.to have_selector('.remainder_11', text: "-")
+        is_expected.to have_selector('.remainder_12', text: "-")
+      end
     end
   end
   
