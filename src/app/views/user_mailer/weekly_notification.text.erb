@@ -15,16 +15,16 @@
 
 
 〈合計額〉
-支出の合計　→　<%= yen Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) * 7 / @this_month_days %>
+支出の合計　→　<%= yen Post.where(payment_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) * 7 / @this_month_days %>
 支出の目標　→　<%= yen Category.where(id: @relationship.category_ids).sum(:target_price) * 7 / @this_month_days %>
-差異　  →　<%= yen ( Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) - Category.where(id: @relationship.category_ids).sum(:target_price)) * 7 / @this_month_days  %>
+差異　  →　<%= yen ( Post.where(payment_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) - Category.where(id: @relationship.category_ids).sum(:target_price)) * 7 / @this_month_days  %>
 
 〈カテゴリ毎〉
 <% @relationship.category_ids.each do |category| %>
 <%= Category.find_by(id: category).name %>
-支出の合計　→　<%= yen Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) * 7 / @this_month_days %>
+支出の合計　→　<%= yen Post.where(payment_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) * 7 / @this_month_days %>
 支出の目標　→　<%= yen Category.where(id: category).sum(:target_price) * 7 / @this_month_days %>
-差異　→　<%= yen ( Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) - Category.where(id: category).sum(:target_price)) * 7 / @this_month_days  %>
+差異　→　<%= yen ( Post.where(payment_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) - Category.where(id: category).sum(:target_price)) * 7 / @this_month_days  %>
 
 <% end %>
 
@@ -33,7 +33,7 @@
 
 記録漏れはありませんか？
 もし、あれば忘れないうちに記録しましょうね↓
-(https://kyodokoza.herokuapp.com/)
+(http://www.kyodokoza.com/)
 
 今週もこの調子で頑張りましょう！
 
@@ -44,5 +44,5 @@
 =============================
 ▼送信元
 家計簿アプリ「キョウドウコウザ」
-https://kyodokoza.herokuapp.com/
+http://www.kyodokoza.com/
 =============================

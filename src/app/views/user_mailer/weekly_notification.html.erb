@@ -25,13 +25,13 @@
   </tr>
   <tr>
     <td>
-      <%= yen Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) * 7 / @this_month_days %>
+      <%= yen Post.where(payment_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) * 7 / @this_month_days %>
     </td>
     <td>
       <%= yen Category.where(id: @relationship.category_ids).sum(:target_price) * 7 / @this_month_days %>
     </td>
     <td>
-      <%= yen ( Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) - 
+      <%= yen ( Post.where(payment_at: Time.zone.now.last_week.all_week, category_id: @relationship.category_ids).sum(:price) - 
       Category.where(id: @relationship.category_ids).sum(:target_price)) * 7 / @this_month_days  %>
     </td>
   </tr>
@@ -51,13 +51,13 @@
       <%= Category.find_by(id: category).name %>
     </td>
     <td>
-      <%= yen Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) * 7 / @this_month_days %>
+      <%= yen Post.where(payment_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) * 7 / @this_month_days %>
     </td>
     <td>
       <%= yen Category.where(id: category).sum(:target_price) * 7 / @this_month_days %>
     </td>
     <td>
-      <%= yen ( Post.where(purchased_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) - 
+      <%= yen ( Post.where(payment_at: Time.zone.now.last_week.all_week, category_id: category).sum(:price) - 
       Category.where(id: category).sum(:target_price)) * 7 / @this_month_days  %>
     </td>
   </tr>
@@ -71,7 +71,7 @@
 <p>
   記録漏れはありませんか？
   <br>もし、あれば忘れないうちに記録しましょうね↓
-  <br>(https://kyodokoza.herokuapp.com/)
+  <br>(http://www.kyodokoza.com/)
   <br>
   <br>今週もこの調子で頑張りましょう！
   <br>
@@ -82,6 +82,6 @@
   =============================<br>
   ▼送信元<br>
   家計簿アプリ「キョウドウコウザ」<br>
-  https://kyodokoza.herokuapp.com/<br>
+  http://www.kyodokoza.com/<br>
   =============================<br>
 </p>
