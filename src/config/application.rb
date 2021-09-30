@@ -56,7 +56,7 @@ module App
     # rackの設定(adsense向け) / Rails 5 の場合、以下を追記
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
+        origins 'localhost:3000','https://kyodokoza.herokuapp.com/signup'
         resource '*', headers: :any, methods: [:get, :post, :options]
       end
     end
