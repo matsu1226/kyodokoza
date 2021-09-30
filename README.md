@@ -1,6 +1,6 @@
 # 共同口座専用の家計簿アプリ「キョウドウコウザ」
 
-http://kyodokoza.herokuapp.com/
+http://www.kyodokoza.com/
 
 ## 概要
 シンプルかつ見やすさにこだわった「共同口座（共用口座・共同財布）向けの家計簿アプリ」です。
