@@ -106,7 +106,7 @@ h2 {
   font-size: 1.2em;
   margin: 20px 0;
   text-align: center;
-  font-weight: normal;
+  font-weight: bold;
 }
 
 p {
@@ -311,5 +311,133 @@ main {
     color: #630015;
     border-color: #c20c33;
     background-color: #ffd9e1;
+  }
+}
+
+// intro
+
+.top-image {
+  background-image: url('../images/main.jpg');
+  height: calc(100vh);
+  position: relative;
+  background-position: 50% 80%;
+  width: 100vw;
+  height: 80vh;
+  margin: 0 0 0 -5vw;
+  background-size: cover;
+
+  .top-image-cover {
+    width: 100vw;
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    
+    .top-inner-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      text-align: center;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #f3f9f9;
+    }
+  }
+
+}
+
+.intro-section {
+  h2 {
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    padding: 40px 0 10px;
+  }
+  
+  p {
+    font-size: 0.8rem;
+    text-align:  center;
+  }
+}
+
+.intro-icons-section {
+  max-width: 768px;
+  
+  .icons {
+    margin: 25px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    div {
+      height: 15vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0;
+      
+      span {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        // width: 10%;
+      }
+    }
+  }
+}
+
+.intro-main-section {
+  width: 100vw;
+  background-color: #f7f7ff;
+  margin-left: -5vw;
+
+  p {
+    text-align: center;
+  }
+  
+  .sumaho-waku {
+    margin: 0 auto;
+  }
+  
+  .sumaho-waku img, .sumaho-waku:before {
+    max-width: 200px;/*スマホ幅の最大値*/
+    max-height: 300px;
+    background-color: #111;/*スマホの色*/
+    color: #666;/*◎ボタンの色*/
+    display: block;
+  }
+  .sumaho-waku img {
+    width: 100%;
+    height: auto;
+    padding: 0 5px;
+    box-sizing: border-box;
+  }
+  .sumaho-waku:before {
+    display: block;
+    text-align: center;
+    font-family: 'MS PGothic', sans-serif;
+    line-height: 1em;
+    content: '…';
+    font-size: 30px;
+    border-radius: 30px 30px 0 0;
+    height: 30px;
+  }
+  
+  .flex-elm {
+    margin: 0 auto;
+    
+    .intro-card {
+      padding: 20px 20px 0 20px;
+      margin: 15px auto;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+    
+      h2 {
+        padding-top: 0px;
+      }
+  
+    }
   }
 }

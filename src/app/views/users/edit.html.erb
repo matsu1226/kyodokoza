@@ -1,5 +1,5 @@
 <%= provide(:title, "アカウント情報変更") %>
-<section class="name-change section-wrapper">
+<section class="user-edit-section section-wrapper">
   <h2>ニックネームの変更</h2>
   <div class="container">
     <%= form_with(model: @user,url: {controller: 'users', action: 'update' }, local: true) do |f| %>
@@ -21,7 +21,7 @@
   </div>
 </section>
 
-<section class="password-reset section-wrapper">
+<section class="user-edit-section password-reset section-wrapper">
   <h2>パスワード変更</h2>
   <div class="container">
     <p>以下のボタンをクリックしてください</p>
@@ -30,7 +30,7 @@
 </section>
 
 <% if current_user == User.find_by(email: "qqq.ms1126@gmail.com") %>
-<section class="account-delete section-wrapper">
+<section class="user-edit-section account-delete section-wrapper">
   <h2>アカウント削除</h2>
   <div class="container">
     <p>ユーザー情報を完全に削除します</p>
