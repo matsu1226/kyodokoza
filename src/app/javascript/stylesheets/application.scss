@@ -257,7 +257,6 @@ header{
 main {  
   .main-wrapper{
     padding: 50px 0;
-    max-width: $wrapper-max-width;
     width: 90vw;
     margin: 0 auto;
   }
@@ -362,6 +361,7 @@ main {
 
 .intro-icons-section {
   max-width: 768px;
+  margin: 0 auto;
   
   .icons {
     margin: 25px auto;
