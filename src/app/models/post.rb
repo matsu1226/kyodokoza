@@ -10,7 +10,7 @@ class Post < ApplicationRecord
 
 
   scope :month, -> (month) { where(payment_at: month.all_month) }
-  scope :sorted, -> { order(payment_at: :asc) }
+  scope :sorted, -> { order(payment_at: :desc) }
 
 
 end

@@ -38,6 +38,15 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    if @relationship = @user.relationship
+      @to_user = @relationship.users.where.not(id: params[:id]).first
+      today = Date.today
+      posts = Post.where(user_id: @relationship.user_ids).order(updated_at: :desc).limit(5)
+      incomes = Income.where(user_id: @relationship.user_ids).order(updated_at: :desc).limit(5)
+      @feed_items = posts | incomes
+      @feed_items.sort!{ |a, b| a.updated_at <=> b.updated_at }
+      @feed_items.reverse!.pop(5)
+    end
   end
 
   def edit
