@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'static_pages#introduction'
   get  '/introduction', to: 'static_pages#introduction'
+  get  '/terms', to: 'static_pages#terms'
+  get  '/privacy_policy', to: 'static_pages#privacy_policy'
   get '/guest_sign_in', to: 'static_pages#guest_sign_in'
 
   

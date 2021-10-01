@@ -131,6 +131,10 @@ ul, li {
   margin-top: 5px;
 }
 
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
 
 // ===== header ===== 
 
@@ -447,5 +451,22 @@ main {
     .intro-card:first-of-type {
       height: 485px;
     }
+  }
+}
+
+
+//term
+
+.term-wrapper {
+  div {
+    margin-top: 20px;
+
+    ol, p{
+      font-size: 0.9rem;
+      li {
+        list-style: decimal;
+      }  
+    }
+
   }
 }

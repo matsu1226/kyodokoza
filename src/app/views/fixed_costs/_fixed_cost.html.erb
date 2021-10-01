@@ -1,5 +1,5 @@
 <div class="fixed-cost">
-  <span class="col-1 check-box"><%= check_box_tag "fixed_cost[#{ fixed_cost.id }]", fixed_cost.id , checked = true%></span>
+  <span class="col-1 check-box"><%= check_box_tag "fixed_cost[#{ fixed_cost.id }]", fixed_cost.id , checked = true %></span>
   <%= link_to edit_fixed_cost_path(fixed_cost), class: "card" do %>
     <span class="col-1"><%= fixed_cost.payment_date %></span>
     <span class="col-3 category-name"

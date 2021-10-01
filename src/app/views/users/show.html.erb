@@ -42,38 +42,48 @@
 
 <section class="section-wrapper">
   <h2>各種設定</h2>
+  <%= link_to 'Twitter', "https://twitter.com/intent/tweet?url=#{@share_url}&text=#{@share_text}&hashtags=#{@hash_tag}", title: 'Twitter', target: '_blank' %>
   <div class="menu-btns d-flex flex-wrap justify-content-center">
-    <%= link_to logout_path, method: :delete, class: "card col-3 d-flex flex-column align-items-center justify-content-around vh-10" do%>
+    <%= link_to logout_path, method: :delete, class: "card menu-btn d-flex flex-column align-items-center justify-content-around" do%>
     <i class="fas fa-sign-out-alt fa-2x"></i>
     <span class="btn-description">ログアウト</span>
     <% end %>
 
-    <%= link_to edit_user_path(@user), class: "card col-3 d-flex flex-column align-items-center justify-content-around vh-10" do%>
+    <%= link_to edit_user_path(@user), class: "card menu-btn d-flex flex-column align-items-center justify-content-around" do%>
     <i class="fas fa-user-cog fa-2x"></i>
     <span class="btn-description">アカウント情報</span>
     <% end %>
 
     <% if @user.relationship %>
 
-      <%= link_to categories_path, class: "card col-3 d-flex flex-column align-items-center justify-content-around vh-10" do%>
+      <%= link_to categories_path, class: "card menu-btn d-flex flex-column align-items-center justify-content-around" do%>
       <i class="fas fa-folder-open fa-2x"></i>
       <span class="btn-description">カテゴリー情報 / 目標額</span>
       <% end %>
 
-      <%= link_to fixed_costs_path, class: "card col-3 d-flex flex-column align-items-center justify-content-around vh-10" do%>
+      <%= link_to fixed_costs_path, class: "card menu-btn d-flex flex-column align-items-center justify-content-around" do%>
       <i class="fas fa-file-export fa-2x"></i>
       <span class="btn-description">支出テンプレート</span>
       <% end %>
       
-      <%= link_to report_multiple_path, class: "card col-3 d-flex flex-column align-items-center justify-content-around vh-10" do%>
+      <%= link_to report_multiple_path, class: "card menu-btn d-flex flex-column align-items-center justify-content-around" do%>
       <i class="fas fa-file-excel fa-2x"></i>
       <span class="btn-description">支出のエクセル出力</span>
       <% end %>
 
+      <div class=" menu-btn d-flex flex-column align-items-center justify-content-around">
+        <%= link_to terms_path, class: "card justify-content-center" do%>
+        <span class="btn-description">利用規約</span>
+        <% end %>
+        <%= link_to privacy_policy_path, class: "card justify-content-center" do%>
+        <span class="btn-description">プライバシーポリシー</span>
+        <% end %>
+      </div>
+
     <% end %>
 
     <% if @user.relationship.nil? %>
-      <%= link_to new_relationship_path, class: "card col-3 d-flex flex-column align-items-center justify-content-around vh-10" do%>
+      <%= link_to new_relationship_path, class: "card menu-btn d-flex flex-column align-items-center justify-content-around" do%>
       <i class="fas fa-user-friends fa-2x"></i>
       <span class="btn-description">家族の登録</span>
       <% end %>
