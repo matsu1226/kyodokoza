@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 
-
+//new
 form {
   .sub-info {
     // @include moderate(gray);
@@ -14,6 +14,16 @@ form {
   input {
     width: 100%;
   }
+
+  .checkbox-set {
+    input {
+      margin-right: 10px;
+    }
+    
+    a {
+      color: #0d6efd;
+    }
+  }
   
   .standerd-btn {
     margin-top: 30px;
@@ -22,43 +32,64 @@ form {
 
 
 // show
-.setting-links {
-  // margin: 40px auto 20px;
-  // max-width: 576px;
+.user-show {
+  max-width: 768px;
+  margin: 0 auto;
 
   a:hover, a:focus {
     text-decoration: none;
   }
 
-  .setting-link-wrapper{
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-
-
-    .setting-link {
-      font-size: 1.2em;
-      text-align: start;
+  .activity {
+    ul {
+      width: 95%;
+      
+      li {
+        font-size: 0.9rem;
+      }
+    }
+  }
+  
+  .menu-btns {
+    .menu-btn {
+      height: 15vh;
       margin: 5px;
-      display: flex;
-      flex-direction: column;
+      padding: 5px;
+      width: 30%;
 
-      span {
-        font-size: 0.6rem;
-        line-height: 0.6rem;
-        color: #ccc;
+      .fa-sign-out-alt {
+        color: $indigo-300;
+      }
+      .fa-user-cog {
+        color: $red-300;
+      }
+      .fa-folder-open {
+        color: $orange-300;
+      }
+      .fa-file-export, .fa-user-friends {
+        color: $green-300;
+      }
+      .fa-file-excel {
+        color: $cyan-300;
+      }
+      
+      .btn-description {
+        font-size: 8px;
       }
     }
 
-    .angle{
-      color: #ccc;
-      margin-right: 5px;
+    .menu-btn:last-of-type {
+      padding: 0;
+
+      .card {
+        width: 100%;
+        text-align: center;
+        height: 7.5vh;
+      }
     }
   }
 }
+
 
 
 // edit

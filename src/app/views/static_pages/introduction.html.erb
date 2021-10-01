@@ -25,8 +25,8 @@
           <span class="small-elm"><i class="fa-lg fas fa-angle-left"></i></span>
         </div>
         <div>
-          <span class="small-elm"><i class="fa-lg fas fa-coins"></i></span>
-          <span class="small-elm"><i class="fa-lg fas fa-coins"></i></span>
+          <span class="small-elm d-flex flex-column"><span>月初</span><i class="fa-lg fas fa-coins"></i></span>
+          <span class="small-elm d-flex flex-column"><span>月末</span><i class="fa-lg fas fa-coins"></i></span>
         </div>
         <div>
           <span class="small-elm"><i class="fa-lg fas fa-angle-right"></i></span>
@@ -40,8 +40,8 @@
           <span class="small-elm"><i class="fa-lg fas fa-angle-right"></i></span>
         </div>
         <div>
-          <span class="small-elm"><i class="fa-lg fas fa-coins"></i></span>
-          <span class="small-elm"><i class="fa-lg fas fa-coins"></i></span>
+          <span class="small-elm d-flex flex-column"><span>月初</span><i class="fa-lg fas fa-coins"></i></span>
+          <span class="small-elm d-flex flex-column"><span>月末</span><i class="fa-lg fas fa-coins"></i></span>
         </div>
         <div>
           <span class="small-elm"><i class="fa-lg fas fa-angle-left"></i></span>
@@ -58,10 +58,19 @@
 </section>
 <section class="intro-section intro-main-section">
   <h2>How to use "キョウドウコウザ"</h2>
-  <p>まずは2人で仲良く登録をしましょう。</p>
+  <p>まずは2人で仲良く登録をしましょう。<br>キョウドウコウザは2人で使うことに特化したサービスです。</p>
   <div class="container">
     <div class="row">
 
+      <div class="flex-elm col-11 col-md-6">
+        <div class="card intro-card">
+          <h2>スマホでも、PCでも</h2>
+          <p>キョウドウコウザはスマホアプリではなくブラウザサービス。<br>
+          日々の入力はスマホで。まとまった分析をしたいならPCからエクセル出力も可能です。</p>
+            <%= image_pack_tag "media/images/multi_devise.png" %>
+        </div>
+
+      </div>
       <div class="flex-elm col-11 col-md-6">
         <div class="card intro-card">
           <h2>毎日の支出の入力は簡単<br>ログインから20秒で</h2>
@@ -105,6 +114,7 @@
     </div>
   </div>
 </section>
+
 
 
 <% unless logged_in? %>

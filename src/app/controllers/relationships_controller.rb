@@ -36,7 +36,7 @@ class RelationshipsController < ApplicationController
         common_user.create_user_relationship(relationship_id: @relationship.id)
 
         flash[:success] = "家族を登録しました"
-        redirect_to relationship_path(@relationship)
+        redirect_to user_path(current_user)
 
       else
         flash[:warning] = "家族の名前の文字数を確認してください"

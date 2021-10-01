@@ -2,6 +2,12 @@
 <%= form_with(model: @user,url: {controller: 'users', action: 'create' }, local: true) do |f| %>
   <%= render 'shared/error_messages' %>
 
+  <div class="checkbox-set d-flex align-items-center mt-3">
+    <%#= check_box_tag "fixed_cost[#{ fixed_cost.id }]", fixed_cost.id , checked = true %>
+    <%= check_box_tag "agreement","agreement", checked = false %>
+    <p class="m-0 ml-1"><%= link_to "利用規約",terms_path %>と<%= link_to "プライバシーポリシー", privacy_policy_path %>に同意する</p>
+  </div>
+
   <%= f.label :name, "ニックネーム：", class: "form-label" %>
   <%= f.text_field :name, class: "form-control"%>
   <p class="sub-info">10文字以内（家計簿の一覧画面で使うので5文字以下推奨）</p>
@@ -19,9 +25,21 @@
 
   <%= f.label :password_confirmation, "パスワード（確認）：", class: "form-label" %>
   <%= f.password_field :password_confirmation, class: "form-control"%>
-  <p></p>
 
-  <%= f.submit "仮登録（メール送信）" ,class: "btn standerd-btn btn-primary" %>
+  <%= f.submit "仮登録（メール送信）" ,disabled: true, class: "user-new-submit btn standerd-btn btn-primary" %>
 
 <% end %>
 <%= link_to "登録済みの方はこちら", login_path, class: "moderate" %>
+
+<script>
+  const submit_btn = document.getElementsByClassName('user-new-submit')[0];
+  const agreement = document.getElementById('agreement');
+
+  agreement.addEventListener("change", () => {
+    if (agreement.checked) {
+      submit_btn.disabled = false;
+    } else {
+      submit_btn.disabled = true;
+    }
+  })
+</script>

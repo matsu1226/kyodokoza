@@ -1,11 +1,11 @@
 <header>
   <nav class="nav header-nav">
     <%= link_to root_path, id: "logo", class: "logo" do %>
-    キョウドウ<br>コウザ!!
+      <%= image_pack_tag "media/images/logo_small_kyodokoza.png" %>
     <% end %>
         <% if logged_in? %>
           <%= link_to user_path(current_user), class: "config-icon" do %>
-            <i class="fa fa-cog fa-lg config-icon" aria-hidden="true"></i>
+            <i class="fas fa-lg fa-users-cog"></i>
           <% end %>
         <% end %>
   </nav>

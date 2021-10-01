@@ -16,7 +16,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "renders the body" do
-      expect(mail_body).to match CGI.escape("kyodokoza.herokuapp.com")
+      expect(mail_body).to match CGI.escape("kyodokoza.com")
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "renders the body" do
-      expect(mail_body).to match CGI.escape("kyodokoza.herokuapp.com")
+      expect(mail_body).to match CGI.escape("kyodokoza.com")
     end
   end
 

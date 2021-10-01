@@ -189,9 +189,7 @@ RSpec.describe "Users", type: :system do
       
       it "家族の情報の表示" do
         visit user_path(user)
-        should have_content "家族情報の確認"
         should_not have_content "家族の登録"
-        visit relationship_path(relationship)
         should have_content "松田家"
         should have_content "2021/08/31"
         should have_content "正太郎"

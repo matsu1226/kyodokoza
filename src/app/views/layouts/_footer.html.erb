@@ -1,6 +1,6 @@
 <% if logged_in? && current_user.relationship.present? %>
-<footer>
-  <nav class="nav footer-nav position-fixed bottom-0">
+<footer class="position-fixed bottom-0">
+  <nav class="nav footer-nav">
     <%= link_to posts_path, class: "nav-link" do%>
     <i class="fas fa-list-ul"></i>
     <p>一覧</p>

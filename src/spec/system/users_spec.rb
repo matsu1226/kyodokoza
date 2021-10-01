@@ -32,7 +32,7 @@ RSpec.describe "Users", type: :system do
             fill_in 'メールアドレス：', with: "test@test.com"
             fill_in 'パスワード：', with: "testtest"
             fill_in 'パスワード（確認）：', with: "testtest"
-            click_button '仮登録（メール送信）'
+            click_button '仮登録（メール送信）', disabled: true
             expect(page).to have_content 'ニックネームを入力してください'
           end
 
@@ -41,7 +41,7 @@ RSpec.describe "Users", type: :system do
             fill_in 'メールアドレス：', with: ""
             fill_in 'パスワード：', with: "testtest"
             fill_in 'パスワード（確認）：', with: "testtest"
-            click_button '仮登録（メール送信）'
+            click_button '仮登録（メール送信）', disabled: true
             expect(page).to have_content 'メールアドレスを入力してください'
           end
 
@@ -50,13 +50,17 @@ RSpec.describe "Users", type: :system do
             fill_in 'メールアドレス：', with: "test@test.com"
             fill_in 'パスワード：', with: ""
             fill_in 'パスワード（確認）：', with: ""
-            click_button '仮登録（メール送信）'
+            click_button '仮登録（メール送信）', disabled: true
             expect(page).to have_content 'パスワードを入力してください'
           end
 
           let(:test_user) { User.find_by(email: "test@test.com") }
           it "正常な新規登録" do
-            fill_test_user_info_and_click_button
+            fill_in 'ニックネーム：', with: "テスト　太郎"
+            fill_in 'メールアドレス：', with: "test@test.com"
+            fill_in 'パスワード：', with: "testtest"
+            fill_in 'パスワード（確認）：', with: "testtest"
+            click_button '仮登録（メール送信）', disabled: true
             expect(page).to have_content '仮登録メールを送信しました' 
             expect(ActionMailer::Base.deliveries.count).to eq 1  
             expect( test_user.name ).to eq "テスト　太郎" 
@@ -74,7 +78,7 @@ RSpec.describe "Users", type: :system do
             fill_in 'メールアドレス：', with: non_activated_user.email
             fill_in 'パスワード：', with: "testtest"
             fill_in 'パスワード（確認）：', with: "testtest"
-            click_button '仮登録（メール送信）'
+            click_button '仮登録（メール送信）', disabled: true
             expect(page).to have_content 'フォームの入力値が不適切です'
           end
   
@@ -83,7 +87,7 @@ RSpec.describe "Users", type: :system do
             fill_in 'メールアドレス：', with: non_activated_user.email
             fill_in 'パスワード：', with: ""
             fill_in 'パスワード（確認）：', with: ""
-            click_button '仮登録（メール送信）'
+            click_button '仮登録（メール送信）', disabled: true
             expect(page).to have_content 'フォームの入力値が不適切です'
           end
 
@@ -92,7 +96,7 @@ RSpec.describe "Users", type: :system do
             fill_in 'メールアドレス：', with: non_activated_user.email
             fill_in 'パスワード：', with: "testtest"
             fill_in 'パスワード（確認）：', with: "testtest"
-            click_button '仮登録（メール送信）'
+            click_button '仮登録（メール送信）', disabled: true
             expect(page).to have_content '仮登録メールを送信しました' 
             expect( User.find_by(email: non_activated_user.email).name ).to eq "テスト　太郎" 
             expect( User.find_by(email: non_activated_user.email).password_digest ).to be_a_kind_of(String) 
@@ -106,7 +110,7 @@ RSpec.describe "Users", type: :system do
             fill_in 'メールアドレス：', with: activated_user.email
             fill_in 'パスワード：', with: "testtest"
             fill_in 'パスワード（確認）：', with: "testtest"
-            click_button '仮登録（メール送信）'
+            click_button '仮登録（メール送信）', disabled: true
             expect(page).to have_content 'メールアドレスはすでに存在します' 
           end
         end       
@@ -229,16 +233,13 @@ RSpec.describe "Users", type: :system do
         it { is_expected.not_to have_link nil, href: new_post_path } 
         it { is_expected.not_to have_link nil, href: categories_path } 
       end
-
+      
       describe "設定" do
         before { visit user_path(user) }
-        it { is_expected.to have_selector 'a.setting-link-wrapper' }
+        it { is_expected.to have_link nil, href: logout_path } 
+        it { is_expected.to have_link nil, href: edit_user_path(user) } 
+        it { is_expected.to have_link nil, href: new_relationship_path } 
       end
-
-      describe "アカウント情報変更" do
-        before { visit edit_user_path(user) }
-        it { is_expected.to have_content 'ニックネームの変更' }
-      end      
 
       describe "before_action :correct_user フィルターの確認" do
         let(:user2) { FactoryBot.create(:user2) }
@@ -258,8 +259,8 @@ RSpec.describe "Users", type: :system do
 
     describe "ログアウトの実行" do
       before do
-        visit user_path(user) 
-        find('.logout-wrapeer').click     # 1つ目のsetting-link-wrapperクラスの要素をクリック
+        visit user_path(user)
+        click_link nil, href: logout_path
       end
 
       it { is_expected.to have_content 'ログアウトしました。' }

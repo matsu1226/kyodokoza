@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'static_pages#introduction'
   get  '/introduction', to: 'static_pages#introduction'
+  get  '/terms', to: 'static_pages#terms'
+  get  '/privacy_policy', to: 'static_pages#privacy_policy'
   get '/guest_sign_in', to: 'static_pages#guest_sign_in'
 
   
@@ -31,7 +33,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   get    '/relationships/invitation_code', to: "relationships#invitation_code"
-  resources :relationships,       only: [:new, :create, :show] 
+  resources :relationships,       only: [:new, :create] 
 end
 
 # resources :users の内容

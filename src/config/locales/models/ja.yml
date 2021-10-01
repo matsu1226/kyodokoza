@@ -21,6 +21,7 @@ ja:
       default: "%Y/%m/%d %H:%M:%S"
       date: "%Y/%m/%d"
       short_date: "%m/%d"
+      short_date_with_time: "%m/%d %H:%M"
       short: "%d"
 
 # https://qiita.com/satreu16/items/a072a4be415f30087ed7

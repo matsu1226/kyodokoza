@@ -13,9 +13,7 @@ RSpec.describe "StaticPages", type: :system do
   
   it "家族の情報の表示" do
     visit user_path(guest)
-    should have_content "家族情報の確認"
     should_not have_content "家族の登録"
-    visit relationship_path(guest.relationship)
     should have_content "ゲスト用家族"
     should have_content "ゲスト1"
     should have_content "ゲスト2"
@@ -83,9 +81,9 @@ RSpec.describe "StaticPages", type: :system do
     before  do
       visit guest_sign_in_path
       visit user_path(guest)
-      # click_link "ログアウト", href: logout_path
-      link = find('.logout-wrapeer')
-      link.click
+      click_link nil, href: logout_path
+      # link = find('.logout-wrapeer')
+      # link.click
     end
 
     it { expect( Category.where(relationship_id: guest.relationship.id).count ).to eq 0  }
