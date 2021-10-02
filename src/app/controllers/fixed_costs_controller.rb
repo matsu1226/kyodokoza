@@ -21,7 +21,7 @@ class FixedCostsController < ApplicationController
   def create
     @fixed_cost = FixedCost.new(fixed_cost_params)
     if @fixed_cost.save
-      flash[:info] = "テンプレートを作成しました"
+      flash[:success] = "テンプレートを作成しました"
       redirect_to fixed_costs_path
     else
       flash[:warning] = "正しい値を入力してください"
