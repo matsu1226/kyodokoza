@@ -46,6 +46,13 @@ form {
       
       li {
         font-size: 0.9rem;
+
+        strong {
+          font-size: 8px;
+        }
+        p {
+          margin-bottom: 5px;
+        }
       }
     }
   }
@@ -90,7 +97,14 @@ form {
   }
 }
 
-
+.admin-section {
+  .addresses {
+    margin: 0 15px;
+  }
+  p {
+    font-size: 0.8rem;
+  }
+}
 
 // edit
 

@@ -1,26 +1,18 @@
 <%= provide(:title, "テンプレート一覧") %>
 
-<section class="section-wrapper post-index-header-section">
-  <div id="post_index_head" class="post-index-head card shadow-none">
-    <span class="date col-2">
-      <i class="fas fa-calendar-alt"></i>
-    </span>
-    <%= narrow_down_select("category", @relationship.categories) %>
-    <span class="content col-3">
-      <i class="fas fa-yen-sign"></i>
-    </span>
-    <span class="content col-3">
-      <i class="fas fa-pencil-alt"></i>
-    </span>
-    <%= narrow_down_select("user", @relationship.users) %>
-  </div>
-</section>
-
 <%= form_with(model: @fixed_costs, url: {controller: 'fixed_costs', action: 'exec'}, local: true) do |f| %>
 <section class="section-wrapper fixed-cost-main-section">
   <div class="">
-    まずは、毎月支払のある支出を登録してみましょう！
-    <div class="fixed-cost-index-btn-wrapper">
+  <div class="d-flex justify-content-around">
+    <p class="m-0 before-modal">テンプレートを使って記入をラクに。</p> 
+    <button type="button" class="btn btn-outline-secondary shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      使い方
+    </button>
+  </div>
+
+    <!-- Button trigger modal -->
+
+    <div class="fixed-cost-index-btn-wrapper d-flex justify-content-beteween">
       <%= link_to new_fixed_cost_path, class: "btn standerd-btn btn-primary" do %>
       テンプレートの<br>新規作成
       <% end %>
@@ -36,3 +28,38 @@
 
 <section class="section-wrapper post-index-lower-section">
 </section>
+
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">テンプレート機能の使い方</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <h6 class="fw-bold">【テンプレート登録】</h6>
+          <li>「テンプレートの新規作成ボタン」から毎月の決まった出費を登録してみてください
+            <br>（例）
+            <br>3つのテンプレートを登録
+            <br>「①毎月27日 固定費 家賃」
+            <br>「②毎月20日 通信費 Wifi代金」
+            <br>「③毎月30日 固定費 息子の塾代」</li>
+
+          <h6 class="fw-bold">【テンプレート編集/削除】</h6>
+          <li>「テンプレートの一覧」から各テンプレートをタップして、編集画面へ移動してください</li>
+
+          <h6 class="fw-bold">【テンプレートの反映】</h6>
+          <li>「テンプレートの一覧」から、反映したいテンプレートをチェックして「今月の記録に反映ボタン」をタップしてください
+            <br>（例）
+            <br>今日が2021/10/5、①②のみチェックした場合 以下のように反映
+            <br>「①2021/10/27の支出 に 家賃」
+            <br>「②2021/10/20の支出 に Wifi代金」</li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@
 <%# post.respond_to?(:category) == true => postは支出 %>
 <%# post.respond_to?(:category) == false => postは収入 %>
   <%#= link_to edit_post_path(post), class: "card", style: fixed_costed_color(post) do %>
-  <%= link_to edit_post_path(post), class: "card" do %>
+  <%= link_to edit_post_path(post), class: "card shadow-sm" do %>
     <span class="col-2"><%= l post.payment_at, format: :short %><%= day_of_week(post.payment_at) %></span>
     <span class="category-name col-2" style="color: <%= post.category.color %>;"><%= post.category.name %></span>
     <span class="col-3"><%= yen post.price %></span>

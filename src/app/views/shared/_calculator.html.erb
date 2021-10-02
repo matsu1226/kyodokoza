@@ -26,6 +26,8 @@
 </div>
 <%# <script src="./script.js"></script> %>
 <script type="text/javascript">
+  document.addEventListener("dblclick", function(e){ e.preventDefault();}, { passive: false });
+
   let output = document.getElementById('output');
   let price_display = document.getElementById('price-display');
 
