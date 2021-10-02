@@ -38,7 +38,7 @@ class FixedCostsController < ApplicationController
   def update
     @fixed_cost = FixedCost.find_by(id: params[:id])
     if @fixed_cost.update(fixed_cost_params)
-      flash[:info] = "テンプレートを更新しました"
+      flash[:success] = "テンプレートを更新しました"
       redirect_to fixed_costs_path
     else
       flash[:warning] = "正しい値を入力してください"
