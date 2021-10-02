@@ -42,7 +42,7 @@
 
 <section class="section-wrapper">
   <h2>各種設定</h2>
-  <%= link_to 'Twitter', "https://twitter.com/intent/tweet?url=#{@share_url}&text=#{@share_text}&hashtags=#{@hash_tag}", title: 'Twitter', target: '_blank' %>
+
   <div class="menu-btns d-flex flex-wrap justify-content-center">
     <%= link_to logout_path, method: :delete, class: "card menu-btn d-flex flex-column align-items-center justify-content-around" do%>
     <i class="fas fa-sign-out-alt fa-2x"></i>
@@ -90,6 +90,44 @@
     <% end %>
 
   </div>
+</section>
+
+<section class="section-wrapper admin-section">
+  <h2>管理者より</h2>
+
+  <div class="m-0 share-btns">
+    <p>このサービスの使い心地はいかがですか？<br>感想をつぶやいていただけると嬉しいです。</p>
+
+    <div class="d-flex justify-content-around">
+      <%# Twitterシェア %>
+      <%= link_to "https://twitter.com/intent/tweet?url=#{@share_url}&text=#{@share_text}&hashtags=#{@hash_tag}", title: 'Twitter', target: '_blank', class:"share-btn twitter-btn" do %>
+      <i class="fab fa-twitter fa-2x" style="color:#3399FF ;"></i>
+      <% end %>  
+
+      <%# FACEBOOKシェア %>
+      <%= link_to "https://www.facebook.com/share.php?u=https://www.kyodokoza.com/", rel: "nofollow" ,target: "_blank" do %>
+        <i class="fab fa-facebook fa-2x" style="color:#3b5998 ;"></i>
+      <% end %>  
+
+      <%# LINEシェア %>
+      <%= link_to "https://social-plugins.line.me/lineit/share?url=#{@share_url}", rel: "nofollow" ,target: "_blank" do %>
+        <i class="fab fa-line fa-2x" style="color:#06c755 ;"></i> 
+      <% end %>  
+    </div>
+  </div>
+
+  <div>
+    <p>お問い合わせ先は下記メールアドレス、もしくは管理者のTwitterDMまで。</p>
+    <div class="addresses">
+      <p class="m-0">メールアドレス：info.kyodokoza@gmail.com' </p>
+      <p>管理者のTwitter：
+        <%= link_to 'https://twitter.com/SHOMATSUDA3' do %>
+          <i class="fab fa-twitter fa-2x" style="color:#3399FF ;"></i>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
 </section>
 
 </div>
