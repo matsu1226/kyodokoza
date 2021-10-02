@@ -21,7 +21,7 @@ class FixedCostsController < ApplicationController
   def create
     @fixed_cost = FixedCost.new(fixed_cost_params)
     if @fixed_cost.save
-      flash[:fixed_cost] = "テンプレートを作成しました"
+      flash[:info] = "テンプレートを作成しました"
       redirect_to fixed_costs_path
     else
       flash[:warning] = "正しい値を入力してください"
@@ -38,7 +38,7 @@ class FixedCostsController < ApplicationController
   def update
     @fixed_cost = FixedCost.find_by(id: params[:id])
     if @fixed_cost.update(fixed_cost_params)
-      flash[:fixed_cost] = "テンプレートを更新しました"
+      flash[:info] = "テンプレートを更新しました"
       redirect_to fixed_costs_path
     else
       flash[:warning] = "正しい値を入力してください"
@@ -51,7 +51,7 @@ class FixedCostsController < ApplicationController
     @fixed_cost = FixedCost.find_by(id: params[:id])
     @fixed_cost.destroy
     redirect_to fixed_costs_path
-    flash[:fixed_cost] = "テンプレートを削除しました"
+    flash[:warning] = "テンプレートを削除しました"
 
   end
 
