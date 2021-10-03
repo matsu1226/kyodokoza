@@ -115,7 +115,25 @@
   </div>
 </section>
 
+<section class="intro-section">
+  <h2>友達にシェアしてみよう！</h2>
+  <div class="mx-auto w-50 d-flex justify-content-around">
+    <%# Twitterシェア %>
+    <%= link_to "https://twitter.com/intent/tweet?url=#{@share_url}&text=#{@share_text}&hashtags=#{@hash_tag}", title: 'Twitter', target: '_blank', class:"share-btn twitter-btn" do %>
+    <i class="fab fa-twitter fa-2x" style="color:#3399FF ;"></i>
+    <% end %>  
 
+    <%# FACEBOOKシェア %>
+    <%= link_to "https://www.facebook.com/share.php?u=https://www.kyodokoza.com/", rel: "nofollow" ,target: "_blank" do %>
+      <i class="fab fa-facebook fa-2x" style="color:#3b5998 ;"></i>
+    <% end %>  
+
+    <%# LINEシェア %>
+    <%= link_to "https://social-plugins.line.me/lineit/share?url=#{@share_url}", rel: "nofollow" ,target: "_blank" do %>
+      <i class="fab fa-line fa-2x" style="color:#06c755 ;"></i> 
+    <% end %>  
+  </div>
+</section>
 
 <% unless logged_in? %>
 <section class="intro-section btn-wrapper">
