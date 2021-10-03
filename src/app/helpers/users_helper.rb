@@ -6,6 +6,13 @@ module UsersHelper
     else
       "支出"
     end
+  end
 
+  def text_align_by_user(user)
+    if user == @user
+      "left"
+    else
+      "right"
+    end
   end
 end

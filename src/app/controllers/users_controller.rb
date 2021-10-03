@@ -40,11 +40,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @relationship = @user.relationship
       @to_user = @relationship.users.where.not(id: params[:id]).first
-      today = Date.today
       posts = Post.where(user_id: @relationship.user_ids).order(updated_at: :desc).limit(5)
       incomes = Income.where(user_id: @relationship.user_ids).order(updated_at: :desc).limit(5)
-      @feed_items = posts | incomes
+      # @feed_items = posts | incomes
+      # binding.pry
+      @feed_items = [].push(posts).push(incomes).flatten!
+      # binding.pry
       @feed_items.sort!{ |a, b| a.updated_at <=> b.updated_at }
+      # binding.pry
       @feed_items.reverse!.pop(5)
     end
 
