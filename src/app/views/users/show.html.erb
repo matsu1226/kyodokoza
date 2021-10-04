@@ -29,7 +29,7 @@
   <div class="activity">
     <h2>直近のアクティビティ</h2>
     <ul class="mx-auto">
-      <%= @feed_items.each do |item| %>
+      <% @feed_items.each do |item| %>
       <li>
         <strong class="m-0">
           <%= l item.updated_at, format: :short_date_with_time %>
