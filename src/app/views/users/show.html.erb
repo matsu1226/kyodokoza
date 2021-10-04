@@ -30,7 +30,7 @@
     <h2>直近のアクティビティ</h2>
     <ul class="mx-auto">
       <% @feed_items.each do |item| %>
-      <li>
+      <li style="text-align: <%= text_align_by_user(item.user) %>;">
         <strong class="m-0">
           <%= l item.updated_at, format: :short_date_with_time %>
         </strong>

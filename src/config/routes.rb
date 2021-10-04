@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  match '(*any)', to: redirect(subdomain: 'www'), via: :all, constraints: {subdomain: ''}
   root 'static_pages#introduction'
   get  '/introduction', to: 'static_pages#introduction'
   get  '/terms', to: 'static_pages#terms'
