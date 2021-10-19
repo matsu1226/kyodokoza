@@ -21,7 +21,8 @@
   <%= javascript_pack_tag 'application' %>
   <%#= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%= render 'layouts/google_adsense' %>
+  <%= yield :head %>
+
   <% if Rails.env.production? %>
   <%= render 'layouts/google_analytics' %>
   <% end %>
