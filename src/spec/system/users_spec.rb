@@ -205,6 +205,19 @@ RSpec.describe "Users", type: :system do
 
   end
 
+  # context "永続ログイン機能の確認" do
+  #   describe  "永続ログイン無し => ブラウザ閉じるとログアウト" do
+  #     before { login(user) }
+  #     it "" do
+
+  #     end
+  #   end
+
+  #   describe "永続ログイン有り => ブラウザ閉じてもログイン継続" do
+
+  #   end
+  # end
+
 
   context "ログイン後" do
     before { login(user) }

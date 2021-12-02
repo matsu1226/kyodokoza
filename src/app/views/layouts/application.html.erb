@@ -25,6 +25,7 @@
 
   <% if Rails.env.production? %>
   <%= render 'layouts/google_analytics' %>
+  <%= render 'layouts/google_adsense' %>
   <% end %>
 
   <title><%= full_title(yield(:title)) %></title>

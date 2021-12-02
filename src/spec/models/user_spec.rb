@@ -177,6 +177,15 @@ RSpec.describe User, type: :model do
       end
     end
 
+    describe "rememberのテスト" do
+      it { expect{ @user.remember }.to change{ @user.remember_digest }.from(nil).to(String) }
+    end
+
+    describe "forgetのテスト" do
+      before { @user.update(remember_digest: "hogehoge" ) }
+      it { expect{ @user.forget }.to change{ @user.remember_digest }.from(String).to(nil) }
+    end
+
   end
 
 end

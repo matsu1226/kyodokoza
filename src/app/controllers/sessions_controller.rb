@@ -11,11 +11,13 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       if user.activated?
         log_in user
-        if user.relationship.nil?
-          redirect_to user_path(user)
-        else
-          redirect_to new_post_path
-        end
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        user.relationship.nil? ? redirect_to(user_path(user)) : redirect_to(new_post_path) 
+        # if user.relationship.nil?
+        #   redirect_to user_path(user)
+        # else
+        #   redirect_to new_post_path
+        # end
         flash[:success] = "ログインに成功しました"
       else
         message = "アカウントが本登録されていません"
@@ -35,7 +37,7 @@ class SessionsController < ApplicationController
       Category.where(relationship_id: guest.relationship.id).each { |category| category.destroy }
     end
 
-    log_out
+    log_out if logged_in?
     redirect_to login_path
     flash[:success] = "ログアウトしました。"
   end
