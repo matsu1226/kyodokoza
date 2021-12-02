@@ -12,7 +12,7 @@ class UserMailerPreview < ActionMailer::Preview
   def weekly_notification
     user = User.first
     relationship = user.relationship
-    UserMailer.weekly_notification(relationship)
+    UserMailer.weekly_notification
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/user_mailer/password_reset

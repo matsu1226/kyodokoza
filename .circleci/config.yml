@@ -7,7 +7,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7-node  
+      - image: circleci/ruby:2.7.5-node  
     working_directory: ~/kyodokoza/src 
     steps:
       - checkout:
@@ -16,7 +16,7 @@ jobs:
 
   test: 
     docker:
-      - image: circleci/ruby:2.7-node
+      - image: circleci/ruby:2.7.5-node
       - image: circleci/mysql:5.5
         environment: 
           MYSQL_ROOT_PASSWORD: password
@@ -48,7 +48,7 @@ jobs:
           command: bundle exec rspec
   deploy:
     docker:
-      - image: circleci/ruby:2.7
+      - image: circleci/ruby:2.7.5
     steps:
       - checkout   
       - setup_remote_docker:
