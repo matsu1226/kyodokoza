@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :incomes
 
-  attr_accessor :activation_token, :reset_token, :invitation_token
+  attr_accessor :activation_token, :reset_token, :invitation_token, :remember_token
 
   before_save :create_activation_digest
   # before_save => createもupdateも
@@ -43,10 +43,6 @@ class User < ApplicationRecord
     # A–Z、a–z、0–9、"-"、"_"（64種類）からなる長さ22のランダムな文字列を返す
     # https://docs.ruby-lang.org/ja/latest/method/SecureRandom/s/urlsafe_base64.html
   end
-
-  # def digest_and_token_is_password?(digest, token)
-  #   BCrypt::Password.new(digest).is_password?(token)
-  # end
 
   def authenticated?(attribute_name, token)   
     digest = send("#{attribute_name}_digest")    # acctivation_digest, 
@@ -87,6 +83,15 @@ class User < ApplicationRecord
 
   def no_relationship?
     self.user_relationship.nil?
+  end
+
+  def remember
+    self.remember_token = User.new_token
+    update(remember_digest: User.digest(remember_token))
+  end
+
+  def forget
+    update(remember_digest: nil)
   end
 
   

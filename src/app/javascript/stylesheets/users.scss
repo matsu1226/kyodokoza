@@ -120,17 +120,6 @@ form {
   }
 }
 
-// .danger-btn {
-//   @include btn-shape(red);
-//   display: flex;
-//   margin: 0 auto;
-//   justify-content: center;
-//   align-items: center;
-//   opacity: 0.9;
-//   &:hover{
-//     opacity: 1;
-//   }
-// }
 
 
 // sessions/new (login)
@@ -143,6 +132,7 @@ form {
   .fill-password-wrapper {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 0px;
   
     .fill-password-info {
       margin: 15px 0 5px 0;
@@ -150,6 +140,19 @@ form {
   
     .moderate {
       margin: 15px 0 5px 0;
+    }
+  }
+
+  .checkbox{
+    display: flex;
+    align-items: center;
+
+    input {
+      margin-right:  5px;
+    }
+
+    p {
+      margin: 0;
     }
   }
 }
