@@ -10,8 +10,8 @@ set :environment, rails_env
 # 環境変数をうまい感じにやってくれる
 ENV.each { |k, v| env(k, v) }
 
-# every :monday, at: '9am' do
-every 5.minutes do
+every :monday, at: '9am' do
+# every 5.minutes do
   runner "UserMailer.weekly_notification"
   # rake 'weekly_notification:weekly_notification'  # lib/tasks/weekly_notification の実行
   # 実行時間の指定 https://www.school.ctc-g.co.jp/columns/masuidrive/masuidrive22.html

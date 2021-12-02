@@ -1,4 +1,4 @@
-FROM ruby:2.7
+FROM ruby:2.7.4
 
 # 本番環境を指定(docker-compose build時はコメントアウトする)
 ENV RAILS_ENV=production
