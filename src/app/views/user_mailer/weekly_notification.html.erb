@@ -12,8 +12,8 @@
 
 <p>========</p>
 <p>
-  【先週（<%= l Time.zone.now.prev_week(:monday), format: :short_date %> ~
-  <%= l Time.zone.now.prev_week(:sunday), format: :short_date %>）の支出レポート】
+  【先週（<%= l Time.zone.now.prev_week(:monday), format: :short_date %>(月) ~
+  <%= l Time.zone.now.prev_week(:sunday), format: :short_date %>(日)）の支出レポート】
 </p>
 <br>
 <span>〈合計額〉</span>
@@ -71,7 +71,7 @@
 <p>
   記録漏れはありませんか？
   <br>もし、あれば忘れないうちに記録しましょうね↓
-  <br>(http://www.kyodokoza.com/)
+  <br><%= link_to nil,"http://www.kyodokoza.com/" %>
   <br>
   <br>今週もこの調子で頑張りましょう！
   <br>
@@ -82,6 +82,6 @@
   =============================<br>
   ▼送信元<br>
   家計簿アプリ「キョウドウコウザ」<br>
-  http://www.kyodokoza.com/<br>
+  <%= link_to nil,"http://www.kyodokoza.com/" %><br>
   =============================<br>
 </p>
