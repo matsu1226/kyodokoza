@@ -51,7 +51,8 @@ class UsersController < ApplicationController
         "支出の記入で間違えてもあわてないで！ \n" +
         "「一覧画面」のそれぞれの支出項目をクリックして、もう一度編集できるからね！",
         "月のおわりになったら「月合計」で合計の支出をチェックしてみよう！ \n" +
-        "目標額をクリアできたか、ドキドキだね…！"]
+        "目標額をクリアできたか、ドキドキだね…！",
+        "おさかな食べたいな…。"]
       @tips = tips_array.sample
 
       @to_user = @relationship.users.where.not(id: params[:id]).first
