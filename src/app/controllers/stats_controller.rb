@@ -2,104 +2,13 @@ class StatsController < ApplicationController
   before_action :logged_in_user
   before_action :check_have_relationship
   before_action :get_relationship
+  before_action :set_month_or_month_ajax, only: [:month, :month_ajax]
 
   def month
-    @month = Time.zone.now.beginning_of_month
-    family_category_ids = @relationship.category_ids
-
-    # グラフ
-    @pie_chart = []
-    family_category_ids.each do |c_id|
-      @pie_chart.push(
-        [Category.find_by(id: c_id).name, 
-          Post.where(user_id: @relationship.users, category_id: c_id).month(@month).sum(:price)]
-      )
-    end
-    @pie_chart_colors = Category.where(id: family_category_ids).map(&:color)
-
-    # 支出の合計（ユーザー毎）
-    @month_post_every_users_and_categories_array = []
-    family_category_ids.each do |category_id|
-      array = []
-      @relationship.users.each do |user|
-        array.push(
-          Post.where(user_id: user, category_id: category_id).month(@month).sum(:price)
-        )
-      end
-      @month_post_every_users_and_categories_array.push(array)
-    end
-
-    # イメージ
-    # @month_post_every_users_and_categories_array = [
-        # [75000, 0, 0],      # 固定費
-        # [33000, 2000, 0],   # 食費
-        # [3000, 4000, 1000], # 雑費
-        # …
-    # ]
-
-    @month_post_every_users_array = []
-    array = @month_post_every_users_and_categories_array.transpose
-    @relationship.users.count.times do |i|
-      @month_post_every_users_array.push(array[i].sum)
-    end
-
-    # 支出の合計（全ユーザー）
-    @month_post_total = @month_post_every_users_array.sum
-
-    @month_target_every_category_array = []
-    family_category_ids.count.times do |i|
-      @month_target_every_category_array.push(
-        Category.where(id: family_category_ids[i]).sum(:target_price)
-      )
-    end
-    
-    @month_target_total = @month_target_every_category_array.sum
   end
 
   
   def month_ajax
-    @month = Time.parse(params[:month]) 
-    family_category_ids = @relationship.category_ids
-
-    # グラフ
-    @pie_chart = []
-    family_category_ids.each do |c_id|
-      @pie_chart.push(
-        [Category.find_by(id: c_id).name, 
-          Post.where(user_id: @relationship.users, category_id: c_id).month(@month).sum(:price)]
-      )
-    end
-    @pie_chart_colors = Category.where(id: family_category_ids).map(&:color)
-
-    # 支出の合計（ユーザー毎）
-    @month_post_every_users_and_categories_array = []
-    family_category_ids.each do |category_id|
-      array = []
-      @relationship.users.each do |user|
-        array.push(
-          Post.where(user_id: user, category_id: category_id).month(@month).sum(:price)
-        )
-      end
-      @month_post_every_users_and_categories_array.push(array)
-    end
-
-    @month_post_every_users_array = []
-    array = @month_post_every_users_and_categories_array.transpose
-    @relationship.users.count.times do |i|
-      @month_post_every_users_array.push(array[i].sum)
-    end
-
-    # 支出の合計（全ユーザー）
-    @month_post_total = @month_post_every_users_array.sum
-
-    @month_target_every_category_array = []
-    family_category_ids.count.times do |i|
-      @month_target_every_category_array.push(
-        Category.where(id: family_category_ids[i]).sum(:target_price)
-      )
-    end
-    
-    @month_target_total = @month_target_every_category_array.sum
   end
 
 
@@ -209,7 +118,37 @@ class StatsController < ApplicationController
     end
   end
 
+
   private
+
+    def set_month_or_month_ajax
+      @month = params[:month].present? ? Time.parse(params[:month]) : Time.zone.now.beginning_of_month
+      @c_count = @relationship.categories.count
+
+      # 支出の合計（ユーザー毎）
+      @posts_each_user = @relationship.category_ids.map do |c_id|
+        array = @relationship.users.map do |user|
+          Post.where(user_id: user, category_id: c_id).month(@month).sum(:price)
+        end
+        array
+      end
+
+      @total_price_each_user = @posts_each_user.transpose.map(&:sum)
+
+      # 支出の合計（全ユーザー
+      @posts_all_users = @posts_each_user.map(&:sum)
+      @targets_all_users = @relationship.categories.map(&:target_price)
+      
+      @total_price_all_users = @total_price_each_user.sum
+      @total_targets_all_users = @targets_all_users.sum
+      @diff_all_users = @total_targets_all_users - @total_price_all_users
+
+      # グラフ
+      @pie_chart = @relationship.categories.map.with_index do |c, i|
+          [c.name, @posts_all_users[i]]
+      end
+      @category_colors = @relationship.categories.map(&:color)
+    end
 end
 
 
