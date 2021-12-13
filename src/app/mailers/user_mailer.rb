@@ -24,6 +24,11 @@ class UserMailer < ApplicationMailer
     end
   end
 
+  def test_mail
+    @user = User.first
+    mail to: @user.email, subject: "test mail"
+  end
+
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #

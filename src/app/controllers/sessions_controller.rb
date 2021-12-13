@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       if user.activated?
         log_in user
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-        user.relationship.nil? ? redirect_to(user_path(user)) : redirect_to(new_post_path) 
+        redirect_to(user_path(user)) 
         # if user.relationship.nil?
         #   redirect_to user_path(user)
         # else

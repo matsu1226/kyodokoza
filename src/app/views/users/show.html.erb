@@ -1,33 +1,43 @@
-<%= provide(:title, "家族情報 と 設定") %>
+<%= provide(:title, "ホーム画面") %>
 
 <div class="user-show">
 
+<% if @user.relationship %>
 <section class="section-wrapper">
-  <% if @user.relationship %>
-  <div class="container">
-    <div class="relationship-info d-flex">
-      <div class="col-4 d-flex flex-column justify-content-end align-items-center m-0 mt-2">
-        <span><i class="fas fa-user fa-2x"></i></span>
-        <span><%= @user.name %></span>
-      </div>
-
-      <div class="col-4 d-flex flex-column justify-content-around align-items-center m-0">
-        <span class="col-8 text-center"><strong><%= @relationship.name %></strong></span>
-        <span class="text-center lh-1"><small class="text-black-50">登録日
-            <br><%= l @relationship.created_at, format: :date %></small></span>
-      </div>
-
-      <div class="col-4 d-flex flex-column justify-content-end align-items-center m-0 mt-2">
-        <span><i class="fas fa-user fa-2x"></i></span>
-        <span><%= @to_user.name %></span>
-      </div>
+  <h2>かわうそくんのひとこと</h2>
+  <div class="d-flex justify-content-between m-0">
+    <div class="col-2 m-0 d-flex align-items-center justify-content-end">
+      <%= image_pack_tag "media/images/kawauso.png", size:"60x60", alt:"カワウソくん" %>
+    </div>
+    <div class="col-9 m-0  d-flex align-items-center balloon-left">
+      <p class="m-0 lh-sm tips"><%= h(@tips).gsub(/\n|\r|\r\n/, "<br>").html_safe %></p>
     </div>
   </div>
+
 </section>
 
 <section class="section-wrapper">
   <div class="activity">
     <h2>直近のアクティビティ</h2>
+    <div class="container">
+      <div class="relationship-info d-flex">
+        <div class="col-4 d-flex flex-column justify-content-end align-items-center m-0 mt-2">
+          <span><i class="fas fa-user fa-2x"></i></span>
+          <span><%= @user.name %></span>
+        </div>
+
+        <div class="col-4 d-flex flex-column justify-content-around align-items-center m-0">
+          <span class="col-8 text-center"><strong><%= @relationship.name %></strong></span>
+          <span class="text-center lh-1"><small class="text-black-50">登録日
+              <br><%= l @relationship.created_at, format: :date %></small></span>
+        </div>
+
+        <div class="col-4 d-flex flex-column justify-content-end align-items-center m-0 mt-2">
+          <span><i class="fas fa-user fa-2x"></i></span>
+          <span><%= @to_user.name %></span>
+        </div>
+      </div>
+    </div>
     <ul class="mx-auto">
       <% @feed_items.each do |item| %>
       <li style="text-align: <%= text_align_by_user(item.user) %>;">
@@ -35,14 +45,14 @@
           <%= l item.updated_at, format: :short_date_with_time %>
         </strong>
         <p>
-          <%= item.user.name %> さんが <%= yen item.price %> の <%= item_type(item) %>
+          <%= item.user.name %> さんの <%= yen item.price %> の <%= item_type(item)  %> を記録
         </p>
       </li>
       <% end %>
     </ul>
   </div>
-  <% end %>
 </section>
+<% end %>
 
 <section class="section-wrapper">
   <h2>各種設定</h2>
@@ -99,21 +109,18 @@
 <section class="section-wrapper admin-section">
   <h2>管理者より</h2>
 
-  <div class="m-0 share-btns">
+  <div class="mb-3 share-btns">
     <p>このサービスの使い心地はいかがですか？<br>感想をつぶやいていただけると嬉しいです。</p>
 
     <div class="d-flex justify-content-around">
-      <%# Twitterシェア %>
       <%= link_to "https://twitter.com/intent/tweet?url=#{@share_url}&text=#{@share_text}&hashtags=#{@hash_tag}", title: 'Twitter', target: '_blank', class:"share-btn twitter-btn" do %>
       <i class="fab fa-twitter fa-2x" style="color:#3399FF ;"></i>
       <% end %>  
 
-      <%# FACEBOOKシェア %>
       <%= link_to "https://www.facebook.com/share.php?u=https://www.kyodokoza.com/", rel: "nofollow" ,target: "_blank" do %>
         <i class="fab fa-facebook fa-2x" style="color:#3b5998 ;"></i>
       <% end %>  
 
-      <%# LINEシェア %>
       <%= link_to "https://social-plugins.line.me/lineit/share?url=#{@share_url}", rel: "nofollow" ,target: "_blank" do %>
         <i class="fab fa-line fa-2x" style="color:#06c755 ;"></i> 
       <% end %>  
@@ -123,7 +130,7 @@
   <div>
     <p>お問い合わせ先は下記メールアドレス、もしくは管理者のTwitterDMまで。</p>
     <div class="addresses">
-      <p class="m-0">メールアドレス：info.kyodokoza@gmail.com' </p>
+      <p class="m-0">メールアドレス：info.kyodokoza@gmail.com </p>
       <p>管理者のTwitter：
         <%= link_to 'https://twitter.com/SHOMATSUDA3' do %>
           <i class="fab fa-twitter fa-2x" style="color:#3399FF ;"></i>

@@ -11,10 +11,13 @@ set :environment, rails_env
 ENV.each { |k, v| env(k, v) }
 
 every :monday, at: '9am' do
-# every 5.minutes do
   runner "UserMailer.weekly_notification"
   # rake 'weekly_notification:weekly_notification'  # lib/tasks/weekly_notification の実行
   # 実行時間の指定 https://www.school.ctc-g.co.jp/columns/masuidrive/masuidrive22.html
+end
+
+every :day, at: "10:00 am" do
+  runner "UserMailer.test_mail"
 end
 
 # every 2.minutes do

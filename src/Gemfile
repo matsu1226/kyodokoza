@@ -45,12 +45,13 @@ gem "chartkick"
 gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'rubyzip'
-#LINE API用
-gem 'line-bot-api'
 #access tokenなどを管理する用
 gem 'dotenv-rails' 
 # googleAdsense用（https://www.dragonarrow.work/articles/200）
 gem 'rack-cors'
+# TwitterAPI用
+gem 'twitter'
+
 
 
 group :development, :test do
@@ -66,7 +67,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-doc'
   # rspec with Ajax
-  gem 'selenium-webdriver'
+  # gem 'selenium-webdriver'
   # バッチ処理
   gem 'whenever', require: false
 
