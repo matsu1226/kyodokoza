@@ -145,7 +145,9 @@ class StatsController < ApplicationController
 
       # 支出の合計（対日割り目標）
       @date = Date.today.day
-      @daily_targets_all_users = @targets_all_users.map{|t| t*@date/Date.today.end_of_month.day}
+      num = @date/Date.today.end_of_month.day.to_f
+      @daily_targets_all_users = @targets_all_users.map{|t| (t * num).floor}
+      @daily_total_targets_all_users = (@total_targets_all_users * num).floor
 
       # グラフ
       @pie_chart = @relationship.categories.map.with_index do |c, i|
