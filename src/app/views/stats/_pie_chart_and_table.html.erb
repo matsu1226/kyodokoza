@@ -5,7 +5,7 @@
   </p>
 </section>
 <section class="section-wrapper">
-  <h2 class="table-title">支出の合計(全ユーザー)</h2>
+  <h2 class="table-title">支出(対月末までの目標額)</h2>
   <ul class="stat-table total-table">
     <li class="stat-table-head">
       <span class="col-3">カテゴリ</span>
@@ -44,8 +44,57 @@
   </ul>
 </section>
 
+<% if @month == Time.zone.now.beginning_of_month %>
 <section class="section-wrapper">
-  <h2 class="table-title">支出の合計(ユーザーごと)</h2>
+  <h2 class="table-title mb-4">支出(対日割り目標額)</h2>
+  <ul class="stat-table total-table">
+    <li class="stat-table-head">
+      <span class="col-3">カテゴリ</span>
+      <span class="col-3">実績</span>
+      <span class="col-3 d-flex flex-row-reverse align-items-center">
+        <span class="text-end">目標</span>
+        <button type="button" class="tooltip-btn btn btn-outline-secondary shadow-sm" id="tooltip_elm" data-bs-toggle="tooltip" data-bs-placement="top" 
+        title="月ごとの目標額を日割りして、今日の日付（<%=@date %>日）まで足し合わせた金額">
+        ？
+        </button>
+      </span>
+      <span class="col-3">差異</span>
+    </li>
+
+    <li class="total-sum">
+      <span class="col-3">合計</span>
+      <span class="col-3"><%= yen @total_price_all_users %></span>
+      <span class="col-3 transparent"><%= yen @total_targets_all_users %></span>
+      <span class="col-3 transparent"
+        style="color:<%= price_color(@diff_all_users) %> ;">
+        <%= yen @diff_all_users %>
+      </span>
+    </li>
+
+    <% @c_count.times do |i| %>
+    <li class="category-sum">
+      <span class="col-3" style="color: <%= @category_colors[i] %>;">
+        <%= @pie_chart[i][0] %>
+      </span>
+      <span class="col-3">
+        <%= yen @pie_chart[i][1]  %>
+      </span>
+      <span class="col-3 transparent">
+        <%= yen @daily_targets_all_users[i] %>
+      </span>
+      <span class="col-3 transparent" style="color:<%= price_color(@daily_targets_all_users[i] - @pie_chart[i][1]) %> ;">
+        <%= yen @daily_targets_all_users[i] - @pie_chart[i][1] %>
+      </span>
+    </li>
+    <% end %>
+
+  </ul>
+</section>
+<% end %>
+
+
+<section class="section-wrapper">
+  <h2 class="table-title">支出(ユーザーごと)</h2>
   <ul class="stat-table individual-table">
     <li class="stat-table-head">
       <span class="col-3">カテゴリ</span>
