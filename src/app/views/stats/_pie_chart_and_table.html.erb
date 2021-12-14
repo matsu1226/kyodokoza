@@ -1,131 +1,152 @@
-<section class="section-wrapper">
+<section class="section-wrapper border-0">
   <%= pie_chart @pie_chart,legend: {display: false}, donut: true, width: "200px", height: "200px", colors: @category_colors %>
   <p class="pie-chart-text">
     支出の合計<br><%= yen @total_price_all_users %>
   </p>
 </section>
-<section class="section-wrapper">
-  <h2 class="table-title">支出(対月末までの目標額)</h2>
-  <ul class="stat-table total-table">
-    <li class="stat-table-head">
-      <span class="col-3">カテゴリ</span>
-      <span class="col-3">実績</span>
-      <span class="col-3">目標</span>
-      <span class="col-3">差異</span>
-    </li>
 
-    <li class="total-sum">
-      <span class="col-3">合計</span>
-      <span class="col-3"><%= yen @total_price_all_users %></span>
-      <span class="col-3 transparent"><%= yen @total_targets_all_users %></span>
-      <span class="col-3 transparent"
-        style="color:<%= price_color(@diff_all_users) %> ;">
-        <%= yen @diff_all_users %>
-      </span>
-    </li>
+<ul class="nav nav-tabs justify-content-between" id="myTab" role="tablist">
+  <li class="nav-item col-4" role="presentation">
+    <button class="w-100 nav-link tab-btn active " id="home-tab" data-bs-toggle="tab" data-bs-target="#monthly" type="button" role="tab" aria-controls="monthly" aria-selected="true">
+      対月末
+    </button>
+  </li>
+  <li class="nav-item col-4" role="presentation">
+    <button class="w-100 nav-link tab-btn" id="profile-tab" data-bs-toggle="tab" data-bs-target="#daily" type="button" role="tab" aria-controls="daily" aria-selected="false">
+      対日割り
+    </button>
+  </li>
+  <li class="nav-item col-4" role="presentation">
+    <button class="w-100 nav-link tab-btn" id="contact-tab" data-bs-toggle="tab" data-bs-target="#each_user" type="button" role="tab" aria-controls="each-user" aria-selected="false">
+      ユーザー毎
+    </button>
+  </li>
+</ul>
 
-    <% @c_count.times do |i| %>
-    <li class="category-sum">
-      <span class="col-3" style="color: <%= @category_colors[i] %>;">
-        <%= @pie_chart[i][0] %>
-      </span>
-      <span class="col-3">
-        <%= yen @pie_chart[i][1]  %>
-      </span>
-      <span class="col-3 transparent">
-        <%= yen @targets_all_users[i] %>
-      </span>
-      <span class="col-3 transparent" style="color:<%= price_color(@targets_all_users[i] - @pie_chart[i][1]) %> ;">
-        <%= yen @targets_all_users[i] - @pie_chart[i][1] %>
-      </span>
-    </li>
-    <% end %>
+<div class="tab-content" id="nav-tabContent">
+  <section class="section-wrapper tab-pane fade border-0 show active" id="monthly" role="tabpanel" aria-labelledby="monthly">
+    <h2 class="table-title mb-4">支出(対月末までの目標額)</h2>
+    <ul class="stat-table total-table">
+      <li class="stat-table-head">
+        <span class="col-3">カテゴリ</span>
+        <span class="col-3">実績</span>
+        <span class="col-3">目標</span>
+        <span class="col-3">差異</span>
+      </li>
 
-  </ul>
-</section>
+      <li class="total-sum">
+        <span class="col-3">合計</span>
+        <span class="col-3"><%= yen @total_price_all_users %></span>
+        <span class="col-3 transparent"><%= yen @total_targets_all_users %></span>
+        <span class="col-3 transparent"
+          style="color:<%= price_color(@diff_all_users) %> ;">
+          <%= yen @diff_all_users %>
+        </span>
+      </li>
 
-<% if @month == Time.zone.now.beginning_of_month %>
-<section class="section-wrapper">
-  <h2 class="table-title mb-4">支出(対日割り目標額)</h2>
-  <ul class="stat-table daily-table">
-    <li class="stat-table-head">
-      <span class="col-3">カテゴリ</span>
-      <span class="col-3">実績</span>
-      <span class="col-3 d-flex flex-row-reverse align-items-center">
-        <span class="text-end">目標</span>
-        <button type="button" class="tooltip-btn btn btn-outline-secondary shadow-sm" id="tooltip_elm" data-bs-toggle="tooltip" data-bs-placement="top" 
-        title="月ごとの目標額を日割りして、今日の日付（<%=@date %>日）まで足し合わせた金額">
-        ？
-        </button>
-      </span>
-      <span class="col-3">差異</span>
-    </li>
-
-    <li class="total-sum">
-      <span class="col-3">合計</span>
-      <span class="col-3"><%= yen @total_price_all_users %></span>
-      <span class="col-3 transparent"><%= yen @total_targets_all_users %></span>
-      <span class="col-3 transparent"
-        style="color:<%= price_color(@diff_all_users) %> ;">
-        <%= yen @diff_all_users %>
-      </span>
-    </li>
-
-    <% @c_count.times do |i| %>
-    <li class="category-sum">
-      <span class="col-3" style="color: <%= @category_colors[i] %>;">
-        <%= @pie_chart[i][0] %>
-      </span>
-      <span class="col-3">
-        <%= yen @pie_chart[i][1]  %>
-      </span>
-      <span class="col-3 transparent">
-        <%= yen @daily_targets_all_users[i] %>
-      </span>
-      <span class="col-3 transparent" style="color:<%= price_color(@daily_targets_all_users[i] - @pie_chart[i][1]) %> ;">
-        <%= yen @daily_targets_all_users[i] - @pie_chart[i][1] %>
-      </span>
-    </li>
-    <% end %>
-
-  </ul>
-</section>
-<% end %>
-
-
-<section class="section-wrapper">
-  <h2 class="table-title">支出(ユーザーごと)</h2>
-  <ul class="stat-table individual-table">
-    <li class="stat-table-head">
-      <span class="col-3">カテゴリ</span>
-      <% @relationship.users.each do |user| %>
-      <span class="col-3"><%= user.name%></span>
+      <% @c_count.times do |i| %>
+      <li class="category-sum">
+        <span class="col-3" style="color: <%= @category_colors[i] %>;">
+          <%= @pie_chart[i][0] %>
+        </span>
+        <span class="col-3">
+          <%= yen @pie_chart[i][1]  %>
+        </span>
+        <span class="col-3 transparent">
+          <%= yen @targets_all_users[i] %>
+        </span>
+        <span class="col-3 transparent" style="color:<%= price_color(@targets_all_users[i] - @pie_chart[i][1]) %> ;">
+          <%= yen @targets_all_users[i] - @pie_chart[i][1] %>
+        </span>
+      </li>
       <% end %>
-    </li>
 
-    <li class="total-sum">
-      <span class="col-3">
-        合計
-      </span>
-      <% 3.times do |i| %>
-      <span class="col-3">
-        <%= yen @total_price_each_user[i] %>
-      </span>
+    </ul>
+  </section>
+
+  <% if @month == Time.zone.now.beginning_of_month %>
+  <section class="section-wrapper tab-pane fade border-0" id="daily" role="tabpanel" aria-labelledby="daily">
+    <h2 class="table-title mb-4">支出(対日割り目標額)</h2>
+    <ul class="stat-table daily-table">
+      <li class="stat-table-head">
+        <span class="col-3">カテゴリ</span>
+        <span class="col-3">実績</span>
+        <span class="col-3 d-flex flex-row-reverse align-items-center">
+          <span class="text-end">目標</span>
+          <button type="button" class="tooltip-btn btn btn-outline-secondary shadow-sm" id="tooltip_elm" data-bs-toggle="tooltip" data-bs-placement="top" 
+          title="月ごとの目標額を日割りして、今日の日付（<%=@date %>日）まで足し合わせた金額">
+          ？
+          </button>
+        </span>
+        <span class="col-3">差異</span>
+      </li>
+
+      <li class="total-sum">
+        <span class="col-3">合計</span>
+        <span class="col-3"><%= yen @total_price_all_users %></span>
+        <span class="col-3 transparent"><%= yen @daily_total_targets_all_users %></span>
+        <span class="col-3 transparent"
+          style="color:<%= price_color(@diff_all_users) %> ;">
+          <%= yen @diff_all_users %>
+        </span>
+      </li>
+
+      <% @c_count.times do |i| %>
+      <li class="category-sum">
+        <span class="col-3" style="color: <%= @category_colors[i] %>;">
+          <%= @pie_chart[i][0] %>
+        </span>
+        <span class="col-3">
+          <%= yen @pie_chart[i][1]  %>
+        </span>
+        <span class="col-3 transparent">
+          <%= yen @daily_targets_all_users[i] %>
+        </span>
+        <span class="col-3 transparent" style="color:<%= price_color(@daily_targets_all_users[i] - @pie_chart[i][1]) %> ;">
+          <%= yen @daily_targets_all_users[i] - @pie_chart[i][1] %>
+        </span>
+      </li>
       <% end %>
-    </li>
 
-    <% @c_count.times do |i| %>
-    <li class="category-sum">
-      <span class="col-3" style="color: <%= @category_colors[i] %>;">
-        <%= @pie_chart[i][0] %>
-      </span>
-      <% 3.times do |j| %>
-      <span class="col-3">
-        <%= yen  @posts_each_user[i][j] %>
-      </span>
+    </ul>
+  </section>
+  <% end %>
+
+
+  <section class="section-wrapper tab-pane fade border-0" id="each_user" role="tabpanel" aria-labelledby="each-user">
+    <h2 class="table-title mb-4">支出(ユーザーごと)</h2>
+    <ul class="stat-table individual-table">
+      <li class="stat-table-head">
+        <span class="col-3">カテゴリ</span>
+        <% @relationship.users.each do |user| %>
+        <span class="col-3"><%= user.name%></span>
+        <% end %>
+      </li>
+
+      <li class="total-sum">
+        <span class="col-3">
+          合計
+        </span>
+        <% 3.times do |i| %>
+        <span class="col-3">
+          <%= yen @total_price_each_user[i] %>
+        </span>
+        <% end %>
+      </li>
+
+      <% @c_count.times do |i| %>
+      <li class="category-sum">
+        <span class="col-3" style="color: <%= @category_colors[i] %>;">
+          <%= @pie_chart[i][0] %>
+        </span>
+        <% 3.times do |j| %>
+        <span class="col-3">
+          <%= yen  @posts_each_user[i][j] %>
+        </span>
+        <% end %>
+      </li>
       <% end %>
-    </li>
-    <% end %>
 
-  </ul>
-</section>
+    </ul>
+  </section>
+</div>
