@@ -18,18 +18,19 @@ module StatsHelper
 
   # 今月以降は残高を表示させない
   def set_future_month_count(year, array)
-    beginning_of_year = year.to_date
     today = Time.zone.now.to_date
-    if beginning_of_year.year == today.year
+    today_year = today.year
+    year_of_year = year.to_date.year
+    if year_of_year == today_year
       future_month_count = 12 - today.month
-    elsif beginning_of_year.year > today.year
+    elsif year_of_year > today_year
       future_month_count = 12
-    elsif beginning_of_year.year < today.year
+    elsif year_of_year < today_year
       future_month_count = 0
     end
 
     a = Array.new(future_month_count, "bar")
-    array.pop(future_month_count).push(a)
+    array = array.shift(12 - future_month_count) + a
   end
   
   def yen(value)
