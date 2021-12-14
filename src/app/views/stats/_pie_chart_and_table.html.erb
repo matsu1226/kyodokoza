@@ -11,11 +11,13 @@
       対月末
     </button>
   </li>
+  <% if @month == Time.zone.now.beginning_of_month %>
   <li class="nav-item col-4" role="presentation">
     <button class="w-100 nav-link tab-btn" id="profile-tab" data-bs-toggle="tab" data-bs-target="#daily" type="button" role="tab" aria-controls="daily" aria-selected="false">
       対日割り
     </button>
   </li>
+  <% end %>
   <li class="nav-item col-4" role="presentation">
     <button class="w-100 nav-link tab-btn" id="contact-tab" data-bs-toggle="tab" data-bs-target="#each_user" type="button" role="tab" aria-controls="each-user" aria-selected="false">
       ユーザー毎
@@ -86,8 +88,8 @@
         <span class="col-3"><%= yen @total_price_all_users %></span>
         <span class="col-3 transparent"><%= yen @daily_total_targets_all_users %></span>
         <span class="col-3 transparent"
-          style="color:<%= price_color(@diff_all_users) %> ;">
-          <%= yen @diff_all_users %>
+          style="color:<%= price_color(@daily_diff_all_users) %> ;">
+          <%= yen @daily_diff_all_users %>
         </span>
       </li>
 

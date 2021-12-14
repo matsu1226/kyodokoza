@@ -15,38 +15,22 @@ module StatsHelper
       "background-color: #fff ;"
     end
   end
-  # def fixed_costed_color(post)
-  #   if post.fixed_costed
-  #     "#f4f4ff"
-  #   else
-  #     "#fff"
-  #   end
-  # end
 
   # 今月以降は残高を表示させない
   def set_future_month_count(year, array)
     beginning_of_year = year.to_date
     today = Time.zone.now.to_date
-    if beginning_of_year.year == today.year 
-      months_of_beginning_of_year = beginning_of_year.year * 12 + beginning_of_year.month
-      months_of_today = today.year * 12 + today.month
-      month_count = months_of_today -  months_of_beginning_of_year
-      @future_month_count = 12 - month_count - 1
+    if beginning_of_year.year == today.year
+      future_month_count = 12 - today.month
     elsif beginning_of_year.year > today.year
-      @future_month_count = 12
+      future_month_count = 12
     elsif beginning_of_year.year < today.year
-      @future_month_count = 0
+      future_month_count = 0
     end
 
-    array.pop(@future_month_count)
-    (@future_month_count).times do |i|
-      array.push("bar")
-    end
+    a = Array.new(future_month_count, "bar")
+    array.pop(future_month_count).push(a)
   end
-
-  
-
-  # views
   
   def yen(value)
     if value == "bar"
