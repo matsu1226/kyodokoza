@@ -36,8 +36,8 @@ module StatsHelper
       future_month_count = 0
     end
 
-    array.pop(@future_month_count)
-    (@future_month_count).times do |i|
+    array.pop(future_month_count)
+    (future_month_count).times do |i|
       array.push("bar")
     end
   end
