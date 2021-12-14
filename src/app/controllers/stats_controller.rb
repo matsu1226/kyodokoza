@@ -135,13 +135,17 @@ class StatsController < ApplicationController
 
       @total_price_each_user = @posts_each_user.transpose.map(&:sum)
 
-      # 支出の合計（全ユーザー
+      # 支出の合計（対月末目標）
       @posts_all_users = @posts_each_user.map(&:sum)
       @targets_all_users = @relationship.categories.map(&:target_price)
       
       @total_price_all_users = @total_price_each_user.sum
       @total_targets_all_users = @targets_all_users.sum
       @diff_all_users = @total_targets_all_users - @total_price_all_users
+
+      # 支出の合計（対日割り目標）
+      @date = Date.today.day
+      @daily_targets_all_users = @targets_all_users.map{|t| t*@date/Date.today.end_of_month.day}
 
       # グラフ
       @pie_chart = @relationship.categories.map.with_index do |c, i|
