@@ -25,22 +25,22 @@ data-turbolinks="false"
     <%= f.label :payment_at, class: "form-label" do %>
     <i class="fas fa-calendar-alt"></i>
     <% end %>
-    <%= f.date_field :payment_at, value: Time.zone.today , class: "form-control" %>
+    <%= f.date_field :payment_at, value: Time.zone.today , class: "content_for_calculator form-control" %>
   </div>
 
   <div class="large-sub-wrapper form-label-set">
     <%= f.label :content, class: "form-label" do %>
     <i class="fas fa-pencil-alt"></i>
     <% end %>
-    <%= f.text_field :content, class: "form-control" %>
+    <%= f.text_field :content, class: "content_for_calculator form-control" %>
   </div>
 
   <div class="large-sub-wrapper price-wrapper">
     <%= f.label :price, class: "form-label" do %>
     <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
     <% end %>
-    <%= f.hidden_field :price, id: "output", class: "output" %>
-    <p class="price-display" id="price-display"></p>
+    <%= f.hidden_field :price, id: "hidden_field", class: "output" %>
+    <p class="price-display" id="price_display"></p>
   </div>
 
   <%= f.submit "記録" ,class: "btn standerd-btn btn-primary" %>

@@ -26,19 +26,52 @@
 </div>
 <%# <script src="./script.js"></script> %>
 <script type="text/javascript">
+  let hidden_field = document.getElementById('hidden_field');
+  let price_display = document.getElementById('price_display');
+
+  // 画面上のタップキーボードの操作
   document.addEventListener("dblclick", function(e){ e.preventDefault();}, { passive: false });
 
-  let output = document.getElementById('output');
-  let price_display = document.getElementById('price-display');
-
   function set(nums) {
-    output.value += nums.value;
-    price_display.textContent = output.value;
+    hidden_field.value += nums.value;
+    price_display.textContent = hidden_field.value;
   }
 
   function back_space() {
-    // output.textContent = "";
-    output.value = output.value.slice(0, -1);
-    price_display.textContent = output.value;
+    hidden_field.value = hidden_field.value.slice(0, -1);
+    price_display.textContent = hidden_field.value;
   }
+
+  // PC向け専用の記述（テンキーとキープレスの操作）
+  if (!(navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('Android') > 0 && navigator.userAgent.indexOf('Mobile') > 0)) {
+    let contents = document.querySelectorAll('.content_for_calculator');
+    let key_active = true;
+
+    for(let i = 0; i < contents.length ; i++){
+      contents[i].addEventListener("focus", e =>{
+        key_active = false;
+        console.log(key_active);
+      })
+      contents[i].addEventListener("blur", e =>{
+        key_active = true;
+        console.log(key_active);
+      })
+    }
+
+    const num_arr = [...Array(10)].map((v, i)=> i.toString(10))
+
+    document.addEventListener("keydown", e => {
+      let st = e.key;
+
+      if (key_active && num_arr.includes(st)) {
+        hidden_field.value += st;
+        price_display.textContent = hidden_field.value;
+      }
+      if (key_active && st == "Backspace") {
+        hidden_field.value = hidden_field.value.slice(0, -1);
+        price_display.textContent = hidden_field.value;
+      }
+    })
+  }
+  
 </script>
