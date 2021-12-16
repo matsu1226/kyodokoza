@@ -17,7 +17,7 @@ class PostsController < ApplicationController
       redirect_to new_post_path
     else
       flash[:warning] = "正しい値を入力してください"
-      render "posts/new"
+      render "new"
     end
   end
 

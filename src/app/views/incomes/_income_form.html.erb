@@ -1,0 +1,44 @@
+<%= render "shared/calc_modal" %>
+
+<%= form_with(model: @income ,class: "post-form", local: true) do |f| %>
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :user_id, "誰", class: "form-label" do %>
+    <i class="fas fa-user-friends"></i>
+    <% end%>
+    <%= f.collection_select :user_id , @relationship.users, :id, :name, { selected: selected_user }, { class: "form-select" } %>
+  </div>
+
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :payment_at, class: "form-label" do %>
+    <i class="fas fa-calendar-alt"></i>
+    <% end %>
+    <%= f.date_field :payment_at, value: payment_at , class: "content_for_calculator form-control" %>
+  </div>
+
+  <div class="large-sub-wrapper form-label-set">
+    <%= f.label :content, class: "form-label" do %>
+    <i class="fas fa-pencil-alt"></i>
+    <% end %>
+    <%= f.text_field :content, class: "content_for_calculator form-control", value: content %>
+  </div>
+
+  <div class="large-sub-wrapper price-wrapper">
+    <%= f.label :price, class: "form-label" do %>
+    <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
+    <% end %>
+    <%= f.hidden_field :price, id: "hidden_field", class: "output", value: price %>
+    <p class="price-display" id="price_display"><%= @income.price %></p>
+  </div>
+
+  <% if edit_flag %>
+    <div class="post-btn-wrapper">
+    <%= f.submit "更新" ,class: "btn standerd-btn btn-primary" %>
+    <%= link_to "記録の削除", income_path(@income), method: :delete, class: "btn danger-btn btn-primary", data: { confirm: "本当によろしいですか？"} %>
+    </div>
+  <% else %>
+    <%= f.submit "記録" ,class: "btn standerd-btn btn-primary" %>
+  <% end %>
+
+<% end %>
+
+<%= render "shared/calculator" %>

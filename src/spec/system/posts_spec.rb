@@ -55,7 +55,7 @@ RSpec.describe "Posts", type: :system do
         select '食費', from: 'post[category_id]'
         select '正太郎', from: 'post[user_id]'
         find('#post_payment_at').set("2021-09-08")
-        find('#output', visible: false).set('0700')
+        find('#hidden_field', visible: false).set('0700')
         fill_in "post_content", with: 'テスト用'
         click_button "記録"
         # expect(flash[:post]).to be_present
@@ -73,7 +73,7 @@ RSpec.describe "Posts", type: :system do
         select '食費', from: 'post[category_id]'
         select '正太郎', from: 'post[user_id]'
         find('#post_payment_at').set("2021-09-08")
-        find('#output', visible: false).set('')
+        find('#hidden_field', visible: false).set('')
         fill_in "post_content", with: 'テスト用'
         click_button "記録"
         expect(page).to have_content "正しい値を入力してください"
@@ -83,7 +83,7 @@ RSpec.describe "Posts", type: :system do
         select '食費', from: 'post[category_id]'
         select '正太郎', from: 'post[user_id]'
         find('#post_payment_at').set("2021-09-08")
-        find('#output', visible: false).set('0700')
+        find('#hidden_field', visible: false).set('0700')
         fill_in "post_content", with: ''
         click_button "記録"
         expect(page).to have_content "正しい値を入力してください"
@@ -93,7 +93,7 @@ RSpec.describe "Posts", type: :system do
         select '食費', from: 'post[category_id]'
         select '正太郎', from: 'post[user_id]'
         find('#post_payment_at').set("")
-        find('#output', visible: false).set('0700')
+        find('#hidden_field', visible: false).set('0700')
         fill_in "post_content", with: 'テスト用'
         click_button "記録"
         expect(page).to have_content "正しい値を入力してください"
@@ -136,7 +136,7 @@ RSpec.describe "Posts", type: :system do
       
       it "値段を編集" do
         click_link nil, href: edit_post_path(post)
-        find('#output', visible: false).set('1000')
+        find('#hidden_field', visible: false).set('1000')
         click_on "更新"
         expect(page).to have_selector 'td', text: "6,200"
         expect(page).to have_selector '.alert-post', text: '編集に成功しました'
@@ -152,7 +152,7 @@ RSpec.describe "Posts", type: :system do
     
         it "priceが空欄" do
           click_link nil, href: edit_post_path(post)
-          find('#output', visible: false).set('')
+          find('#hidden_field', visible: false).set('')
           click_button "更新"
           expect(page).to have_content "正しい値を入力してください"
         end

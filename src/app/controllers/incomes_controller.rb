@@ -15,7 +15,7 @@ class IncomesController < ApplicationController
       redirect_to new_income_path
     else
       flash[:warning] = "正しい値を入力してください"
-      render "posts/new"
+      render "new"
     end
   end
 
