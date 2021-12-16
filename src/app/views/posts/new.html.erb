@@ -4,48 +4,11 @@ data-turbolinks="false"
 <% end %>
 <section class="section-wrapper post-section-wrapper">
 
-  <%= form_with(model: @post ,class: "post-form", local: true) do |f| %>
-  <div class="small-sub-wrapper">
-    <div class="form-label-set">
-      <%= f.label :category_id, class: "form-label" do %>
-      <i class="fas fa-tags"></i>
-      <% end %>
-      <%= f.collection_select :category_id , @relationship.categories, :id, :name, { selected: 1 }, { class: "form-select" } %>
-      <%# collection_select => https://qiita.com/_akira19/items/c218186983f444c2d794 %>
-    </div>
-    <div class="form-label-set">
-      <%= f.label :user_id, "誰", class: "form-label" do %>
-      <i class="fas fa-user-friends"></i>
-      <% end%>
-      <%= f.collection_select :user_id , @relationship.users, :id, :name, { selected: current_user.id }, { class: "form-select" } %>
-    </div>
-  </div>
-
-  <div class="large-sub-wrapper form-label-set">
-    <%= f.label :payment_at, class: "form-label" do %>
-    <i class="fas fa-calendar-alt"></i>
-    <% end %>
-    <%= f.date_field :payment_at, value: Time.zone.today , class: "content_for_calculator form-control" %>
-  </div>
-
-  <div class="large-sub-wrapper form-label-set">
-    <%= f.label :content, class: "form-label" do %>
-    <i class="fas fa-pencil-alt"></i>
-    <% end %>
-    <%= f.text_field :content, class: "content_for_calculator form-control" %>
-  </div>
-
-  <div class="large-sub-wrapper price-wrapper">
-    <%= f.label :price, class: "form-label" do %>
-    <i class="fas fa-lg  fa-yen-sign yen-icon"></i>
-    <% end %>
-    <%= f.hidden_field :price, id: "hidden_field", class: "output" %>
-    <p class="price-display" id="price_display"></p>
-  </div>
-
-  <%= f.submit "記録" ,class: "btn standerd-btn btn-primary" %>
-  <% end %>
-
-  <%= render "shared/calculator" %>
+<%= render partial: "post_form", locals: {  selected_category: 1, 
+                                            selected_user: current_user.id,
+                                            payment_at: Time.zone.today,
+                                            content: "",
+                                            price: "",
+                                            edit_flag: false  } %>
 
 </section>

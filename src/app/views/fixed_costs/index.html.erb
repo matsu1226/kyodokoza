@@ -3,10 +3,10 @@
 <%= form_with(model: @fixed_costs, url: {controller: 'fixed_costs', action: 'exec'}, local: true) do |f| %>
 <section class="section-wrapper fixed-cost-main-section">
   <div class="">
-  <div class="d-flex justify-content-around">
+  <div class="d-flex justify-content-around align-items-center">
     <p class="m-0 before-modal">テンプレートを使って記入をラクに。</p> 
-    <button type="button" class="btn btn-outline-secondary shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      使い方
+    <button type="button" class="btn btn-outline-secondary modal-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      hint
     </button>
   </div>
 
