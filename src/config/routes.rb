@@ -35,6 +35,9 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   get    '/relationships/invitation_code', to: "relationships#invitation_code"
   resources :relationships,       only: [:new, :create] 
+
+  get '*path', controller: 'application', action: 'error_404'
+
 end
 
 # resources :users の内容
