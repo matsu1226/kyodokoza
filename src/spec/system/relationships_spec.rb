@@ -129,7 +129,7 @@ RSpec.describe "Users", type: :system do
         fill_in "パートナーの登録メールアドレス：", with: user2.email
         fill_in "登録する家族の名前：", with: "松田家"
         click_button '登録'
-        expect(page).to have_content "パートナーが既に他の方と家族登録しています"
+        expect(page).to have_content "そのパートナーは他の方と家族登録しています"
       end
     end
     

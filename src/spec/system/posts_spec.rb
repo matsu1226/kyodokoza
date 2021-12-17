@@ -59,7 +59,7 @@ RSpec.describe "Posts", type: :system do
         fill_in "post_content", with: 'テスト用'
         click_button "記録"
         # expect(flash[:post]).to be_present
-        expect(page).to have_selector('.alert-success', text: '記録を作成しました')
+        expect(page).to have_selector('.alert-success')
         expect(page).to have_content "支出の記録"
         click_link nil, href: posts_path
         expect(page).to have_content "テスト用"
@@ -131,7 +131,7 @@ RSpec.describe "Posts", type: :system do
         find('#post_payment_at').set('2021-09-25')
         click_on "更新"
         expect(page).to have_selector 'span', text: "25(土)"
-        expect(page).to have_selector '.alert-post', text: '編集に成功しました'
+        expect(page).to have_selector '.alert-success'
       end
       
       it "値段を編集" do
@@ -139,7 +139,7 @@ RSpec.describe "Posts", type: :system do
         find('#hidden_field', visible: false).set('1000')
         click_on "更新"
         expect(page).to have_selector 'td', text: "6,200"
-        expect(page).to have_selector '.alert-post', text: '編集に成功しました'
+        expect(page).to have_selector '.alert-success'
       end
   
       describe "正しくない編集" do

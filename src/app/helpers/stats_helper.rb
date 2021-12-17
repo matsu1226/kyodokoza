@@ -15,13 +15,6 @@ module StatsHelper
       "background-color: #fff ;"
     end
   end
-  # def fixed_costed_color(post)
-  #   if post.fixed_costed
-  #     "#f4f4ff"
-  #   else
-  #     "#fff"
-  #   end
-  # end
 
   # 今月以降は残高を表示させない
   def set_future_month_count(year, array)
