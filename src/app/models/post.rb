@@ -9,8 +9,11 @@ class Post < ApplicationRecord
   validates :payment_at, presence: true
 
 
-  scope :month, -> (month) { where(payment_at: month.all_month) }
-  scope :sorted, -> { order(payment_at: :desc) }
-
+  scope :month, 
+  -> (month) { where(payment_at: month.all_month) }
+  scope :sorted, 
+  -> { order(payment_at: :desc) }
+  scope :narrow_down, 
+  -> (user_id, category_id, month) { where(user_id: user_id, category_id: category_id).month(month).sorted }
 
 end

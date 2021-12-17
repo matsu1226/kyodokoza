@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   include PostsHelper
 
   # rescue_from => 下から上の順に動作
-  rescue_from Exception,                        with: :error_500
+  # rescue_from Exception,                        with: :error_500
   rescue_from ActionController::RoutingError,   with: :error_404
   rescue_from ActionController::UnknownFormat,  with: :error_404
   rescue_from ActiveRecord::RecordNotFound,     with: :error_404
@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
   def error_404
     render :template => '/shared/_error_404', layout: true, status: 404
   end
+
+  # def error_500
+  #   render :template => '/shared/_error_404', layout: true, status: 404
+  # end
 
   # herokuapp.comから独自ドメインに301リダイレクトを行う方法
   # https://pg-happy.jp/rails-heroku-domain-301redirect.html

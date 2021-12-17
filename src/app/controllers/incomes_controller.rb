@@ -12,7 +12,7 @@ class IncomesController < ApplicationController
   def create
     @income = Income.new(income_params)
     if @income.save
-      flash[:success] = "記録を作成しました"
+      flash[:success] = "#{@income.price}円の収入を作成しました"
       redirect_to new_income_path
     else
       flash[:warning] = "正しい値を入力してください"
@@ -25,7 +25,7 @@ class IncomesController < ApplicationController
 
   def update
     if @income.update(income_params)
-      flash[:success] = "編集に成功しました"
+      flash[:success] = "#{income_params[:price]}円の収入の編集に成功しました"
       redirect_to posts_path
     else
       flash[:warning] = "正しい値を入力してください"
@@ -36,7 +36,7 @@ class IncomesController < ApplicationController
   def destroy
     @income.destroy
     redirect_to posts_path
-    flash[:success] = "記録をを削除しました"
+    flash[:success] = "#{@income.price}円の収入を削除しました"
   end
 
 
