@@ -131,7 +131,7 @@ RSpec.describe "Posts", type: :system do
         find('#post_payment_at').set('2021-09-25')
         click_on "更新"
         expect(page).to have_selector 'span', text: "25(土)"
-        expect(page).to have_selector '.alert-post'
+        expect(page).to have_selector '.alert-success'
       end
       
       it "値段を編集" do
@@ -139,7 +139,7 @@ RSpec.describe "Posts", type: :system do
         find('#hidden_field', visible: false).set('1000')
         click_on "更新"
         expect(page).to have_selector 'td', text: "6,200"
-        expect(page).to have_selector '.alert-post'
+        expect(page).to have_selector '.alert-success'
       end
   
       describe "正しくない編集" do

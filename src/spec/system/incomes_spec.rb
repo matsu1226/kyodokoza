@@ -73,7 +73,7 @@ RSpec.describe "Incomes", type: :system do
       it "日付を編集" do
         find('#income_payment_at').set('2021-09-20')
         click_on "更新"
-        expect(page).to have_selector '.alert-post'
+        expect(page).to have_selector '.alert-success'
         click_link nil, href: stats_year_path
         expect(page).to have_selector 'span', text: "¥ 260,000"
       end
@@ -81,7 +81,7 @@ RSpec.describe "Incomes", type: :system do
       it "値段を編集" do
         find('#hidden_field', visible: false).set('60000')
         click_on "更新"
-        expect(page).to have_selector '.alert-post'
+        expect(page).to have_selector '.alert-success'
         click_link nil, href: stats_year_path
         expect(page).to have_selector 'span', text: "¥ 160,000"
       end
