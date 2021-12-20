@@ -38,11 +38,11 @@ module App
     #rails g 時の自動生成ファイルの設定
     config.generators do |g|
       g.test_framework :rspec,
-                        view_specs: false,
-                        helper_specs: false,
-                        controller_specs: false,
-                        routing_specs: false,
-                        request_specs: false
+                       view_specs: false,
+                       helper_specs: false,
+                       controller_specs: false,
+                       routing_specs: false,
+                       request_specs: false
     end
 
     # errors.full_messageの日本語化

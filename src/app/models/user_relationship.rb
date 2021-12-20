@@ -1,6 +1,6 @@
 class UserRelationship < ApplicationRecord
-  belongs_to :user, foreign_key: "user_id"
-  belongs_to :relationship, foreign_key: "relationship_id"
+  belongs_to :user
+  belongs_to :relationship
 
   validates :user_id, presence: true
   validates :relationship_id, presence: true

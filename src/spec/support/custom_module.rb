@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CustomModule
   # def fill_test_user_info_and_click_button
   #   fill_in 'ニックネーム：', with: "テスト　太郎"
@@ -17,5 +19,4 @@ module CustomModule
   # def authenticated?(invitation_token)
   #   BCrypt::Password.new(invitation_digest).is_password?(remember_token)
   # end
-
 end

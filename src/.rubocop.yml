@@ -1,0 +1,32 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.7
+  # 除外
+  Exclude:
+    - 'config.ru'
+    - 'bin/**'
+    - 'db/**/*'
+    - 'lib/**'
+    - 'config/**/*'
+    - 'script/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'node_modules/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+# frozen_string_literal: trueというマジックコメントを省略
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# missing top-level class documentation commentの除外
+Style/Documentation:
+  Enabled: false

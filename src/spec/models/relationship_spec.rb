@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Relationship, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:user2) { FactoryBot.create(:user2) }
-  let!(:relationship) { Relationship.create(id: 1, name: "松田家") }
+  let!(:relationship) { Relationship.create(id: 1, name: '松田家') }
 
   before do
-    user.create_user_relationship(relationship_id: 1)          
-    user2.create_user_relationship(relationship_id: 1)          
+    user.create_user_relationship(relationship_id: 1)
+    user2.create_user_relationship(relationship_id: 1)
   end
 
   subject { relationship }
@@ -20,10 +22,8 @@ RSpec.describe Relationship, type: :model do
   it { should respond_to(:name) }
   it { expect(relationship.users).to contain_exactly(user, user2) }
 
-
-
-  context "バリデーション" do
-    describe "名前はpresence true" do
+  context 'バリデーション' do
+    describe '名前はpresence true' do
       before { relationship.name = nil }
       it { should_not be_valid }
     end

@@ -1,37 +1,36 @@
 class User < ApplicationRecord
-  has_one :user_relationship
+  has_one :user_relationship, dependent: :destroy
   has_one :relationship, through: :user_relationship
-  has_many :posts
-  has_many :incomes
+  has_many :posts, dependent: :destroy
+  has_many :incomes, dependent: :destroy
 
   attr_accessor :activation_token, :reset_token, :invitation_token, :remember_token
 
   before_save :create_activation_digest
   # before_save => createもupdateも
   # before_create :create_activation_digest
-  
-  validates :name, 
-            presence: true, 
+
+  validates :name,
+            presence: true,
             length: { maximum: 10 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i    
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   # 【英数字, _, +, -, . を1文字以上】＠【英小文字, 数字, -, . を1文字以上】.【英小文字を1文字以上】
-  validates :email, 
-            presence: true, 
-            format: { with: VALID_EMAIL_REGEX }, 
+  validates :email,
+            presence: true,
+            format: { with: VALID_EMAIL_REGEX },
             uniqueness: true
-  validates :password, 
-            presence: true, 
-            length: { minimum: 8, maximum: 20 } ,
+  validates :password,
+            presence: true,
+            length: { minimum: 8, maximum: 20 },
             unless: -> { validation_context == :except_password_change }
-  validates :password_confirmation, 
+  validates :password_confirmation,
             presence: true,
             unless: -> { validation_context == :except_password_change }
   # https://hene.dev/blog/2019/06/03/rails-validation
 
-  has_secure_password   
+  has_secure_password
   # gem 'bcrypt' (password_digest属性/attr_accessor :password, :password_confirmation /authenticateメソッド)
   # => https://naokirin.hatenablog.com/entry/2019/03/29/032801
-
 
   def self.digest(token)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
@@ -44,34 +43,37 @@ class User < ApplicationRecord
     # https://docs.ruby-lang.org/ja/latest/method/SecureRandom/s/urlsafe_base64.html
   end
 
-  def authenticated?(attribute_name, token)   
-    digest = send("#{attribute_name}_digest")    # acctivation_digest, 
+  def authenticated?(attribute_name, token)
+    digest = send("#{attribute_name}_digest") # acctivation_digest,
     return false if digest.nil?
+
     BCrypt::Password.new(digest).is_password?(token)
   end
 
-  def send_activation_email   # user#create   
+  # user#create
+  def send_activation_email
     UserMailer.account_activation(self).deliver_now
   end
 
-  def activate  # account_activation#edit     
+  # account_activation#edit
+  def activate
     self.attributes = { activated_at: Time.zone.now, activated: true }
     save(context: :except_password_change)
     # update(activated_at: Time.zone.now)
     # update(activated: true)
   end
 
-  def create_reset_digest                     
+  def create_reset_digest
     self.reset_token = User.new_token
     update(reset_digest: User.digest(reset_token))
     update(reset_sent_at: Time.zone.now)
   end
 
-  def send_password_reset_email               
+  def send_password_reset_email
     UserMailer.password_reset(self).deliver_now
   end
 
-  def password_reset_expired?                 
+  def password_reset_expired?
     reset_sent_at < 2.hours.ago
   end
 
@@ -82,7 +84,7 @@ class User < ApplicationRecord
   end
 
   def no_relationship?
-    self.user_relationship.nil?
+    user_relationship.nil?
   end
 
   def remember
@@ -94,13 +96,10 @@ class User < ApplicationRecord
     update(remember_digest: nil)
   end
 
-  
   private
+
   def create_activation_digest
     self.activation_token = User.new_token
     self.activation_digest = User.digest(activation_token)
   end
-  
 end
-
-

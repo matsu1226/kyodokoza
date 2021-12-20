@@ -1,5 +1,5 @@
 module SessionsHelper
-  #application_controllerにinclude
+  # application_controllerにinclude
 
   def log_in(user)
     session[:user_id] = user.id
@@ -15,7 +15,7 @@ module SessionsHelper
 
   def current_user
     # loginしているとき
-    if (user_id = session[:user_id])    # 「代入した結果、user_idが存在すれば」
+    if (user_id = session[:user_id]) # 「代入した結果、user_idが存在すれば」
       @current_user ||= User.find_by(id: user_id)
     # 永続ログインしているとき
     elsif (user_id = cookies.signed[:user_id])
@@ -46,5 +46,4 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
-
 end

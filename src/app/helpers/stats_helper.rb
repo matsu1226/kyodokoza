@@ -1,18 +1,17 @@
 module StatsHelper
-  
   def price_color(price_diff)
     if price_diff.is_a?(Integer) && price_diff < 0
-      "#ff4500"
+      '#ff4500'
     else
-      "#000"
+      '#000'
     end
   end
 
   def fixed_costed_color(post)
     if post.fixed_costed
-      "background-color: #f4f4ff ;"
+      'background-color: #f4f4ff ;'
     else
-      "background-color: #fff ;"
+      'background-color: #fff ;'
     end
   end
 
@@ -30,18 +29,16 @@ module StatsHelper
     end
 
     array.pop(future_month_count)
-    (future_month_count).times do |i|
-      array.push("bar")
+    future_month_count.times do |_i|
+      array.push('bar')
     end
   end
 
-  
-
   # views
-  
+
   def yen(value)
-    if value == "bar"
-      " - "
+    if value == 'bar'
+      ' - '
     elsif value
       "¥ #{value.to_s(:delimited)}"
     else
@@ -50,14 +47,12 @@ module StatsHelper
   end
 
   def plus_minus(value)
-    if value == "bar"
-      " - "
+    if value == 'bar'
+      ' - '
     elsif value >= 0
       "+#{value.to_s(:delimited)}"
     else
-      "#{value.to_s(:delimited)}"
+      value.to_s(:delimited).to_s
     end
   end
-
-
 end

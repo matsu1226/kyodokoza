@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :weekly_notification do
   desc '支出レポート'
   task weekly_notification: :environment do
