@@ -8,7 +8,7 @@ module UsersHelper
   end
 
   def text_align_by_user(user)
-    if user == @user
+    if user == current_user
       'left'
     else
       'right'

@@ -22,6 +22,10 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+    - 'app/views/report/*'
+
+Metrics/MethodLength:
+  Max: 30
 
 # frozen_string_literal: trueというマジックコメントを省略
 Style/FrozenStringLiteralComment:

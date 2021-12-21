@@ -4,13 +4,13 @@ module PostsHelper
     days[date.wday]
   end
 
-  def narrow_down_select(attribute, array)
+  def narrow_down_select(attribute, array, month)
     id = "#{attribute}_id".to_sym
     # association_method = "#{attribute}".pluralize
     select_tag id, options_from_collection_for_select(array, 'id', 'name', { selected: params[id] }),
                { prompt: 'all',
                  class: 'form-select narrow_down_select col-2',
                  data: { remote: true,
-                         url: posts_narrow_down_path(month: @month) } }
+                         url: posts_narrow_down_path(month: month) } }
   end
 end

@@ -9,14 +9,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @non_activated_user = User.find_by(email: params[:user][:email])
+    non_activated_user = User.find_by(email: params[:user][:email])
 
     # 入力したアドレスのユーザーがDBに存在し、activateされていないなら、
-    if @non_activated_user && @non_activated_user.activated == false
-      if @non_activated_user.update(user_params)
-        @user = @non_activated_user
-
+    if non_activated_user&.activated == false
+      if non_activated_user.update(user_params)
+        @user = non_activated_user
         @user.send_activation_email
+        # activation mailの再送
         flash[:info] = '仮登録メールを送信しました。確認してください。'
         redirect_to root_url
       else
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @relationship = @user.relationship
+    if (@relationship = @user.relationship) # 「代入した結果、@relationshipが存在すれば」
       tips_array = [
         "おはようそ！ \n" \
           '今日も一日頑張るうそ！',
@@ -80,7 +80,8 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by(id: params[:id])
+    # find => 値が見つからなかったらActiveRecord::RecordNotFound
+    @user = User.find(params[:id])
   end
 
   def user_params
@@ -92,10 +93,9 @@ class UsersController < ApplicationController
   end
 
   def correct_user
-    @user = User.find(params[:id])
-    unless current_user?(@user)
-      redirect_to user_path(current_user)
-      flash[:warning] = '他のユーザーの情報は見ることができません'
-    end
+    return if current_user?(@user)
+
+    flash[:warning] = '他のユーザーの情報は見ることができません'
+    redirect_to user_path(current_user)
   end
 end

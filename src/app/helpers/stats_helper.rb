@@ -1,6 +1,6 @@
 module StatsHelper
   def price_color(price_diff)
-    if price_diff.is_a?(Integer) && price_diff < 0
+    if price_diff.is_a?(Integer) && price_diff.negative?
       '#ff4500'
     else
       '#000'
@@ -21,15 +21,15 @@ module StatsHelper
     today_year = today.year
     year_of_year = year.to_date.year
     if year_of_year == today_year
-      future_month_count = 12 - today.month
+      count = 12 - today.month
     elsif year_of_year > today_year
-      future_month_count = 12
+      count = 12
     elsif year_of_year < today_year
-      future_month_count = 0
+      count = 0
     end
 
-    array.pop(future_month_count)
-    future_month_count.times do |_i|
+    array.pop(count)
+    count.times do |_i|
       array.push('bar')
     end
   end

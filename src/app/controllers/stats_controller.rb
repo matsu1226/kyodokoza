@@ -2,8 +2,8 @@ class StatsController < ApplicationController
   before_action :logged_in_user
   before_action :check_have_relationship
   before_action :get_relationship
-  before_action :set_month_or_month_ajax, only: %i[month month_ajax]
-  before_action :set_year_or_year_ajax, only: %i[year year_ajax]
+  before_action :set_month_or_ajax, only: %i[month month_ajax]
+  before_action :set_year_or_ajax, only: %i[year year_ajax]
 
   def month; end
 
@@ -15,7 +15,7 @@ class StatsController < ApplicationController
 
   private
 
-  def set_month_or_month_ajax
+  def set_month_or_ajax
     @month = params[:month].present? ? Time.zone.parse(params[:month]) : Time.zone.now.beginning_of_month
     @c_count = @relationship.categories.count
 
@@ -51,7 +51,7 @@ class StatsController < ApplicationController
     @category_colors = @relationship.categories.map(&:color)
   end
 
-  def set_year_or_year_ajax
+  def set_year_or_ajax
     @year = params[:year].present? ? Time.zone.parse(params[:year]) : Time.zone.now.beginning_of_year
 
     @income_array = []    # 収入合計
