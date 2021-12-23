@@ -2,7 +2,6 @@ class FixedCostsController < ApplicationController
   before_action :logged_in_user
   before_action :check_have_relationship
   before_action :get_relationship
-  # before_action :check_posts_with_our_relationships, only: [:edit, :update, :destroy]
 
   def index
     @fixed_costs = FixedCost.where(user_id: @relationship.user_ids).sorted

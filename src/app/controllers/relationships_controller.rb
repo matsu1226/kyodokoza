@@ -1,7 +1,6 @@
 class RelationshipsController < ApplicationController
   before_action :logged_in_user
   before_action :create_invitation_digest, only: [:invitation_code]
-  # before_action :get_user, only: [:new, :create, :invitation_code]
   before_action :check_no_relationship, only: %i[new create invitation_code]
 
   def new
