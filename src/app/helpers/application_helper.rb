@@ -1,10 +1,10 @@
 module ApplicationHelper
   def full_title(page_title = '')
-    base_title = "web家計簿「キョウドウコウザ」" 
+    base_title = 'web家計簿「キョウドウコウザ」'
     if page_title.empty?
       base_title
     else
-      page_title + " | " + base_title
+      "#{page_title} | #{base_title}"
     end
   end
 end

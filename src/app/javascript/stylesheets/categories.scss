@@ -22,12 +22,6 @@ div {
   text-align: right;
 }
 
-
-.category-index-text {
-  margin: 0 auto 20px;
-  text-align: center;
-}
-
 .new-category-btn {
   margin: 20px auto;
 }
@@ -35,12 +29,6 @@ div {
 .category-index-list {
   
   .category-index-head {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-    padding: 5px;
-
-  
     &:first-child {
       @include center_col;
       text-align: right;

@@ -1,10 +1,10 @@
 export default() => {
   console.log("flash.js読込");
-  document.addEventListener("DOMContentLoaded",() => {
+  document.addEventListener("turbolinks:load",() => {
     const flash = document.getElementById("flash");
     const DURATION = 2000;
     
-    console.log("DOMContentLoaded読込, flash:" + flash);
+    console.log("turbolinks:load読込, flash:" + flash);
 
     function add_flash(){
       flash.classList.remove('hidden');

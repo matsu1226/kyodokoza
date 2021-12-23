@@ -1,18 +1,17 @@
 module UsersHelper
-
   def item_type(item)
-    if item.class == Income
-      "収入"
+    if item.instance_of?(Income)
+      '収入'
     else
-      "支出"
+      '支出'
     end
   end
 
   def text_align_by_user(user)
-    if user == @user
-      "left"
+    if user == current_user
+      'left'
     else
-      "right"
+      'right'
     end
   end
 end

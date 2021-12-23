@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:creator" content="@SHOMATSUDA3" />
+
+  <meta property="og:url" content="https://www.kyodokoza.com/" />
+  <meta property="og:title" content="共同口座専用の家計簿アプリ「キョウドウコウザ」" />
+  <meta property="og:description" content="PCでもスマホでも楽々家計管理！" />
+  <meta property="og:image" content="src\app\javascript\images\main.jpg" />
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_pack_tag 'application', media: 'all'%>
+  <%= javascript_pack_tag 'application' %>
+  <%= yield :head %>
+
+  <% if Rails.env.production? %>
+  <%= render 'layouts/google_analytics' %>
+  <%= render 'layouts/google_adsense' %>
+  <% end %>
+
+  <title><%= full_title(yield(:title)) %></title>
+</head>
+
+
+<body>
+  <div <% if content_for?(:body_attributes) %> <%= yield(:body_attributes) %> <% end %>>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v12.0&appId=358805815940385&autoLogAppEvents=1" nonce="jUWXryWU"></script>
+    <%= render 'layouts/header' %>
+    <main>
+      <%= render 'shared/flash' %>
+      <% if current_page?(root_path) %>
+        <%= yield %>
+      <% else %>
+        <div class="main-wrapper">
+          <%= yield %>
+        </div>
+      <% end %>
+    </main>
+    <%= render 'layouts/footer' %>
+  </div>
+</body>
+
+</html>

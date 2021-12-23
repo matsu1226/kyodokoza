@@ -1,14 +1,16 @@
 <%= provide(:title, "カテゴリ一覧") %>
 <section class="section-wrapper">
-  <p class="category-index-text">カテゴリをクリックすると<br>編集・削除ページへ遷移します</p>
+  <p class="category-index-text text-center mx-auto mb-2">
+    カテゴリをクリックすると<br>編集・削除ページへ遷移します
+  </p>
   <%= link_to "カテゴリの新規作成", new_category_path, class: "btn standerd-btn btn-primary new-category-btn" %>
-  <ul class="category-index-list">
-    <li class="category-index-head">
-      <span>目標額の合計：</span>
-      <span><%= yen @sum_target_price %></span>
-    </li>
-    <% @categories.each do |category| %>
-    <li>
+  <p class="category-index-head d-flex justify-content-end mt-2 p-1">
+    <span>目標額の合計：</span>
+    <span><%= yen @sum_target_price %></span>
+  </p>
+  <ul id="category_list" class="category-index-list">
+  <% @categories.each do |category| %>
+    <li id="category_item">
       <%= link_to edit_category_path(category), class: "card" do %>
       <div class="color-wrapper">
         <span class="category-color" style="background-color: <%= category.color %>;"></span>

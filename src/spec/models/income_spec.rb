@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Income, type: :model do
@@ -5,10 +7,10 @@ RSpec.describe Income, type: :model do
   let!(:user2) { FactoryBot.create(:user2) }
 
   before do
-    @income = Income.new(user_id: user.id, 
-                    content: "給料", 
-                    payment_at: Time.local(2021, 9, 1, 12, 00, 00),
-                    price: 160000)
+    @income = Income.new(user_id: user.id,
+                         content: '給料',
+                         payment_at: Time.zone.local(2021, 9, 1, 12, 0o0, 0o0),
+                         price: 160_000)
   end
 
   subject { @income }
@@ -19,34 +21,33 @@ RSpec.describe Income, type: :model do
   it { should respond_to(:payment_at) }
   it { should respond_to(:user) }
 
-
-  it "contentが空欄" do
-    @income.content = ""
+  it 'contentが空欄' do
+    @income.content = ''
     should_not be_valid
   end
 
-  it "contentが31文字以上" do
-    @income.content = "a" * 31
+  it 'contentが31文字以上' do
+    @income.content = 'a' * 31
     should_not be_valid
   end
-  
-  it "priceが空欄" do
-    @income.price = ""
+
+  it 'priceが空欄' do
+    @income.price = ''
     should_not be_valid
   end
-  
-  it "priceがマイナス" do
+
+  it 'priceがマイナス' do
     @income.price = -1
     should_not be_valid
   end
 
-  it "user_idが空欄" do
-    @income.user_id = ""
+  it 'user_idが空欄' do
+    @income.user_id = ''
     should_not be_valid
   end
 
-  it "payment_atが空欄" do
-    @income.payment_at = ""
+  it 'payment_atが空欄' do
+    @income.payment_at = ''
     should_not be_valid
   end
 end

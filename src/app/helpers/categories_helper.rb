@@ -1,4 +1,3 @@
 module CategoriesHelper
-  #application_controllerにinclude
-
+  # application_controllerにinclude
 end
