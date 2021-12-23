@@ -43,24 +43,22 @@ class PostsController < ApplicationController
       @sum_posts_price = @posts.map(&:price).inject(:+)
       @sum_target_price = 'bar'
       @price_diff = 'bar'
-    else
-      params[:price] == 'post'
-      if params[:user_id].blank? && params[:category_id].blank?
-        @posts = Post.narrow_down(family_user_ids, family_category_ids, @month)
-        @sum_posts_price = @posts.map(&:price).inject(:+)
-        @sum_target_price = Category.where(id: family_category_ids).sum(:target_price)
-        @price_diff = @sum_target_price - @sum_posts_price
-      elsif params[:user_id].present?
-        @posts = Post.narrow_down(params[:user_id], family_category_ids, @month)
-        @sum_posts_price = @posts.map(&:price).inject(:+)
-        @sum_target_price = 'bar'
-        @price_diff = 'bar'
-      else # params[:category_id].present?
-        @posts = Post.narrow_down(family_user_ids, params[:category_id], @month)
-        @sum_posts_price = @posts.map(&:price).inject(:+)
-        @sum_target_price = Category.where(id: params[:category_id]).sum(:target_price)
-        @price_diff = @sum_target_price - @sum_posts_price
-      end
+    # 以下3条件は全て params[:price] == 'post'
+    elsif params[:user_id].blank? && params[:category_id].blank?
+      @posts = Post.narrow_down(family_user_ids, family_category_ids, @month)
+      @sum_posts_price = @posts.map(&:price).inject(:+)
+      @sum_target_price = Category.where(id: family_category_ids).sum(:target_price)
+      @price_diff = @sum_target_price - @sum_posts_price
+    elsif params[:user_id].present?
+      @posts = Post.narrow_down(params[:user_id], family_category_ids, @month)
+      @sum_posts_price = @posts.map(&:price).inject(:+)
+      @sum_target_price = 'bar'
+      @price_diff = 'bar'
+    else # params[:category_id].present?
+      @posts = Post.narrow_down(family_user_ids, params[:category_id], @month)
+      @sum_posts_price = @posts.map(&:price).inject(:+)
+      @sum_target_price = Category.where(id: params[:category_id]).sum(:target_price)
+      @price_diff = @sum_target_price - @sum_posts_price
     end
   end
 
@@ -94,9 +92,9 @@ class PostsController < ApplicationController
   end
 
   def check_posts_with_our_relationships
-    if @post.user.relationship != @relationship
-      flash[:post] = 'あなた以外の家族の情報は閲覧できません'
-      redirect_to posts_path
-    end
+    return if @post.user.relationship == @relationship
+
+    flash[:post] = 'あなた以外の家族の情報は閲覧できません'
+    redirect_to posts_path
   end
 end

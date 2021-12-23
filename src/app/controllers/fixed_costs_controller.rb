@@ -5,9 +5,7 @@ class FixedCostsController < ApplicationController
   # before_action :check_posts_with_our_relationships, only: [:edit, :update, :destroy]
 
   def index
-    family_user_ids = @relationship.user_ids
-    family_category_ids = @relationship.category_ids
-    @fixed_costs = FixedCost.where(user_id: family_user_ids).sorted
+    @fixed_costs = FixedCost.where(user_id: @relationship.user_ids).sorted
   end
 
   def new
@@ -49,14 +47,8 @@ class FixedCostsController < ApplicationController
 
   def exec
     today = Time.zone.today
-    family_user_ids = @relationship.user_ids
-
-    # checked_data = params[:fixed_cost].keys
-    if params[:fixed_cost] && params[:fixed_cost].keys
+    if params[:fixed_cost]&.keys
       fixed_costs = FixedCost.where(id: params[:fixed_cost].keys)
-
-      before_post_count = Post.where(user_id: family_user_ids).month(today)
-
       fixed_costs.each do |fixed_cost|
         @post = Post.new(user_id: fixed_cost.user_id,
                          category_id: fixed_cost.category_id,
@@ -66,12 +58,11 @@ class FixedCostsController < ApplicationController
                          fixed_costed: true)
         @post.save
       end
-      flash[:fixed_cost] = '記録が正しく反映されました'
-      redirect_to fixed_costs_path
+      flash[:success] = '記録が正しく反映されました'
     else
-      flash[:fixed_cost] = 'テンプレートが選択されていません'
-      redirect_to fixed_costs_path
+      flash[:warning] = 'テンプレートが選択されていません'
     end
+    redirect_to fixed_costs_path
   end
 
   private

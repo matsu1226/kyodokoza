@@ -34,3 +34,10 @@ Style/FrozenStringLiteralComment:
 # missing top-level class documentation commentの除外
 Style/Documentation:
   Enabled: false
+
+Rails/HelperInstanceVariable:
+    Exclude:
+    - 'app/helpers/sessions_helper.rb'
+
+Naming/VariableNumber:
+  Enabled: false

@@ -13,11 +13,8 @@ class AccountActivationsController < ApplicationController
     elsif user.activated?
       flash[:danger] = '「本登録済み」です'
       redirect_to '/introduction'
-    elsif !user.authenticated?(:activation, params[:id])
+    else    # !user.authenticated?(:activation, params[:id])
       flash[:danger] = '「リンクが不適切」です'
-      redirect_to '/introduction'
-    else
-      flash[:danger] = '予期せぬエラーが起こりました'
       redirect_to '/introduction'
     end
   end

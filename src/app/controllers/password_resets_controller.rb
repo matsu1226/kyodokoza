@@ -1,7 +1,5 @@
 class PasswordResetsController < ApplicationController
-  # require "pry"
-
-  before_action :get_user,   only: %i[edit update]
+  before_action :set_user,   only: %i[edit update]
   before_action :valid_user, only: %i[edit update]
   before_action :check_expiration, only: %i[edit update]
 
@@ -12,7 +10,6 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email
-      # binding.pry
       flash[:info] = 'パスワード変更メールを送信しました'
       redirect_to root_url
     else
@@ -42,24 +39,21 @@ class PasswordResetsController < ApplicationController
     params.require(:user).permit(:password, :password_confirmation)
   end
 
-  def get_user
+  def set_user
     @user = User.find_by(email: params[:email])
   end
 
   # 正しいユーザーかどうか確認する
   def valid_user
-    unless @user && @user.activated? &&
-           @user.authenticated?(:reset, params[:id])
-      redirect_to root_url
-    end
+    redirect_to root_url unless @user&.activated? && @user&.authenticated?(:reset, params[:id])
   end
 
   def check_expiration
-    if @user.password_reset_expired?
-      message = 'パスワード変更メールが期限切れです'
-      message += 'もう一度メールを送信してください'
-      flash[:danger] = message
-      redirect_to new_password_reset_url
-    end
+    return if @user.password_reset_expired?
+
+    message = 'パスワード変更メールが期限切れです'
+    message += 'もう一度メールを送信してください'
+    flash[:danger] = message
+    redirect_to new_password_reset_url
   end
 end

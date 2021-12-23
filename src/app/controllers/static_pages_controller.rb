@@ -7,27 +7,25 @@ class StaticPagesController < ApplicationController
   end
 
   def guest_sign_in
-    guest1 = User.find_or_create_by!(email: 'guest@example.com') do |guest1|
+    guest1 = User.find_or_create_by!(email: 'guest@example.com') do |g|
       password = SecureRandom.urlsafe_base64(10)
-      guest1.name = 'ゲスト1'
-      guest1.password = password
-      guest1.password_confirmation = password
+      g.name = 'ゲスト1'
+      g.password = password
+      g.password_confirmation = password
     end
-    # guest1.activate
 
-    guest2 = User.find_or_create_by!(email: 'guest2@example.com') do |guest2|
+    guest2 = User.find_or_create_by!(email: 'guest2@example.com') do |g|
       password = SecureRandom.urlsafe_base64(10)
-      guest2.name = 'ゲスト2'
-      guest2.password = password
-      guest2.password_confirmation = password
+      g.name = 'ゲスト2'
+      g.password = password
+      g.password_confirmation = password
     end
-    # guest2.activate
 
-    common_guest = User.find_or_create_by!(email: 'common_guest@example.com') do |common_guest|
+    common_guest = User.find_or_create_by!(email: 'common_guest@example.com') do |g|
       password = SecureRandom.urlsafe_base64(10)
-      common_guest.name = '共通'
-      common_guest.password = password
-      common_guest.password_confirmation = password
+      g.name = '共通'
+      g.password = password
+      g.password_confirmation = password
     end
 
     @relationship = Relationship.find_or_create_by!(name: 'ゲスト用家族')
@@ -51,21 +49,23 @@ class StaticPagesController < ApplicationController
                                                   content: '携帯代、wifi',
                                                   relationship_id: @relationship.id,
                                                   target_price: 10_000)
-    guest_category4 = Category.find_or_create_by!(name: '飲み会・旅行',
-                                                  color: '#4169e1',
-                                                  content: '',
-                                                  relationship_id: @relationship.id,
-                                                  target_price: 20_000)
+    # guest_category4
+    Category.find_or_create_by!(name: '飲み会・旅行',
+                                color: '#4169e1',
+                                content: '',
+                                relationship_id: @relationship.id,
+                                target_price: 20_000)
     guest_category5 = Category.find_or_create_by!(name: '雑費',
                                                   color: '#800080',
                                                   content: 'ドラッグストア、洋服など',
                                                   relationship_id: @relationship.id,
                                                   target_price: 20_000)
-    guest_category6 = Category.find_or_create_by!(name: 'その他',
-                                                  color: '#e9967a',
-                                                  content: '病院や特殊な出費',
-                                                  relationship_id: @relationship.id,
-                                                  target_price: 10_000)
+    # guest_category6
+    Category.find_or_create_by!(name: 'その他',
+                                color: '#e9967a',
+                                content: '病院や特殊な出費',
+                                relationship_id: @relationship.id,
+                                target_price: 10_000)
 
     Post.find_or_create_by!(content: '家賃',
                             price: 100_000,

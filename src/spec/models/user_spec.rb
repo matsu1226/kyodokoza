@@ -185,5 +185,10 @@ RSpec.describe User, type: :model do
       before { @user.update(remember_digest: 'hogehoge') }
       it { expect { @user.forget }.to change { @user.remember_digest }.from(String).to(nil) }
     end
+
+    describe 'create_common_userのテスト' do
+      before { @user.create_common_user }
+      it { expect(User.find_by(email: "common_#{@user.id}@kyodokoza.com")).to be_present }
+    end
   end
 end

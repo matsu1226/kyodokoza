@@ -68,14 +68,12 @@ class UsersController < ApplicationController
   def update
     @user.attributes = { name: params[:user][:name] }
     if @user.save(context: :except_password_change)
-      # if @user.update(name: params[:user][:name])
       flash[:success] = '名前を変更しました！'
       redirect_to edit_user_path(@user)
     else
       render 'edit'
     end
   end
-  # updateのバリデーション => https://hene.dev/blog/2019/06/03/rails-validation
 
   private
 

@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :name,
             presence: true,
             length: { maximum: 10 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   # 【英数字, _, +, -, . を1文字以上】＠【英小文字, 数字, -, . を1文字以上】.【英小文字を1文字以上】
   validates :email,
             presence: true,
@@ -26,7 +26,6 @@ class User < ApplicationRecord
   validates :password_confirmation,
             presence: true,
             unless: -> { validation_context == :except_password_change }
-  # https://hene.dev/blog/2019/06/03/rails-validation
 
   has_secure_password
   # gem 'bcrypt' (password_digest属性/attr_accessor :password, :password_confirmation /authenticateメソッド)
@@ -94,6 +93,14 @@ class User < ApplicationRecord
 
   def forget
     update(remember_digest: nil)
+  end
+
+  def create_common_user
+    password = SecureRandom.urlsafe_base64(10)
+    User.create(name: '共通',
+                email: "common_#{id}@kyodokoza.com",
+                password: password,
+                password_confirmation: password)
   end
 
   private

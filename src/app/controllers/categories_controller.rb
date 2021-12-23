@@ -2,7 +2,8 @@ class CategoriesController < ApplicationController
   before_action :logged_in_user
   before_action :check_have_relationship
   before_action :get_relationship
-  before_action :get_color_list, only: %i[new create edit update]
+  before_action :set_color_list, only: %i[new create edit update]
+  before_action :set_category, only: %i[edit update destroy]
   before_action :check_category_with_our_relationships, only: %i[edit update destroy]
 
   def index
@@ -24,12 +25,9 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def edit
-    @category = Category.find_by(id: params[:id])
-  end
+  def edit; end
 
   def update
-    @category = Category.find_by(id: params[:id])
     if @category.update(category_params)
       flash[:success] = 'カテゴリを更新しました'
       redirect_to categories_path
@@ -39,7 +37,6 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find_by(id: params[:id])
     @category.destroy
     flash[:danger] = 'カテゴリを削除しました'
     redirect_to categories_path
@@ -53,14 +50,18 @@ class CategoriesController < ApplicationController
 
   def check_category_with_our_relationships
     category = Category.find_by(id: params[:id])
-    if category.relationship != @relationship
-      flash[:danger] = 'あなた以外の家族の情報は閲覧できません'
-      redirect_to categories_path
-    end
+    return if category.relationship != @relationship
+
+    flash[:danger] = 'あなた以外の家族の情報は閲覧できません'
+    redirect_to categories_path
   end
 
-  def get_color_list
+  def set_color_list
     @color_list = ['#ff4500', '#ff8c00', '#ffd700', '#006400', '#0000cd', '#4169e1',
                    '#800080', '#ff1493', '#b8860b', '#696969', '#e9967a']
+  end
+
+  def set_category
+    @category = Category.find_by(id: params[:id])
   end
 end

@@ -50,9 +50,9 @@ class IncomesController < ApplicationController
   end
 
   def check_incomes_with_our_relationships
-    if @income.user.relationship != @relationship
-      flash[:post] = 'あなた以外の家族の情報は閲覧できません'
-      redirect_to posts_path
-    end
+    return if @income.user.relationship == @relationship
+
+    flash[:post] = 'あなた以外の家族の情報は閲覧できません'
+    redirect_to posts_path
   end
 end

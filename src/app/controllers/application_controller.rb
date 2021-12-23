@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   # herokuapp.comから独自ドメインへリダイレクト
   before_action :ensure_domain
-  FQDN = 'www.kyodokoza.com'
+  FQDN = 'www.kyodokoza.com'.freeze
 
   # redirect correct server from herokuapp domain for SEO
   def ensure_domain
@@ -38,17 +38,17 @@ class ApplicationController < ActionController::Base
   private
 
   def logged_in_user
-    unless logged_in?
-      flash[:danger] = 'ログインをしてください'
-      redirect_to login_url
-    end
+    return if logged_in?
+
+    flash[:danger] = 'ログインをしてください'
+    redirect_to login_url
   end
 
   def check_have_relationship
-    if no_relationship
-      flash[:danger] = '家族の登録をしてください'
-      redirect_to user_path(current_user)
-    end
+    return unless no_relationship
+
+    flash[:danger] = '家族の登録をしてください'
+    redirect_to user_path(current_user)
   end
 
   def get_relationship
