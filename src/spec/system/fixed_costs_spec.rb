@@ -28,7 +28,7 @@ RSpec.describe 'FixedCosts', type: :system do
       select '固定費', from: 'fixed_cost[category_id]'
       select '共通', from: 'fixed_cost[user_id]'
       find('#fixed_cost_payment_date').set(27)
-      find('#output', visible: false).set('75000')
+      find('#hidden_field', visible: false).set('75000')
       fill_in 'fixed_cost_content', with: '家賃_テスト用'
       click_button '記録'
       # expect(flash[:post]).to be_present
@@ -45,7 +45,7 @@ RSpec.describe 'FixedCosts', type: :system do
       select '固定費', from: 'fixed_cost[category_id]'
       select '共通', from: 'fixed_cost[user_id]'
       find('#fixed_cost_payment_date').set(27)
-      find('#output', visible: false).set('')
+      find('#hidden_field', visible: false).set('')
       fill_in 'fixed_cost_content', with: '家賃_テスト用'
       click_button '記録'
       expect(page).to have_selector('.alert-warning', text: '正しい値を入力してください')
@@ -56,7 +56,7 @@ RSpec.describe 'FixedCosts', type: :system do
       select '固定費', from: 'fixed_cost[category_id]'
       select '共通', from: 'fixed_cost[user_id]'
       find('#fixed_cost_payment_date').set(27)
-      find('#output', visible: false).set('75000')
+      find('#hidden_field', visible: false).set('75000')
       fill_in 'fixed_cost_content', with: ''
       click_button '記録'
       expect(page).to have_selector('.alert-warning', text: '正しい値を入力してください')
@@ -67,7 +67,7 @@ RSpec.describe 'FixedCosts', type: :system do
       select '固定費', from: 'fixed_cost[category_id]'
       select '共通', from: 'fixed_cost[user_id]'
       find('#fixed_cost_payment_date').set('')
-      find('#output', visible: false).set('75000')
+      find('#hidden_field', visible: false).set('75000')
       fill_in 'fixed_cost_content', with: '家賃_テスト用'
       click_button '記録'
       expect(page).to have_selector('.alert-warning', text: '正しい値を入力してください')
@@ -78,7 +78,7 @@ RSpec.describe 'FixedCosts', type: :system do
       select '固定費', from: 'fixed_cost[category_id]'
       select '共通', from: 'fixed_cost[user_id]'
       find('#fixed_cost_payment_date').set(32)
-      find('#output', visible: false).set('75000')
+      find('#hidden_field', visible: false).set('75000')
       fill_in 'fixed_cost_content', with: '家賃_テスト用'
       click_button '記録'
       expect(page).to have_selector('.alert-warning', text: '正しい値を入力してください')
@@ -113,7 +113,7 @@ RSpec.describe 'FixedCosts', type: :system do
 
       it '値段を編集' do
         click_link nil, href: edit_fixed_cost_path(fixed_cost_template.id)
-        find('#output', visible: false).set('77000')
+        find('#hidden_field', visible: false).set('77000')
         click_button '更新'
         expect(page).to have_selector('.alert-success', text: 'テンプレートを更新しました')
         expect(page).to have_content '¥ 77,000'
@@ -137,7 +137,7 @@ RSpec.describe 'FixedCosts', type: :system do
 
         it 'priceが空欄' do
           click_link nil, href: edit_fixed_cost_path(fixed_cost_template.id)
-          find('#output', visible: false).set('')
+          find('#hidden_field', visible: false).set('')
           click_button '更新'
           expect(page).to have_content '正しい値を入力してください'
         end
@@ -180,7 +180,7 @@ RSpec.describe 'FixedCosts', type: :system do
         uncheck "fixed_cost_#{fixed_cost_template.id}"
         uncheck "fixed_cost_#{fixed_cost_template2.id}"
         click_button '今月の記録に反映'
-        expect(page).to have_selector('.alert-fixed_cost', text: 'テンプレートが選択されていません')
+        expect(page).to have_selector('.alert-warning', text: 'テンプレートが選択されていません')
       end
     end
   end

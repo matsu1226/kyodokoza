@@ -50,7 +50,7 @@ class CategoriesController < ApplicationController
 
   def check_category_with_our_relationships
     category = Category.find_by(id: params[:id])
-    return if category.relationship != @relationship
+    return if category.relationship == @relationship
 
     flash[:danger] = 'あなた以外の家族の情報は閲覧できません'
     redirect_to categories_path

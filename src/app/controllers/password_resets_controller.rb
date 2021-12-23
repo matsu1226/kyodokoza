@@ -49,7 +49,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def check_expiration
-    return if @user.password_reset_expired?
+    return unless @user.password_reset_expired?
 
     message = 'パスワード変更メールが期限切れです'
     message += 'もう一度メールを送信してください'

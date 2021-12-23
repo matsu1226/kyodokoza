@@ -1,6 +1,6 @@
 <%= render "shared/calc_modal" %>
 
-<%= form_with(model: @fixed_cost ,url: fixed_costs_path, class: "post-form", local: true) do |f| %>
+<%= form_with(model: @fixed_cost, class: "post-form", local: true) do |f| %>
   <div class="small-sub-wrapper">
     <div class="form-label-set">
       <%= f.label :category_id, class: "form-label" do %>
