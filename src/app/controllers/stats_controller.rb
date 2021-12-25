@@ -21,10 +21,9 @@ class StatsController < ApplicationController
 
     # 支出の合計（ユーザー毎）
     @posts_each_user = @relationship.category_ids.map do |c_id|
-      array = @relationship.users.map do |user|
+      @relationship.users.map do |user|
         Post.where(user_id: user, category_id: c_id).month(@month).sum(:price)
       end
-      array
     end
 
     @total_price_each_user = @posts_each_user.transpose.map(&:sum)
@@ -111,19 +110,4 @@ end
 #     data: [["1月", 5000], ["2月", 5000],["3月", 5500], ["12月", 5000]]
 #     color: #ff0000
 #   },
-#   {
-#     name: "飲み会",
-#     data: [["1月", 5000], ["2月", 3000],["3月", 15000], ["12月", 15000]]
-#     color: #ff0000
-#   },
-#   {
-#     name: "雑費",
-#     data: [["1月", 1330], ["2月", 3000],["3月", 2400], ["12月", 14000]]
-#     color: #ff0000
-#   },
-#   {
-#     name: "交通費",
-#     data: [["1月", 5000], ["2月", 1200],["3月", 1000], ["12月", 5000]]
-#     color: #ff0000
-#   },
-# ]
+#   ...
