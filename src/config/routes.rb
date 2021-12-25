@@ -6,11 +6,11 @@ Rails.application.routes.draw do
   get  '/introduction',   to: 'static_pages#introduction'
   get  '/terms',          to: 'static_pages#terms'
   get  '/privacy_policy', to: 'static_pages#privacy_policy'
-  get '/guest_sign_in',   to: 'static_pages#guest_sign_in'
   
-  get    '/login',     to: "sessions#new"
-  post   '/login',     to: "sessions#create"
-  delete '/logout',    to: "sessions#destroy"
+  get    '/login',         to: "sessions#new"
+  post   '/login',         to: "sessions#create"
+  delete '/logout',        to: "sessions#destroy"
+  get    '/guest_sign_in', to: 'sessions#guest_sign_in'
   
   get 'stats/month'
   get 'stats/year'
