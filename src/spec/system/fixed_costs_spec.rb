@@ -32,7 +32,7 @@ RSpec.describe 'FixedCosts', type: :system do
       fill_in 'fixed_cost_content', with: '家賃_テスト用'
       click_button '記録'
       # expect(flash[:post]).to be_present
-      expect(page).to have_selector('.alert-success', text: 'テンプレートを作成しました')
+      expect(page).to have_selector('.alert-success')
       expect(page).to have_content 'テンプレート一覧'
       expect(page).to have_content '27'
       expect(page).to have_content '固定費'
@@ -106,7 +106,7 @@ RSpec.describe 'FixedCosts', type: :system do
         click_link nil, href: edit_fixed_cost_path(fixed_cost_template.id)
         find('#fixed_cost_payment_date').set(25)
         click_button '更新'
-        expect(page).to have_selector('.alert-success', text: 'テンプレートを更新しました')
+        expect(page).to have_selector('.alert-success')
         expect(page).to have_content 'テンプレート一覧'
         expect(page).to have_content '25'
       end
@@ -115,7 +115,7 @@ RSpec.describe 'FixedCosts', type: :system do
         click_link nil, href: edit_fixed_cost_path(fixed_cost_template.id)
         find('#hidden_field', visible: false).set('77000')
         click_button '更新'
-        expect(page).to have_selector('.alert-success', text: 'テンプレートを更新しました')
+        expect(page).to have_selector('.alert-success')
         expect(page).to have_content '¥ 77,000'
       end
 
@@ -123,7 +123,7 @@ RSpec.describe 'FixedCosts', type: :system do
         click_link nil, href: edit_fixed_cost_path(fixed_cost_template.id)
         select '正太郎', from: 'fixed_cost[user_id]'
         click_button '更新'
-        expect(page).to have_selector('.alert-success', text: 'テンプレートを更新しました')
+        expect(page).to have_selector('.alert-success')
         expect(page).to have_content '正太郎'
       end
 
