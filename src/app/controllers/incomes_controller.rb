@@ -1,4 +1,6 @@
 class IncomesController < ApplicationController
+  include PostIncomeActions
+
   before_action :logged_in_user
   before_action :check_have_relationship
   before_action :get_relationship
@@ -10,37 +12,22 @@ class IncomesController < ApplicationController
   end
 
   def create
-    @income = Income.new(income_params)
-    if @income.save
-      flash[:success] = "#{@income.price}円の収入を作成しました"
-      redirect_to new_income_path
-    else
-      flash[:warning] = '正しい値を入力してください'
-      render 'new'
-    end
+    create_record
   end
 
   def edit; end
 
   def update
-    if @income.update(income_params)
-      flash[:success] = "#{income_params[:price]}円の収入の編集に成功しました"
-      redirect_to posts_path
-    else
-      flash[:warning] = '正しい値を入力してください'
-      render 'edit'
-    end
+    update_record
   end
 
   def destroy
-    @income.destroy
-    redirect_to posts_path
-    flash[:success] = "#{@income.price}円の収入を削除しました"
+    destroy_record
   end
 
   private
 
-  def income_params
+  def strong_params
     params.require(:income).permit(:user_id, :content, :price, :payment_at)
   end
 
@@ -52,7 +39,24 @@ class IncomesController < ApplicationController
   def check_incomes_with_our_relationships
     return if @income.user.relationship == @relationship
 
-    flash[:post] = 'あなた以外の家族の情報は閲覧できません'
+    flash[:post] = 'あなた以外の家族の情報は閲覧・編集できません'
     redirect_to posts_path
   end
+
+  def created_instance
+    @income = Income.new(strong_params)
+  end
+
+  def updated_instance
+    @income
+  end
+
+  def path_after_update
+    posts_path
+  end
+
+  def record_type
+    "収入"
+  end
+
 end

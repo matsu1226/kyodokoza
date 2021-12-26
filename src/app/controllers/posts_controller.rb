@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  require 'benchmark'
+  include PostIncomeActions
+
   before_action :logged_in_user
   before_action :check_have_relationship
   before_action :get_relationship
@@ -11,14 +12,17 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    if @post.save
-      flash[:success] = "#{@post.price}円の支出を作成しました"
-      redirect_to new_post_path
-    else
-      flash[:warning] = '正しい値を入力してください'
-      render 'new'
-    end
+    create_record
+  end
+
+  def edit; end
+
+  def update
+    update_record
+  end
+
+  def destroy
+    destroy_record
   end
 
   def index
@@ -61,27 +65,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit; end
-
-  def update
-    if @post.update(post_params)
-      flash[:success] = "#{post_params[:price]}円の支出の編集に成功しました"
-      redirect_to posts_path
-    else
-      flash[:warning] = '正しい値を入力してください'
-      render 'edit'
-    end
-  end
-
-  def destroy
-    @post.destroy
-    redirect_to posts_path
-    flash[:success] = "#{@post.price}円の支出を削除しました"
-  end
-
   private
 
-  def post_params
+  def strong_params
     params.require(:post).permit(:category_id, :user_id, :content, :price, :payment_at)
   end
 
@@ -95,5 +81,21 @@ class PostsController < ApplicationController
 
     flash[:post] = 'あなた以外の家族の情報は閲覧できません'
     redirect_to posts_path
+  end
+
+  def created_instance
+    @post = Post.new(strong_params)
+  end
+
+  def updated_instance
+    @post
+  end
+
+  def path_after_update
+    posts_path
+  end
+
+  def record_type
+    "支出"
   end
 end
