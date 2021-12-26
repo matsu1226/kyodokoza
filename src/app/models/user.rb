@@ -103,6 +103,15 @@ class User < ApplicationRecord
                 password_confirmation: password)
   end
 
+  def self.guest(name)
+    find_or_create_by!(email: "guest_#{name}@example.com") do |g|
+      password = SecureRandom.urlsafe_base64(10)
+      g.name = "ゲスト_#{name}"
+      g.password = password
+      g.password_confirmation = password
+    end
+  end
+
   private
 
   def create_activation_digest

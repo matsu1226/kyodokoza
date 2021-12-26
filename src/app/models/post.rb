@@ -14,4 +14,13 @@ class Post < ApplicationRecord
         -> { order(payment_at: :desc) }
   scope :narrow_down,
         ->(user_id, category_id, month) { where(user_id: user_id, category_id: category_id).month(month).sorted }
+
+
+	def self.for_guest(content, price, category, user)
+		find_or_create_by!(content: content,
+											 price: price,
+											 payment_at: Time.zone.now,
+											 category_id: category.id,
+											 user_id: user.id)
+	end
 end
