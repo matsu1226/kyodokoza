@@ -31,14 +31,8 @@ RSpec.describe 'FixedCosts', type: :system do
       find('#hidden_field', visible: false).set('75000')
       fill_in 'fixed_cost_content', with: '家賃_テスト用'
       click_button '記録'
-      # expect(flash[:post]).to be_present
       expect(page).to have_selector('.alert-success')
-      expect(page).to have_content 'テンプレート一覧'
-      expect(page).to have_content '27'
-      expect(page).to have_content '固定費'
-      expect(page).to have_content '¥ 75,000'
-      expect(page).to have_content '家賃_テスト用'
-      expect(page).to have_content '共通'
+      expect(page).to have_content 'テンプレートの作成'
     end
 
     it 'priceが空欄' do
