@@ -204,19 +204,6 @@ RSpec.describe 'Users', type: :system do
     end
   end
 
-  # context "永続ログイン機能の確認" do
-  #   describe  "永続ログイン無し => ブラウザ閉じるとログアウト" do
-  #     before { login(user) }
-  #     it "" do
-
-  #     end
-  #   end
-
-  #   describe "永続ログイン有り => ブラウザ閉じてもログイン継続" do
-
-  #   end
-  # end
-
   context 'ログイン後' do
     before { login(user) }
 
@@ -302,26 +289,50 @@ RSpec.describe 'Users', type: :system do
       pending 'アカウントの削除' do
         visit edit_user_path(user)
         click_on 'アカウント削除'
-        # expect(page).to have_content '本当によろしいですか？'
-        # click_button 'OK'
-        # page.accept_confirm do
-        #   click_button 'アカウント削除'
-        # end
         expect(page).to have_content 'アカウントを削除しました'
       end
     end
+  end
 
-    # ===========
-
-    # describe "家族の登録" do
-
-    #   describe "家族の一覧" do
-
-    #   end
-    # end
-
-    # describe "エクセル出力" do
-
-    # end
+  context 'ゲストログイン' do
+    let(:guest) { User.find_by(email: 'guest_1@example.com') }
+    before { visit guest_sign_in_path }
+  
+    it '家族の情報の表示' do
+      visit user_path(guest)
+      should_not have_content '家族の登録'
+      should have_content 'ゲスト用家族'
+      should have_content 'ゲスト_1'
+      should have_content 'ゲスト_2'
+    end
+  
+    describe 'footerの表示' do
+      before { visit user_path(guest) }
+      it { is_expected.to have_link nil, href: posts_path }
+      it { is_expected.to have_link nil, href: stats_month_path }
+      it { is_expected.to have_link nil, href: stats_year_path }
+      it { is_expected.to have_link nil, href: new_post_path }
+      it { is_expected.to have_link nil, href: categories_path }
+    end
+  
+    describe 'カテゴリの表示' do
+      before { visit categories_path }
+      it { is_expected.to have_content '固定費' }
+      it { is_expected.to have_content '食費' }
+      it { is_expected.to have_content '通信費' }
+      it { is_expected.to have_content '雑費' }
+    end
+  
+    describe 'ログアウト' do
+      before  do
+        visit guest_sign_in_path
+        visit user_path(guest)
+        click_link nil, href: logout_path
+      end
+  
+      it { expect(Category.where(relationship_id: guest.relationship.id).count).to eq 0 }
+      it { expect(Post.where(user_id: guest.relationship.user_ids).count).to eq 0  }
+      it { expect(page).to have_content 'ログアウトしました。' }
+    end
   end
 end
