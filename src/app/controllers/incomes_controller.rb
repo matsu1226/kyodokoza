@@ -51,6 +51,10 @@ class IncomesController < ApplicationController
     @income
   end
 
+  def path_after_update
+    posts_path
+  end
+
   def record_type
     "収入"
   end

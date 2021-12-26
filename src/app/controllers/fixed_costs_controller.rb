@@ -1,47 +1,31 @@
 class FixedCostsController < ApplicationController
+  include PostIncomeActions
+
   before_action :logged_in_user
   before_action :check_have_relationship
   before_action :get_relationship
-
-  def index
-    @fixed_costs = FixedCost.where(user_id: @relationship.user_ids).sorted
-  end
+  before_action :set_and_check_fixed_cost, only: %i[edit update destroy]
 
   def new
     @fixed_cost = FixedCost.new
   end
 
   def create
-    @fixed_cost = FixedCost.new(fixed_cost_params)
-    if @fixed_cost.save
-      flash[:success] = 'テンプレートを作成しました'
-      redirect_to fixed_costs_path
-    else
-      flash[:warning] = '正しい値を入力してください'
-      render 'fixed_costs/new'
-    end
+    create_record
   end
 
-  def edit
-    @fixed_cost = FixedCost.find_by(id: params[:id])
-  end
+  def edit; end
 
   def update
-    @fixed_cost = FixedCost.find_by(id: params[:id])
-    if @fixed_cost.update(fixed_cost_params)
-      flash[:success] = 'テンプレートを更新しました'
-      redirect_to fixed_costs_path
-    else
-      flash[:warning] = '正しい値を入力してください'
-      render 'fixed_costs/edit'
-    end
+    update_record
   end
 
   def destroy
-    @fixed_cost = FixedCost.find_by(id: params[:id])
-    @fixed_cost.destroy
-    redirect_to fixed_costs_path
-    flash[:warning] = 'テンプレートを削除しました'
+    destroy_record
+  end
+
+  def index
+    @fixed_costs = FixedCost.where(user_id: @relationship.user_ids).sorted
   end
 
   def exec
@@ -66,7 +50,29 @@ class FixedCostsController < ApplicationController
 
   private
 
-  def fixed_cost_params
+  def strong_params
     params.require(:fixed_cost).permit(:user_id, :category_id, :content, :price, :payment_date)
   end
+
+  def set_and_check_fixed_cost
+    @fixed_cost = FixedCost.find(params[:id])
+    # find_byはnilを返す。findは例外を返す。
+  end
+
+  def created_instance
+    @fixed_cost = FixedCost.new(strong_params)
+  end
+
+  def updated_instance
+    @fixed_cost
+  end
+
+  def path_after_update
+    fixed_costs_path
+  end
+
+  def record_type
+    "テンプレート"
+  end
+
 end

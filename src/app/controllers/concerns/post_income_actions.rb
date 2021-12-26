@@ -3,7 +3,7 @@ module PostIncomeActions
 
   def create_record
     if created_instance.save
-      flash[:success] = "#{created_instance.price}円の収入を作成しました"
+      flash[:success] = "#{created_instance.price}円の#{record_type}を作成しました"
       redirect_to action: :new
     else
       flash[:warning] = '正しい値を入力してください'
@@ -14,7 +14,7 @@ module PostIncomeActions
   def update_record
     if updated_instance.update(strong_params)
       flash[:success] = "#{strong_params[:price]}円の#{record_type}の編集に成功しました"
-      redirect_to posts_path
+      redirect_to path_after_update
     else
       flash[:warning] = '正しい値を入力してください'
       render 'edit'
@@ -23,7 +23,7 @@ module PostIncomeActions
   
   def destroy_record
     updated_instance.destroy
-    redirect_to posts_path
+    redirect_to path_after_update
     flash[:success] = "#{updated_instance.price}円の#{record_type}を削除しました"
   end
 
@@ -32,6 +32,10 @@ module PostIncomeActions
   end
 
   def updated_instance
+    raise NotImplementedError
+  end
+
+  def path_after_update
     raise NotImplementedError
   end
 

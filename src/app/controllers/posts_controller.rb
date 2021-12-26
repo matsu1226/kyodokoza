@@ -91,6 +91,10 @@ class PostsController < ApplicationController
     @post
   end
 
+  def path_after_update
+    posts_path
+  end
+
   def record_type
     "支出"
   end
