@@ -1,4 +1,4 @@
-# :schedule:
-#   sample_job: 
-#     cron: '0 * * * * *' # Runs once per minute
-#     class: SampleJob
+:schedule:
+  weekly_mail: 
+    cron: '0 * * * * *' # Runs once per minute
+    class: WeeklyMailJob

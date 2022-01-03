@@ -14,16 +14,17 @@ class UserMailer < ApplicationMailer
   def weekly_notification
     attachments.inline['kawauso.png'] = File.read('app/assets/images/kawauso.png')
     @this_month_days = Time.days_in_month(Time.zone.now.month, Time.zone.now.year)
-    Relationship.all.each do |relationship|
-      @relationship = relationship
-      @user1 = @relationship.users[0]
-      @user2 = @relationship.users[1]
+    # User.all.each do |user|
+    user = User.first
+      return if user.no_relationship?
+      @relationship = user.relationship
+      @user1 = user
+      @user2 = @relationship.users.where.not(id: user.id).first
       mail  to: @user1.email,
-            cc: @user2.email,
             subject: "うそうそくんからのお手紙(#{l Time.zone.now.prev_week(:monday),
                                                    format: :short_date} ~ #{l Time.zone.now.prev_week(:sunday),
                                                                               format: :short_date}）/ 家計簿アプリ「キョウドウコウザ」"
-    end
+    # end
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml

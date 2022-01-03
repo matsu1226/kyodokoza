@@ -3,6 +3,7 @@ class WeeklyMailJob < ApplicationJob
 
   def perform(*args)
     # Do something later
-    Usermailer.weekly_notification
+    UserMailer.weekly_notification.deliver_now
+    puts "==== send WeeklyMail!! ===="
   end
 end
