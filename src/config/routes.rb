@@ -1,4 +1,7 @@
+
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: '/sidekiq'
   match '(*any)', to: redirect(subdomain: 'www'), via: :all, constraints: {subdomain: ''}
   
   root 'static_pages#introduction'

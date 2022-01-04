@@ -19,6 +19,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - redis
     tty: true
     stdin_open: true
   webpacker:
@@ -32,6 +33,23 @@ services:
     command: ./bin/webpack-dev-server
     ports:
       - "3035:3035"
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./data/redis:/data"
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - ./src:/app
+      - gem_data:/usr/local/bundle
+    environment:
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - db
+      - redis
 
 volumes:
   mysql_data:

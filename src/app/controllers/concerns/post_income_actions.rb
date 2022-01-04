@@ -4,6 +4,7 @@ module PostIncomeActions
   def create_record
     if created_instance.save
       flash[:success] = "#{created_instance.price}円の#{record_type}を作成しました"
+      # SampleJob.perform_later
       redirect_to action: :new
     else
       flash[:warning] = '正しい値を入力してください'

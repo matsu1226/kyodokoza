@@ -60,5 +60,8 @@ module App
         resource '*', headers: :any, methods: [:get, :post, :options]
       end
     end
+    
+    # sidekiqの導入
+    config.active_job.queue_adapter = :sidekiq
   end
 end

@@ -1,0 +1,4 @@
+:schedule:
+  weekly_mail: 
+    cron: '*/5 * * * * *' # Runs once per minute
+    class: WeeklyMailJob
