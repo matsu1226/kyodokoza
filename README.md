@@ -2,6 +2,9 @@
 
 http://www.kyodokoza.com/
 
+<br>
+<br>
+
 ## 概要
 シンプルかつ見やすさにこだわった「共同口座（共用口座・共同財布）向けの家計簿アプリ」です。
 
@@ -101,6 +104,8 @@ http://www.kyodokoza.com/
 - Docker/Docker-compode
 - CircleCI(CI/CD)
 - Heroku
+- MySQL(DB)
+- Redids(sidekiq)
 - SendGrid(mailer)
 
 ### 主要gem
@@ -108,11 +113,16 @@ http://www.kyodokoza.com/
 - caxlsx(excel出力)
 - rspec(テスト)
 - rubocop(静的解析)
-- whenever(バッチ処理 / 定期メール配信等)
+- sidekiq, sidekiq-scheduler(バッチ処理 / 定期メール配信等) ※実装途中
 <br>
 <br>
 
 ---
+## インフラ構成図
+作成中
+<br>
+<br>
+
 ## ER図
 <img src="image/ER.png" width="400px">
 
