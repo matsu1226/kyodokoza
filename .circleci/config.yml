@@ -39,7 +39,6 @@ jobs:
       - run:
           name: yarn install
           command: yarn install
-      # - run: bundle execv bin/webpack
       - run:
           name: Database migrate
           command: bundle exec rake db:migrate RAILS_ENV=test
