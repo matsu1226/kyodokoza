@@ -3,6 +3,6 @@
     cron: '0 */5 * * * *'  # Runs when second = 0, every 5 minutes
     class: WeeklyMailJob
 
-  weekly_mail: 
-    cron: '0 0 9 * * 1' # Runs at 9:00 every Monday
-    class: WeeklyMailJob
+  # weekly_mail: 
+  #   cron: '0 0 9 * * 1' # Runs at 9:00 every Monday
+  #   class: WeeklyMailJob
