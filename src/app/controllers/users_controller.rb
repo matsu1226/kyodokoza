@@ -47,7 +47,9 @@ class UsersController < ApplicationController
           '「一覧画面」のそれぞれの支出項目をクリックして、もう一度編集できるからね！',
         "月のおわりになったら「月合計」で合計の支出をチェックしてみよう！ \n" \
           '目標額をクリアできたか、ドキドキだね…！',
-        'おさかな食べたいな…。'
+        'おさかな食べたいな…。',
+        "僕も毎日お勉強してメールが書けるようになったよ！ \n" \
+        '「アカウント情報/メール設定」から設定をしてみてね♪',
       ]
       @tips = tips_array.sample
 
@@ -73,6 +75,10 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def change_send_mail
+    
   end
 
   private
