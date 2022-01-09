@@ -119,7 +119,7 @@ http://www.kyodokoza.com/
 
 ---
 ## インフラ構成図
-<img src="image/infra.png" width="500px">
+<img src="image/Infra.png" width="500px">
 <br>
 <br>
 
