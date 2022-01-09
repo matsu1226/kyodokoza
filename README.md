@@ -113,17 +113,17 @@ http://www.kyodokoza.com/
 - caxlsx(excel出力)
 - rspec(テスト)
 - rubocop(静的解析)
-- sidekiq, sidekiq-scheduler(バッチ処理 / 定期メール配信等) ※実装途中
+- sidekiq, sidekiq-scheduler(バッチ処理 / 定期メール配信等) 
 <br>
 <br>
 
 ---
 ## インフラ構成図
-作成中
+<img src="image/infra.png" width="500px">
 <br>
 <br>
 
 ## ER図
-<img src="image/ER.png" width="400px">
+<img src="image/ER.png" width="500px">
 
 

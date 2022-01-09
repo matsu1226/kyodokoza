@@ -11,7 +11,7 @@
 
 <p>========</p>
 <p>
-  【先週（<%= l Time.zone.now.prev_week(:monday), format: :short_date %>(月) ~
+  【<%=@relationship.name %>の先週（<%= l Time.zone.now.prev_week(:monday), format: :short_date %>(月) ~
   <%= l Time.zone.now.prev_week(:sunday), format: :short_date %>(日)）の支出レポート】
 </p>
 <br>
@@ -75,6 +75,11 @@
   <br>今週もこの調子で頑張りましょう！
   <br>
   <br>もきゅっ！
+</p>
+
+<p>
+※お手数ですが、このメールの配信停止を希望される場合は、
+<br>ログインの後、「ホーム画面」＞「アカウント設定/メール設定」から設定変更してください。
 </p>
 
 <p>

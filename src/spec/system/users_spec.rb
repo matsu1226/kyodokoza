@@ -263,34 +263,42 @@ RSpec.describe 'Users', type: :system do
     end
 
     describe 'アカウント情報の編集' do
-      describe '名前の変更' do
-        before do
-          visit edit_user_path(user)
+      before do
+        visit edit_user_path(user)
+      end
+
+      describe 'メール配信設定の変更' do
+        it '初期設定（「受け取る」にチェックされていること）を確認' do
+          expect(page).to have_checked_field '受け取る'
         end
 
+        it '「受け取らない」に変更' do
+          choose '受け取らない'
+          click_button '配信設定の変更'
+          expect(user.reload.send_weekly_mail).to be_falsey
+          expect(page).to have_checked_field '受け取らない'
+        end
+      end
+      
+      describe '名前の変更' do
         it '変更失敗' do
           fill_in '新しいニックネーム', with: ''
-          click_button '変更する'
+          click_button '名前の変更'
           expect(page).to have_content 'ニックネームを入力してください'
         end
 
         it '変更成功' do
           fill_in '新しいニックネーム', with: '松田　正太郎'
-          click_button '変更する'
+          click_button '名前の変更'
           expect(page).to have_content '松田　正太郎'
         end
       end
 
-      pending 'パスワード変更リンク' do
-        click_button 'パスワード変更はこちら'
+      it 'パスワード変更リンク' do
+        click_link 'パスワード変更はこちら'
         expect(page).to have_content 'パスワード変更'
       end
 
-      pending 'アカウントの削除' do
-        visit edit_user_path(user)
-        click_on 'アカウント削除'
-        expect(page).to have_content 'アカウントを削除しました'
-      end
     end
   end
 

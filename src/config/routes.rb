@@ -27,11 +27,15 @@ Rails.application.routes.draw do
   get    '/posts/narrow_down'   # post/index を ajaxで絞り込み
   resources :posts, except: [:show]
   resources :incomes, except: [:show, :index]
-  post    '/fixed_costs/exec'   # 
+
+  post    '/fixed_costs/exec'
   resources :fixed_costs, except: [:show]
   
-  get    '/signup',    to: "users#new"  
-  resources :users , except: [:index, :destroy]
+  get  '/signup',    to: "users#new"
+  resources :users , except: [:index, :destroy] do
+    patch 'change_send_mail', on: :member  # 今後配信メールが増えるたびに対応しやすいよう、updateメソッドから切り出す
+  end
+
   resources :categories 
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]

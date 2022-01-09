@@ -1,5 +1,40 @@
 <%= provide(:title, "アカウント情報変更") %>
 <section class="user-edit-section section-wrapper">
+  <h2>メール配信設定の変更</h2>
+  <div class="container">
+    <%= form_with(model: @user,url: {controller: 'users', action: 'change_send_mail' }, local: true) do |f| %>
+    
+    <div class="d-flex justify-content-evenly">
+      <div>
+        <%= f.radio_button :send_weekly_mail, :true, class: "w-auto" %>
+        <%= f.label :send_weekly_mail, "受け取る", {value: :true, class: "form-label"} %>
+      </div>
+      <div>
+        <%= f.radio_button :send_weekly_mail, :false, class: "w-auto" %>
+        <%= f.label :send_weekly_mail, "受け取らない", {value: :false, class: "form-label"} %>
+      </div>
+    </div>
+    <p class="mt-2">毎週月曜の午前9時にかわうその「うそうそ君」からメールが送られてきます。</p>
+    <p>このアプリを開けなかったとしても、毎週のメールを確認して、声をかけ合いながら楽しんで家計管理してみてください。</p>
+    
+      <div class="d-flex justify-content-between m-0">
+        <div class="col-2 m-0 d-flex align-items-center justify-content-end">
+          <%= image_pack_tag "media/images/kawauso.png", size:"60x60", alt:"カワウソくん" %>
+        </div>
+        <div class="col-9 m-0  d-flex align-items-center balloon-left">
+          <p class="m-0 lh-sm tips">
+          「自分だけ・パートナーだけの家計管理」にならないようにね！<br>
+          仲良しがいちばん！
+          </p>
+        </div>
+      </div>
+    <%= f.submit "配信設定の変更" ,class: "btn standerd-btn btn-primary" %>
+
+    <% end %>
+  </div>
+</section>
+
+<section class="user-edit-section section-wrapper">
   <h2>ニックネームの変更</h2>
   <div class="container">
     <%= form_with(model: @user,url: {controller: 'users', action: 'update' }, local: true) do |f| %>
@@ -11,11 +46,8 @@
     <%= f.label :name, "新しいニックネーム：", class: "form-label" %>
     <%= f.text_field :name, class: "form-control" %>
     <p class="sub-info">10文字以内(家族内の呼び名)</p>
-    <%# label for="user_name" %>
-    <%# input id="user_name" name="user[name]" type="text" %>
-    <%# name="user[name]" => Controllerにてparams[:user][:name]として取り出す %>
 
-    <%= f.submit "変更する" ,class: "btn standerd-btn btn-primary" %>
+    <%= f.submit "名前の変更" ,class: "btn standerd-btn btn-primary" %>
 
     <% end %>
   </div>

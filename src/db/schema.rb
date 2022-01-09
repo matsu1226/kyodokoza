@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_11_061952) do
+ActiveRecord::Schema.define(version: 2022_01_08_075219) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_11_11_061952) do
     t.string "invitation_digest"
     t.datetime "invitation_made_at"
     t.string "remember_digest"
+    t.boolean "send_weekly_mail", default: true
   end
 
 end
