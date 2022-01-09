@@ -275,7 +275,7 @@ RSpec.describe 'Users', type: :system do
         it '「配信しない」に変更' do
           choose '受け取らない'
           click_button '配信設定の変更'
-          except(user.send_weekly_mail).to be_falsey
+          expect(user.send_weekly_mail).to be_falsey
         end
       end
       
@@ -298,7 +298,7 @@ RSpec.describe 'Users', type: :system do
       end
 
       it 'パスワード変更リンク' do
-        click_button 'パスワード変更はこちら'
+        click_link 'パスワード変更はこちら'
         expect(page).to have_content 'パスワード変更'
       end
 
