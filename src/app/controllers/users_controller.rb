@@ -78,8 +78,18 @@ class UsersController < ApplicationController
   end
 
   def change_send_mail
-    
+    @user.attributes = { send_weekly_mail: params[:user][:send_weekly_mail] }
+    print "============= \n"
+    print "@user.send_weekly_mail: #{@user.send_weekly_mail}"
+    print "@user: #{@user.attributes.inspect}"
+    if @user.save(context: :except_password_change)
+      flash[:success] = 'メール配信設定を変更しました'
+      redirect_to edit_user_path(@user)
+    else
+      render 'edit'
+    end
   end
+
 
   private
 
