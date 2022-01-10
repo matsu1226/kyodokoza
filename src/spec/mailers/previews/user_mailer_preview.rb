@@ -16,6 +16,7 @@ class UserMailerPreview < ActionMailer::Preview
 
   # Preview this email at http://localhost:3000/rails/mailers/user_mailer/weekly_notification
   def weekly_notification
-    UserMailer.weekly_notification
+    user = User.first
+    UserMailer.weekly_notification(user)
   end
 end

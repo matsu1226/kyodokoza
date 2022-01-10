@@ -1,9 +1,19 @@
 
 Rails.application.routes.draw do
   require 'sidekiq/web'
+  # sidekiq
   mount Sidekiq::Web, at: '/sidekiq'
+
+  # letter_opener
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
+  end
+
+  # redirect
   match '(*any)', to: redirect(subdomain: 'www'), via: :all, constraints: {subdomain: ''}
   
+  
+  # paths
   root 'static_pages#introduction'
 
   get  '/introduction',   to: 'static_pages#introduction'
