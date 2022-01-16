@@ -8,16 +8,15 @@ http://www.kyodokoza.com/
 ## 概要
 シンプルかつ見やすさにこだわった「共同口座（共用口座・共同財布）向けの家計簿アプリ」です。
 
-<img src="image/img1.png" width="250px">
-<img src="image/img2.png" width="250px">
+<img src="image/img1.png" width="200px">
+<img src="image/img2.png" width="200px">
 
-<img src="image/img3.png" width="250px">
-<img src="image/img4.png" width="250px">
+<img src="image/img3.png" width="200px">
+<img src="image/img4.png" width="200px">
 <br>
 家計簿アプリは世の中に多々ありますが、私個人に合うものがなかったため自作しました。また、同様の悩みを抱える方にお使いいただければと思っております。<br>
 <br>
-
----
+<br>
 
 ## 工夫した点
 ### ユーザー目線
@@ -32,6 +31,17 @@ http://www.kyodokoza.com/
 ### 開発者目線
 - CircleCIでCI/CDパイプラインの構築
 - dockerのコンテナをDB/Rails/webpack-dev-serverの３コンテナ構造とし、ホットリロードで開発効率化
+<br>
+<br>
+<br>
+
+## インフラ構成図
+<img src="image/Infra.png" width="500px">
+<br>
+<br>
+
+## ER図
+<img src="image/ER.png" width="500px">
 <br>
 <br>
 
@@ -118,12 +128,4 @@ http://www.kyodokoza.com/
 <br>
 
 ---
-## インフラ構成図
-<img src="image/Infra.png" width="500px">
-<br>
-<br>
-
-## ER図
-<img src="image/ER.png" width="500px">
-
 

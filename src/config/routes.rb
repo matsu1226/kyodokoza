@@ -1,5 +1,6 @@
 
 Rails.application.routes.draw do
+  get 'news/index'
   require 'sidekiq/web'
   # sidekiq
   mount Sidekiq::Web, at: '/sidekiq'
@@ -33,6 +34,8 @@ Rails.application.routes.draw do
   get 'report/single'
   get 'report/multiple'
   get 'report/output_multiple'
+
+  get 'news', to: "news#index"
 
   get    '/posts/narrow_down'   # post/index を ajaxで絞り込み
   resources :posts, except: [:show]

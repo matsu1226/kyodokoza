@@ -60,13 +60,3 @@
     <%= link_to "パスワード変更はこちら", new_password_reset_path, class: "btn standerd-btn btn-primary" %>
   </div>
 </section>
-
-<% if current_user == User.find_by(email: "qqq.ms1126@gmail.com") %>
-<section class="user-edit-section account-delete section-wrapper">
-  <h2>アカウント削除</h2>
-  <div class="container">
-    <p>ユーザー情報を完全に削除します</p>
-    <%= link_to "アカウント削除", user_path(@user), method: :delete, class: "btn danger-btn btn-primary", data: { confirm: "本当によろしいですか？"} %>
-  </div>
-</section>
-<% end %>
